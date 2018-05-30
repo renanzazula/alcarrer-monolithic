@@ -41,15 +41,8 @@
 	<fieldset>
 		<legend>Gerenciar Fornecedor</legend>
 		<ul class="form-style-1">
-			<c:if test="${fornecedorForm.codigo != 0}">
-				<li>
-					<label>Codigo:<span class="required">*</span></label>
-					<form:input path="codigo" type="text" class="field-long"
-								  id="codigo" placeholder="codigo" disabled="true"/>
-								  
-					<form:hidden path="codigo"/> 			  
-				</li>
-			</c:if>
+			
+			<form:hidden path="codigo"/>
 			
 			<li>
 				<label>Nome:<span class="required">*</span></label>
@@ -69,11 +62,10 @@
 			
 			<li class="text-align-right">
 				<input type="button" id="cancelarFornecedor" value="Cancelar" />
-				
-				<c:if test="${fornecedorForm.codigo == 0}">
+				<c:if test="${fornecedorForm.codigo == null}">
 					<input type="button" id="incluirFornecedor" value="Gravar" />
 				</c:if>
-				<c:if test="${fornecedorForm.codigo != 0}">
+				<c:if test="${fornecedorForm.codigo != null}">
 					<input type="button" id="excluirFornecedor" value="Excluir" />
 					
 					<input type="button" id="alterarFornecedor" value="Alterar" />
