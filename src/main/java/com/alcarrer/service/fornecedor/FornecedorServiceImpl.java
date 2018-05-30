@@ -15,18 +15,21 @@ public class FornecedorServiceImpl implements FornecedorService {
 	private FornecedorRepository repository;
 	
 	@Override
-	public Fornecedor incluir(Fornecedor objct) {
-		return repository.saveAndFlush(objct);
+	public Fornecedor incluir(Fornecedor entity) {
+		return repository.saveAndFlush(entity);
 	}
 
 	@Override
-	public Fornecedor alterar(Fornecedor objct) {
-		return repository.saveAndFlush(objct);
+	public Fornecedor alterar(Fornecedor entity) {
+		Fornecedor fornecedorDB = repository.findOne(entity.getCodigo());
+	 	fornecedorDB.setDescricao(entity.getDescricao());
+		fornecedorDB.setNome(entity.getNome());
+		return repository.saveAndFlush(entity);
 	}
 
 	@Override
-	public void excluir(Fornecedor objct) {
-		Fornecedor fornecedorDB = repository.findOne(objct.getCodigo());
+	public void excluir(Fornecedor entity) {
+		Fornecedor fornecedorDB = repository.findOne(entity.getCodigo());
 		repository.delete(fornecedorDB);
 	}
 
@@ -36,8 +39,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 	}
 
 	@Override
-	public Fornecedor consultarByCodigo(Fornecedor objct) {
-		return repository.findOne(objct.getCodigo());
+	public Fornecedor consultarByCodigo(Fornecedor entity) {
+		return repository.findOne(entity.getCodigo());
 	}
 
 }
