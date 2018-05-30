@@ -7,5 +7,7 @@ import com.alcarrer.model.Medida;
 
 @Repository
 public interface MedidaRepository extends JpaRepository<Medida, Integer> {
-
+	
+	
+	
 }
