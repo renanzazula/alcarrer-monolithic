@@ -1,13 +1,11 @@
 package com.alcarrer.service.marca;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alcarrer.enums.Status;
 import com.alcarrer.model.Marca;
 import com.alcarrer.repository.MarcaRepository;
 
