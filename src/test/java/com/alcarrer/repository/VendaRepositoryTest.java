@@ -3,7 +3,6 @@ package com.alcarrer.repository;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
@@ -62,9 +61,9 @@ public class VendaRepositoryTest {
 		venda.setVendaHasProduto(vendaHasProdutoSet);
 
 		Venda objDB = entityManager.persist(venda);
-		Optional<Venda> optional = repository.findById(objDB.getCodigo());
+//		Optional<Venda> optional = repository.findById(objDB.getCodigo());
 		
-		optional.get().getVendaHasProduto().forEach(action -> System.out.println(action.getProduto().getCodigo()));
+//		optional.get().getVendaHasProduto().forEach(action -> System.out.println(action.getProduto().getCodigo()));
 	}
 
 }

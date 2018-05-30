@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.alcarrer.enums.Status;
-
 @Entity(name = "marca")
 public class Marca implements Serializable {
 
@@ -26,7 +24,7 @@ public class Marca implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	private Status status;
+//	private Status status;
 	
 	public Marca() {
 
@@ -62,12 +60,12 @@ public class Marca implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+//	public Status getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(Status status) {
+//		this.status = status;
+//	}
 
 }

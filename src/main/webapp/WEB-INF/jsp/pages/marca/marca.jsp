@@ -42,7 +42,7 @@
 	<fieldset>
 		<legend>Gerenciar Marca</legend>
 		<ul class="form-style-1">
-			<c:if test="${marcaForm.codigo != 0}">
+			<c:if test="${marcaForm == null}">
 				<li>
 					<label>Codigo:<span class="required">*</span></label>
 					<form:input path="codigo" type="text" class="field-long"
@@ -74,10 +74,10 @@
 			<li class="text-align-right">
 				<input type="button" id="cancelarMarca" value="Cancelar" />
 				
-				<c:if test="${marcaForm.codigo == 0}">
+				<c:if test="${marcaForm.codigo == null}">
 					<input type="button" id="incluirMarca" value="Gravar" />
 				</c:if>
-				<c:if test="${marcaForm.codigo != 0}">
+				<c:if test="${marcaForm.codigo != null}">
 					<input type="button" id="excluirMarca" value="Excluir" />
 					<input type="button" id="alterarMarca" value="Alterar" />
 				</c:if>

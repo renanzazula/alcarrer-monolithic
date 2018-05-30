@@ -1,10 +1,5 @@
 package com.alcarrer.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-
-import java.util.Optional;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +24,7 @@ public class FornecedorRepositoryTest {
 		
 		Fornecedor obj = new Fornecedor("fornecedor","Descricao");	
 		Fornecedor objDB = entityManager.persist(obj);
-		Optional<Fornecedor> optional = repository.findById(objDB.getCodigo());
+//		Optional<Fornecedor> optional = repository.findById(objDB.getCodigo());
 	 
 	}
 

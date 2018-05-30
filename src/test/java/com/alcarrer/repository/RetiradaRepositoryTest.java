@@ -3,7 +3,6 @@ package com.alcarrer.repository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +35,7 @@ public class RetiradaRepositoryTest {
 		Recebimento obj = new Recebimento("nome", "descricao", dataHora, 0d, caixa, cliente);
 		 
 		Recebimento objDB = entityManager.persist(obj);
-		Optional<Recebimento> optional = repository.findById(objDB.getCodigo());
+//		Optional<Recebimento> optional = repository.findById(objDB.getCodigo());
 		
 	}
 

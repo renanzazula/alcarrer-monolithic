@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
@@ -99,10 +98,10 @@ public class ProdutoRepositoryTest {
 				produtoHasItensTipoMedidaSet);
 
 		Produto objDB = entityManager.persist(obj);
-		Optional<Produto> optional = repository.findById(objDB.getCodigo());
+//		Optional<Produto> optional = repository.findById(objDB.getCodigo());
 
-		optional.get().getProdutoHasItensTipoMedida()
-				.forEach(action -> System.out.println(action.getItensTipoMedida().getMedida().getDescricao()));
+//		optional.get().getProdutoHasItensTipoMedida()
+//				.forEach(action -> System.out.println(action.getItensTipoMedida().getMedida().getDescricao()));
 
 	}
 

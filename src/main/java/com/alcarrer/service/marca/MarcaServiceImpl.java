@@ -36,7 +36,7 @@ public class MarcaServiceImpl implements MarcaService {
 	@Transactional
 	public Marca excluir(Marca objct) {
 		Marca marcaDB = repository.getOne(objct.getCodigo());
-		marcaDB.setStatus(Status.Inativo);
+//		marcaDB.setStatus(Status.Inativo);
 		return repository.saveAndFlush(marcaDB);
 	}
 
@@ -49,8 +49,7 @@ public class MarcaServiceImpl implements MarcaService {
 	@Override
 	@Transactional(readOnly = true)
 	public Marca consultarByCodigo(Marca marca) {
-		Optional<Marca> optional = repository.findById(marca.getCodigo());
-		return optional.get();
+		return repository.findOne(marca.getCodigo());
 	}
 
 }

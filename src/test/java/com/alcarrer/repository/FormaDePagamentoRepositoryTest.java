@@ -1,7 +1,5 @@
 package com.alcarrer.repository;
 
-import java.util.Optional;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,7 @@ public class FormaDePagamentoRepositoryTest {
 		
 		FormaDePagamento obj = new FormaDePagamento("FormaDePagamento","Descricao", 1);	
 		FormaDePagamento objDB = entityManager.persist(obj);
-		Optional<FormaDePagamento> optional = repository.findById(objDB.getCodigo());
+//		Optional<FormaDePagamento> optional = repository.findById(objDB.getCodigo());
 	 
 	}
 

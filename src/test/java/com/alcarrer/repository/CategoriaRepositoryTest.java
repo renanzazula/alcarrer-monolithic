@@ -1,7 +1,6 @@
 package com.alcarrer.repository;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
@@ -41,7 +40,7 @@ public class CategoriaRepositoryTest {
 		categoria.setCategoriaHasSubCategoria(categoriaHasSubCategoriaSet);
 		
 		Categoria categoriaDB = entityManager.persist(categoria);
-		Optional<Categoria> optional = categoriaRepository.findById(categoriaDB.getCodigo());
+		Categoria optional = categoriaRepository.findOne(categoriaDB.getCodigo());
 
 	}
 

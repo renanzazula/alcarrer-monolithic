@@ -1,7 +1,6 @@
 package com.alcarrer.repository;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
@@ -47,7 +46,7 @@ public class MedidaRepositoryTest {
 		medida.setItensTipoMedida(itensTipoMedidaSet);
 
 		Medida objDB = entityManager.persist(medida);
-		Optional<Medida> optional = repository.findById(objDB.getCodigo());
+//		Optional<Medida> optional = repository.findById(objDB.getCodigo());
 
 	}
 

@@ -2,7 +2,6 @@ package com.alcarrer.repository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +29,7 @@ public class CaixaRepositoryTest {
 		Date dataHoraFechamento = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2017-11-15 15:30:14.332");
 		Caixa obj = new Caixa(dataHoraAbertura, dataHoraFechamento, new Double(10), new Double(5), new Double(15), "open");
 		Caixa objDB = entityManager.persist(obj);
-		Optional<Caixa> optional = repository.findById(objDB.getCodigo());
+		Caixa optional = repository.findOne(objDB.getCodigo());
 		
 	}
 

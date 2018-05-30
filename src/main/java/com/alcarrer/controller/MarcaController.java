@@ -51,7 +51,7 @@ public class MarcaController {
 		return VIEW;
 	}
 
-	@RequestMapping(value = "/abrirAlterarMarca", method = { RequestMethod.GET })
+	@RequestMapping(value = "/abrirAlterarMarca", method = { RequestMethod.GET, RequestMethod.POST })
 	public String abrirAlterar(@ModelAttribute("marcaForm") Marca marca, BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
 		Marca retorno = marcaService.consultarByCodigo(marca);
@@ -60,7 +60,7 @@ public class MarcaController {
 		return VIEW;
 	}
 
-	@RequestMapping(value = "/alterarMarca", method = { RequestMethod.PUT })
+	@RequestMapping(value = "/alterarMarca", method = { RequestMethod.GET, RequestMethod.POST })
 	public String altearar(@ModelAttribute("marcaForm") @Validated Marca marca, BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
 		marcaService.alterar(marca);
@@ -70,7 +70,7 @@ public class MarcaController {
 		return VIEW_COLSULTA;
 	}
 
-	@RequestMapping(value = "/incluirMarca", method = { RequestMethod.POST })
+	@RequestMapping(value = "/incluirMarca", method = { RequestMethod.GET, RequestMethod.POST })
 	public String incluir(@ModelAttribute("marcaForm") @Validated Marca marca, BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
 		marcaService.incluir(marca);
@@ -80,7 +80,7 @@ public class MarcaController {
 		return VIEW_COLSULTA;
 	}
 
-	@RequestMapping(value = "/consultarMarca", method = { RequestMethod.GET })
+	@RequestMapping(value = "/consultarMarca", method = { RequestMethod.GET, RequestMethod.POST })
 	public String consultarMarca(@ModelAttribute("marcaForm") Marca marca, BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
 		model.addAttribute("list", marcaService.consultar());
@@ -88,7 +88,7 @@ public class MarcaController {
 		return VIEW_COLSULTA;
 	}
 
-	@RequestMapping(value = "/excluirMarca", method = { RequestMethod.DELETE })
+	@RequestMapping(value = "/excluirMarca", method = { RequestMethod.GET, RequestMethod.POST })
 	public String excluir(@ModelAttribute("marcaForm") @Validated Marca marca, BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
 		marcaService.excluir(marca);

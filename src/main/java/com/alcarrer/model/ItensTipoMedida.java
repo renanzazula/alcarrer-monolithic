@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.springframework.lang.Nullable;
-
 @Entity(name = "itens_tipo_medida")
 public class ItensTipoMedida implements Serializable {
 
@@ -27,7 +25,7 @@ public class ItensTipoMedida implements Serializable {
 	@Column(name = "valor")
 	private String valor;
 
-	@Nullable
+//	@Nullable
 	@ManyToOne
 	@JoinColumn(name = "medida_codigo")
 	private Medida medida;
@@ -36,7 +34,7 @@ public class ItensTipoMedida implements Serializable {
 	@JoinColumn(name = "marca_codigo")
 	private Marca marca;
 
-	@Nullable
+//	@Nullables
 	@ManyToOne
 	@JoinColumn(name = "categoria_codigo")
 	private Categoria categoria;

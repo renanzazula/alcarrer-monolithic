@@ -1,7 +1,5 @@
 package com.alcarrer.repository;
 
-import java.util.Optional;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,7 @@ public class MarcaRepositoryTest {
 		
 		Medida obj = new Medida("medida","Descricao");	
 		Medida objDB = entityManager.persist(obj);
-		Optional<Medida> optional = repository.findById(objDB.getCodigo());
+//		Optional<Medida> optional = repository.findById(objDB.getCodigo());
 	 
 	}
 
