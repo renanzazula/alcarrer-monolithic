@@ -34,10 +34,10 @@ public class MarcaServiceImpl implements MarcaService {
 
 	@Override
 	@Transactional
-	public Marca excluir(Marca objct) {
+	public void excluir(Marca objct) {
 		Marca marcaDB = repository.getOne(objct.getCodigo());
 //		marcaDB.setStatus(Status.Inativo);
-		return repository.saveAndFlush(marcaDB);
+		repository.delete(marcaDB);
 	}
 
 	@Override

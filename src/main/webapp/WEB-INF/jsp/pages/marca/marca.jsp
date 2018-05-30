@@ -42,16 +42,7 @@
 	<fieldset>
 		<legend>Gerenciar Marca</legend>
 		<ul class="form-style-1">
-			<c:if test="${marcaForm == null}">
-				<li>
-					<label>Codigo:<span class="required">*</span></label>
-					<form:input path="codigo" type="text" class="field-long"
-								  id="codigo" placeholder="codigo" disabled="true"/>
-								  
-					<form:hidden path="codigo"/> 			  
-				</li>
-			</c:if>
-			
+			<form:hidden path="codigo"/>	 
 			<li>
 				<label>Nome:<span class="required">*</span></label>
 				<form:input path="nome" type="text" class="field-long"

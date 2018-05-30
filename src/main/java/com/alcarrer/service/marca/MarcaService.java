@@ -10,7 +10,7 @@ public interface MarcaService {
 
 	Marca alterar(Marca objct);
 
-	Marca excluir(Marca objct);
+	void excluir(Marca objct);
 
 	List<Marca> consultar();
 
