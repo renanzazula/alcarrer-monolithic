@@ -44,7 +44,7 @@ public class MarcaController {
 		binder.setValidator(marcaValidator);
 	}
 
-	@RequestMapping(value = "/abrirMarca", method = { RequestMethod.GET })
+	@RequestMapping(value = "/abrirMarca", method = { RequestMethod.GET, RequestMethod.POST })
 	public String abrir(ModelMap model) {
 		model.addAttribute("marcaForm", new Marca());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
