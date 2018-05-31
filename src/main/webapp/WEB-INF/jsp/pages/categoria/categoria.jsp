@@ -26,7 +26,7 @@
 			var table = $('#tableSubCategoria').DataTable();
 			var data = table.rows('.selected').data();
 			for (var i=0; i < data.length ;i++){
-				$("form[name='categoriaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="subCategorias[' +i+'].codigo"/>');
+				$("form[name='categoriaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="subCategorias['+i+'].codigo"/>');
 			}
 
 			$("form[name='categoriaForm']").submit();
@@ -79,9 +79,10 @@
 			$("form[name='categoriaForm']").submit();
 		});		
 				
-	    <c:if test="${not empty categoriaForm.subCategorias}">
+	    <c:if test="${not empty categoriaForm.subCategoriasSet}">
 	    	//Array com os codigos
-	    	var codigos = [<c:forEach items="${categoriaForm.subCategorias}" var="item" varStatus="loop">${item.codigo}<c:if test="${ (fn:length(categoriaForm.subCategorias)-1) != loop.index}"> ,</c:if></c:forEach>];
+	    	var codigos = [<c:forEach items="${categoriaForm.subCategoriasSet}" var="item" varStatus="loop">${item.subCategoria.codigo}<c:if test="${ (fn:length(categoriaForm.subCategoriasSet) -1) > loop.index}">,</c:if></c:forEach>];
+	    	
 			var data = $('#tableSubCategoria').DataTable().rows().data();
 			for (var j=0; j < codigos.length ;j++){
 				for (var i=0; i < data.length ;i++){
@@ -113,16 +114,8 @@
 		<legend>Gerenciar Categoría</legend>
 		<ul class="form-style-1">
 			
-			<c:if test="${categoriaForm.codigo != 0}">
-				<li>
-					<label>Codigo:<span class="required">*</span></label>
-					<form:input path="codigo" type="text" class="field-long"
-								  id="codigo" placeholder="codigo" disabled="true"/>
-								  
-					<form:hidden path="codigo"/> 			  
-				</li>
-			</c:if>
-			
+	 		<form:hidden path="codigo"/> 			  
+			 
 			<li>
 				<label>Nome:<span class="required">*</span></label> 
 				<form:input path="nome" type="text" class="field-long"
@@ -175,10 +168,10 @@
 			<li class="text-align-right">
 				<input type="button" id="cancelarCategoria" value="Cancelar" />
 				
-				<c:if test="${categoriaForm.codigo == 0}">
+				<c:if test="${categoriaForm.codigo == null}">
 					<input type="button" id="incluirCategoria" value="Gravar" />
 				</c:if>
-				<c:if test="${categoriaForm.codigo != 0}">
+				<c:if test="${categoriaForm.codigo != null}">
 					<input type="button" id="excluirCategoria" value="Excluir" />
 					
 					<input type="button" id="alterarCategoria" value="Alterar" />

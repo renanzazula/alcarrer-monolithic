@@ -21,8 +21,8 @@ public class CategoriaRepositoryTest {
 	@Autowired
 	private TestEntityManager entityManager;
 
-	@Autowired
-	private CategoriaRepository categoriaRepository;
+//	@Autowired
+//	private CategoriaRepository categoriaRepository;
 
 	@Test
 	public void testSaveCategoria() {
@@ -37,10 +37,11 @@ public class CategoriaRepositoryTest {
 		Set<CategoriaHasSubCategoria> categoriaHasSubCategoriaSet = new HashSet<>();
 		categoriaHasSubCategoriaSet.add(categoriaHasSubCategoria);
 	
-		categoria.setCategoriaHasSubCategoria(categoriaHasSubCategoriaSet);
+//		categoria.setSubCategorias(categoriaHasSubCategoriaSet);
 		
-		Categoria categoriaDB = entityManager.persist(categoria);
-		Categoria optional = categoriaRepository.findOne(categoriaDB.getCodigo());
+//		Categoria categoriaDB = 
+				entityManager.persist(categoria);
+//		Categoria optional = categoriaRepository.findOne(categoriaDB.getCodigo());
 
 	}
 

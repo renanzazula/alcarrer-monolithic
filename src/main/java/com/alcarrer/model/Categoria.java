@@ -1,16 +1,19 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity(name = "categoria")
 public class Categoria implements Serializable {
@@ -28,9 +31,12 @@ public class Categoria implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria_codigo")
-	private Set<CategoriaHasSubCategoria> categoriaHasSubCategoria;
+	private Set<CategoriaHasSubCategoria> subCategoriasSet;
+
+	@Transient
+	private List<SubCategoria> subCategorias;
 
 	public Categoria() {
 
@@ -66,12 +72,20 @@ public class Categoria implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Set<CategoriaHasSubCategoria> getCategoriaHasSubCategoria() {
-		return categoriaHasSubCategoria;
+	public Set<CategoriaHasSubCategoria> getSubCategoriasSet() {
+		return subCategoriasSet;
 	}
 
-	public void setCategoriaHasSubCategoria(Set<CategoriaHasSubCategoria> categoriaHasSubCategoria) {
-		this.categoriaHasSubCategoria = categoriaHasSubCategoria;
+	public void setSubCategoriasSet(Set<CategoriaHasSubCategoria> subCategoriasSet) {
+		this.subCategoriasSet = subCategoriasSet;
+	}
+
+	public List<SubCategoria> getSubCategorias() {
+		return subCategorias;
+	}
+
+	public void setSubCategorias(List<SubCategoria> subCategorias) {
+		this.subCategorias = subCategorias;
 	}
 
 }

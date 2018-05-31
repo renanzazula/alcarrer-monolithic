@@ -14,6 +14,6 @@ public interface SubCategoriaService {
 	
 	List<SubCategoria> consultar();
 
-	SubCategoria consultarByCodigo(SubCategoria objc);
+	SubCategoria consultarByCodigo(Integer codigo);
 	
 }
