@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alcarrer.controller.validator.CategoriaValidator;
-import com.alcarrer.model.BreadCrumbVO;
+import com.alcarrer.model.BreadCrumb;
 import com.alcarrer.model.Categoria;
 import com.alcarrer.model.CategoriaHasSubCategoria;
 import com.alcarrer.model.SubCategoria;
@@ -66,6 +66,23 @@ public class CategoriaController {
 	@RequestMapping(value = "/alterarCategoria", method = { RequestMethod.GET, RequestMethod.POST })
 	public String alterar(@ModelAttribute("categoriaForm") @Validated Categoria categoria,
 			BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
+		
+		Categoria categoriaDB = categoriaService.consultarByCodigo(categoria);
+		categoriaDB.setDescricao(categoria.getDescricao());
+		categoriaDB.setNome(categoria.getNome());
+		// Tratamento caso nao tenha SubCategoria.
+		if (categoria.getSubCategorias() != null) {
+			// caso tenha sub categoria criamos os itens de categoria.
+			Set<CategoriaHasSubCategoria> itensCategoria = new HashSet<CategoriaHasSubCategoria>();
+			categoria.getSubCategorias().forEach(subCategoria -> {
+				SubCategoria subCategoriaDB = subCategoriaService.consultarByCodigo(subCategoria.getCodigo());
+				CategoriaHasSubCategoria iten = new CategoriaHasSubCategoria();
+				iten.setCategoria(categoriaDB);
+				iten.setSubCategoria(subCategoriaDB);
+				itensCategoria.add(iten);
+			});
+			categoriaDB.setSubCategoriasSet(itensCategoria);
+		}
 		
 		categoriaService.alterar(categoria);
 		model.addAttribute("mensagem", message.getMessage("global.alteracao", null, Locale.US));
@@ -146,7 +163,7 @@ public class CategoriaController {
 		return subCategoriaService.consultar();
 	}
 	
-	public List<BreadCrumbVO> breadCrumbList() {
+	public List<BreadCrumb> breadCrumbList() {
 		List<String> msg = new ArrayList<String>();
 		msg.add("menu.cadastro");
 		msg.add("menu.cadastro.categoria");
