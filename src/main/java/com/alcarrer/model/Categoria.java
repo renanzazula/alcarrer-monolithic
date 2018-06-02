@@ -12,7 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
 @Entity(name = "categoria")
@@ -31,13 +32,16 @@ public class Categoria implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "categoria_codigo")
-	private Set<CategoriaHasSubCategoria> subCategoriasSet;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable( name = "categoria_has_sub_categoria", joinColumns = {
+		@JoinColumn(name = "categoria_codigo",     nullable = false, updatable = false, referencedColumnName="codigo" ) }, 
+		inverseJoinColumns = {
+		@JoinColumn(name = "sub_categoria_codigo", nullable = false, updatable = false) })
+	private Set<SubCategoria> subCategoriasSet;
 
 	@Transient
-	private List<SubCategoria> subCategorias;
-
+	private List<SubCategoria> subCategorias; 
+	
 	public Categoria() {
 
 	}
@@ -72,11 +76,11 @@ public class Categoria implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Set<CategoriaHasSubCategoria> getSubCategoriasSet() {
+	public Set<SubCategoria> getSubCategoriasSet() {
 		return subCategoriasSet;
 	}
 
-	public void setSubCategoriasSet(Set<CategoriaHasSubCategoria> subCategoriasSet) {
+	public void setSubCategoriasSet(Set<SubCategoria> subCategoriasSet) {
 		this.subCategoriasSet = subCategoriasSet;
 	}
 
@@ -87,5 +91,6 @@ public class Categoria implements Serializable {
 	public void setSubCategorias(List<SubCategoria> subCategorias) {
 		this.subCategorias = subCategorias;
 	}
+ 
 
 }

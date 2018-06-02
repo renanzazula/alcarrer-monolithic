@@ -79,16 +79,16 @@
 						</tr>
 					</thead>
 					<tbody>					
-						<c:forEach items="${mapaCategoriaSubCategoria}" var="categoria">
+						<c:forEach items="${categoriaList}" var="categoria">
 							<c:if test="${not empty categoria.subCategoriasSet}">
 								<c:forEach items="${categoria.subCategoriasSet}" var="iten">
 									<tr id="${categoria.codigo}">
 										<td class="nomeCategoria"    id="${categoria.codigo}">${categoria.nome}</td>
-										<td class="nomeSubCategoria" id="${categoria.codigo}">${iten.subCategoria.nome}</td>
+										<td class="nomeSubCategoria" id="${categoria.codigo}">${iten.nome}</td>
 									</tr>	
 								</c:forEach>
 							</c:if>
-							<c:if test="${empty     categoria.subCategoriasSet}">
+							<c:if test="${empty categoria.subCategoriasSet}">
 								<c:forEach items="${categoria.subCategoriasSet}" var="iten">
 									<tr id="${categoria.codigo}">
 										<td class="nomeCategoria"    id="${categoria.codigo}">${categoria.nome}</td>

@@ -38,7 +38,8 @@
 		} );
 
 	  	var table = $('#tableSubCategoria').DataTable({
-			"lengthMenu" : [ [ 5, 7, -1 ], [ 5, 7, "All" ] ],
+	  		"paging":   false,
+	  		"lengthMenu" : [ [ 5, 7, -1 ], [ 5, 7, "All" ] ],
 	  		"bLengthChange": false,
 	  		"bInfo" : false,
 	  		"language": {
@@ -68,7 +69,7 @@
 			var table = $('#tableSubCategoria').DataTable();
 			var data = table.rows('.selected').data();
 			for (var i=0; i < data.length ;i++){
-				$("form[name='categoriaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="subCategorias[' +i+'].codigo"/>');
+				$("form[name='categoriaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="subCategorias['+i+'].codigo"/>');
 			}
 
 			$("form[name='categoriaForm']").submit();
@@ -80,32 +81,25 @@
 		});		
 				
 	    <c:if test="${not empty categoriaForm.subCategoriasSet}">
-	    	//Array com os codigos
-	    	var codigos = [<c:forEach items="${categoriaForm.subCategoriasSet}" var="item" varStatus="loop">${item.subCategoria.codigo}<c:if test="${ (fn:length(categoriaForm.subCategoriasSet) -1) > loop.index}">,</c:if></c:forEach>];
-	    	
-			var data = $('#tableSubCategoria').DataTable().rows().data();
-			for (var j=0; j < codigos.length ;j++){
-				for (var i=0; i < data.length ;i++){
-					var texto = $("#tableSubCategoria tbody tr:eq("+i+") th").text();
-					if(texto.includes(codigos[j])){
-						$('#tableSubCategoria tbody tr:eq('+i+')').addClass('selected');						
-					}
-				}
-			}
-			
-			$('.paginate_button').on( 'click', function () {
-				var data = $('#tableSubCategoria').DataTable().rows().data();
-				for (var j=0; j < codigos.length ;j++){
-					for (var i=0; i < data.length ;i++){
-						var texto = $("#tableSubCategoria tbody tr:eq("+i+") th").text();
-						if(texto.includes(codigos[j])){
-							$('#tableSubCategoria tbody tr:eq('+i+')').addClass('selected');						
-						}
-					}
-				}     
-		    } ); 
+	    	selectLineFunction();
 	    </c:if>
 	});
+	
+	function selectLineFunction(){
+    	//Array com os codigos
+    	var codigos = [<c:forEach items="${categoriaForm.subCategoriasSet}" var="item" varStatus="loop">${item.codigo}<c:if test="${ (fn:length(categoriaForm.subCategoriasSet) -1) > loop.index}">,</c:if></c:forEach>];
+
+    	var data = $('#tableSubCategoria').DataTable().rows().data();
+		for (var j=0; j < codigos.length ;j++){
+			for (var i=0; i < data.length ;i++){
+				var texto = $("#tableSubCategoria tbody tr:eq("+i+") th").text();
+				if(texto.substring(0, codigos[j].toString().length).includes(codigos[j])){
+					console.log(codigos[j] + ":" +codigos[j].toString().length);	
+					$('#tableSubCategoria tbody tr:eq('+i+')').addClass('selected');						
+				}
+			}
+		}
+    } 
 </script>
  
 <form:form method="post" modelAttribute="categoriaForm" action="abrirCategoria" name="categoriaForm">

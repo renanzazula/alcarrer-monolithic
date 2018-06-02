@@ -1,10 +1,8 @@
 package com.alcarrer.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -23,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.alcarrer.controller.validator.CategoriaValidator;
 import com.alcarrer.model.BreadCrumbVO;
 import com.alcarrer.model.Categoria;
-import com.alcarrer.model.CategoriaHasSubCategoria;
 import com.alcarrer.model.SubCategoria;
 import com.alcarrer.service.categoria.CategoriaService;
 import com.alcarrer.service.subCategoria.SubCategoriaService;
@@ -31,126 +28,101 @@ import com.alcarrer.util.Util;
 
 @Controller
 public class CategoriaController {
-	 
+
 	private static final String VIEW = "categoria";
 	private static final String VIEW_COLSULTA = "consultarCategoria";
 
 	@Autowired
-	CategoriaValidator categoriaValidator;
+	private CategoriaValidator categoriaValidator;
 
 	@Autowired
-    private MessageSource message;
-	
+	private MessageSource message;
+
 	@Autowired
-    private SubCategoriaService subCategoriaService; 
-	
+	private SubCategoriaService subCategoriaService;
+
 	@Autowired
-    private  CategoriaService categoriaService; 
-	
-	//Set a form validator
+	private CategoriaService categoriaService;
+
+	// Set a form validator
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(categoriaValidator);
 	}
-	
+
 	@RequestMapping(value = "/abrirCategoria", method = { RequestMethod.GET, RequestMethod.POST })
 	public String abrir(ModelMap model) {
 		Categoria categoria = new Categoria();
-		
+
 		model.addAttribute("listSubCategoria", carregarSubCategorias());
 		model.addAttribute("categoriaForm", categoria);
- 		model.addAttribute("breadCrumbItens", breadCrumbList());
-  		return VIEW;
+		model.addAttribute("breadCrumbItens", breadCrumbList());
+		return VIEW;
 	}
 
 	@RequestMapping(value = "/alterarCategoria", method = { RequestMethod.GET, RequestMethod.POST })
-	public String alterar(@ModelAttribute("categoriaForm") @Validated Categoria categoria,
-			BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
-		
+	public String alterar(@ModelAttribute("categoriaForm") @Validated Categoria categoria, BindingResult result,
+			Model model, final RedirectAttributes redirectAttributes) {
+
 		categoriaService.alterar(categoria);
 		model.addAttribute("mensagem", message.getMessage("global.alteracao", null, Locale.US));
-		model.addAttribute("mapaCategoriaSubCategoria", categoriaService.consultaCategoriaSubCategoria());
-		model.addAttribute("categoriaForm", new Categoria());
+		model.addAttribute("categoriaList", categoriaService.consultar());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW_COLSULTA;
 	}
 
 	@RequestMapping(value = "/excluirCategoria", method = { RequestMethod.GET, RequestMethod.POST })
-	public String excluir(@ModelAttribute("categoriaForm") Categoria categoria,
-			BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
-		
+	public String excluir(@ModelAttribute("categoriaForm") Categoria categoria, BindingResult result, Model model,
+			final RedirectAttributes redirectAttributes) {
+
 		categoriaService.excluir(categoria);
 		model.addAttribute("mensagem", message.getMessage("global.exclusao", null, Locale.US));
-		model.addAttribute("mapaCategoriaSubCategoria", categoriaService.consultaCategoriaSubCategoria());
-		model.addAttribute("categoriaForm", new Categoria());
+		model.addAttribute("categoriaList", categoriaService.consultar());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW_COLSULTA;
 	}
 
-	
 	@RequestMapping(value = "/incluirCategoria", method = { RequestMethod.GET, RequestMethod.POST })
-	public String incluir(@ModelAttribute("categoriaForm") @Validated Categoria categoria,
-			BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
-		
-		Categoria categoriaDB = new Categoria();
-		categoriaDB.setDescricao(categoria.getDescricao());
-		categoriaDB.setNome(categoria.getNome());
+	public String incluir(@ModelAttribute("categoriaForm") @Validated Categoria categoria, BindingResult result,
+			Model model, final RedirectAttributes redirectAttributes) {
 		// Tratamento caso nao tenha SubCategoria.
-		if (categoria.getSubCategorias() != null) {
-			// caso tenha sub categoria criamos os itens de categoria.
-			Set<CategoriaHasSubCategoria> itensCategoria = new HashSet<CategoriaHasSubCategoria>();
-			categoria.getSubCategorias().forEach(subCategoria -> {
-				SubCategoria subCategoriaDB = subCategoriaService.consultarByCodigo(subCategoria.getCodigo());
-				CategoriaHasSubCategoria iten = new CategoriaHasSubCategoria();
-				iten.setCategoria(categoriaDB);
-				iten.setSubCategoria(subCategoriaDB);
-				itensCategoria.add(iten);
-			});
-			categoriaDB.setSubCategoriasSet(itensCategoria);
-		}
-		categoriaService.incluir(categoriaDB);
-		
-		model.addAttribute("mapaCategoriaSubCategoria", categoriaService.consultaCategoriaSubCategoria());
-		model.addAttribute("categoriaForm", new Categoria());
+		categoriaService.incluir(categoria);
+		model.addAttribute("categoriaList", categoriaService.consultar());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
- 		return VIEW_COLSULTA;
+		return VIEW_COLSULTA;
 	}
-	
+
 	@RequestMapping(value = "/abrirAlterarCategoria", method = { RequestMethod.GET, RequestMethod.POST })
-	public String abrirAlterarCategoria(Model model, Categoria categoria,
-			final RedirectAttributes redirectAttributes) {
-		Categoria retorno = categoriaService.consultarByCodigo(categoria);
-		model.addAttribute("categoriaForm", retorno);
+	public String abrirAlterarCategoria(Model model, Categoria categoria, final RedirectAttributes redirectAttributes) {
+		model.addAttribute("categoriaForm", categoriaService.consultarByCodigo(categoria));
 		model.addAttribute("listSubCategoria", carregarSubCategorias());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW;
 	}
-	
+
 	@RequestMapping(value = "/consultarCategoria", method = { RequestMethod.GET, RequestMethod.POST })
 	public String consultarSubCategoria(@ModelAttribute("categoriaForm") @Validated Categoria categoria,
 			BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
-		
-		List<Categoria> list = categoriaService.consultar();
-		
-		model.addAttribute("mapaCategoriaSubCategoria", list);
+		model.addAttribute("categoriaList", categoriaService.consultar());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW_COLSULTA;
 	}
-	
+
 	/**
 	 * Carrega Todas subCategorias
+	 * 
 	 * @param categoria
 	 * @return
 	 */
-	public List<SubCategoria> carregarSubCategorias(){
+	public List<SubCategoria> carregarSubCategorias() {
 		return subCategoriaService.consultar();
 	}
-	
+
 	public List<BreadCrumbVO> breadCrumbList() {
 		List<String> msg = new ArrayList<String>();
 		msg.add("menu.cadastro");
 		msg.add("menu.cadastro.categoria");
 		return Util.breadCrumbList(message, msg);
 	}
-	
+
 }

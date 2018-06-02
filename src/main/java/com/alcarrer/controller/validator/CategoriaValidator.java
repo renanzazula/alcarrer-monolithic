@@ -14,8 +14,7 @@ public class CategoriaValidator implements Validator {
 	public boolean supports(Class<?> clazz) {
 		return Categoria.class.equals(clazz);
 	}
-
-	 
+ 	 
 	public void validate(Object target, Errors errors) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nome", "NotEmpty.categoriaForm.name");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descricao", "NotEmpty.categoriaForm.descricao");
