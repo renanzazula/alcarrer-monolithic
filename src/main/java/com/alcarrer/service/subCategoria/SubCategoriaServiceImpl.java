@@ -21,8 +21,10 @@ public class SubCategoriaServiceImpl implements SubCategoriaService {
 
 	@Override
 	public SubCategoria alterar(SubCategoria entity) {
-
-		return repository.saveAndFlush(entity);
+		SubCategoria subCategoriaDB = repository.findOne(entity.getCodigo());
+		subCategoriaDB.setDescricao(entity.getDescricao());
+		subCategoriaDB.setNome(entity.getNome());
+		return repository.saveAndFlush(subCategoriaDB);
 	}
 
 	@Override
@@ -37,8 +39,8 @@ public class SubCategoriaServiceImpl implements SubCategoriaService {
 	}
 
 	@Override
-	public SubCategoria consultarByCodigo(SubCategoria entity) {
-		return repository.findOne(entity.getCodigo());
+	public SubCategoria consultarByCodigo(Integer codigo) {
+		return repository.findOne(codigo);
 	}
 
 }

@@ -74,31 +74,29 @@
 					width="98%">
 					<thead>
 						<tr>
-							 
 							<th>Categoria</th>
 							<th>SubCategoria</th>
-							 
 						</tr>
 					</thead>
-					<tbody>
-
-					<c:forEach items="${mapaCategoriaSubCategoria}" var="mapa">
-						<c:if test="${not empty mapa.value.subCategorias}">
-							<c:forEach items="${mapa.value.subCategorias}" var="subCategoria">
-	        					<tr id="${mapa.key}">
-								 	<td class="nomeCategoria" id="${mapa.key}">${mapa.value.nome}</td>
-								  	<td class="nomeSubCategoaria" id="${mapa.key}">${subCategoria.nome}</td>
-								</tr>
-							</c:forEach>
-						</c:if>
-						<!-- quando do possui sub categoria -->
-						<c:if test="${empty mapa.value.subCategorias}">
-							<tr id="${mapa.value.codigo}">
-							 	<td class="nomeCategoria" id="${mapa.value.codigo}">${mapa.value.nome}</td>
-							  	<td class="nomeSubCategoaria" id="${mapa.value.codigo}"></td>
-							</tr>
-						</c:if>	
-					</c:forEach>	
+					<tbody>					
+						<c:forEach items="${categoriaList}" var="categoria">
+							<c:if test="${not empty categoria.subCategoriasSet}">
+								<c:forEach items="${categoria.subCategoriasSet}" var="iten">
+									<tr id="${categoria.codigo}">
+										<td class="nomeCategoria"    id="${categoria.codigo}">${categoria.nome}</td>
+										<td class="nomeSubCategoria" id="${categoria.codigo}">${iten.nome}</td>
+									</tr>	
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty categoria.subCategoriasSet}">
+								<c:forEach items="${categoria.subCategoriasSet}" var="iten">
+									<tr id="${categoria.codigo}">
+										<td class="nomeCategoria"    id="${categoria.codigo}">${categoria.nome}</td>
+										<td class="nomeSubCategoria" id="${categoria.codigo}"></td>
+									</tr>	
+								</c:forEach>
+							</c:if>		
+						</c:forEach>
 					</tbody>
 				</table>
 			</li>

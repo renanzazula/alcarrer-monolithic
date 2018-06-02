@@ -84,7 +84,7 @@ public class SubCategoriaController {
 	@RequestMapping(value = "/abrirAlterarSubCategoria", method = { RequestMethod.GET, RequestMethod.POST })
 	public String abrirAlterarSubCategoria(Model model, SubCategoria subCategoria,
 			final RedirectAttributes redirectAttributes) {
-		SubCategoria retorno = subCategoriaService.consultarByCodigo(subCategoria);
+		SubCategoria retorno = subCategoriaService.consultarByCodigo(subCategoria.getCodigo());
 		model.addAttribute("subCategoriaForm", retorno);
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW;

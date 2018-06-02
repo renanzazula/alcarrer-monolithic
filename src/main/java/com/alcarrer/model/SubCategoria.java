@@ -1,12 +1,17 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity(name = "sub_categoria")
 public class SubCategoria implements Serializable {
@@ -23,6 +28,9 @@ public class SubCategoria implements Serializable {
 
 	@Column(name = "descricao")
 	private String descricao;
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategoriasSet")
+	private Set<Categoria> categoria;
 
 	public SubCategoria() {
 
@@ -56,6 +64,14 @@ public class SubCategoria implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Set<Categoria> getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Set<Categoria> categoria) {
+		this.categoria = categoria;
 	}
 
 }
