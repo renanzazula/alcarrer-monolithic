@@ -2,6 +2,7 @@ package com.alcarrer.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity(name = "produto")
 public class Produto implements Serializable {
@@ -82,6 +84,61 @@ public class Produto implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "produto_codigo")
 	private Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida;
+
+	@Transient
+	private List<Fornecedor> fornecedores;
+
+	@Transient
+	private List<Marca> marcas;
+
+	public List<Fornecedor> getFornecedores() {
+		return fornecedores;
+	}
+
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+
+	public List<Marca> getMarcas() {
+		return marcas;
+	}
+
+	public void setMarcas(List<Marca> marcas) {
+		this.marcas = marcas;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<SubCategoria> getSubCategorias() {
+		return subCategorias;
+	}
+
+	public void setSubCategorias(List<SubCategoria> subCategorias) {
+		this.subCategorias = subCategorias;
+	}
+
+	public List<Medida> getItensMedida() {
+		return itensMedida;
+	}
+
+	public void setItensMedida(List<Medida> itensMedida) {
+		this.itensMedida = itensMedida;
+	}
+
+	@Transient
+	private List<Categoria> categorias;
+
+	@Transient
+	private List<SubCategoria> subCategorias;
+
+	@Transient
+	private List<Medida> itensMedida;
 
 	public Produto() {
 
