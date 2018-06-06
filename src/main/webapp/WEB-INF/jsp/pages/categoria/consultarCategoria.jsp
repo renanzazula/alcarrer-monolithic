@@ -80,16 +80,16 @@
 					</thead>
 					<tbody>					
 						<c:forEach items="${categoriaList}" var="categoria">
-							<c:if test="${not empty categoria.subCategoriasSet}">
-								<c:forEach items="${categoria.subCategoriasSet}" var="iten">
+							<c:if test="${not empty categoria.subCategorias}">
+								<c:forEach items="${categoria.subCategorias}" var="iten">
 									<tr id="${categoria.codigo}">
 										<td class="nomeCategoria"    id="${categoria.codigo}">${categoria.nome}</td>
 										<td class="nomeSubCategoria" id="${categoria.codigo}">${iten.nome}</td>
 									</tr>	
 								</c:forEach>
 							</c:if>
-							<c:if test="${empty categoria.subCategoriasSet}">
-								<c:forEach items="${categoria.subCategoriasSet}" var="iten">
+							<c:if test="${empty categoria.subCategorias}">
+								<c:forEach items="${categoria.subCategorias}" var="iten">
 									<tr id="${categoria.codigo}">
 										<td class="nomeCategoria"    id="${categoria.codigo}">${categoria.nome}</td>
 										<td class="nomeSubCategoria" id="${categoria.codigo}"></td>

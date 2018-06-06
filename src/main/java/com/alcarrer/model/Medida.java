@@ -3,9 +3,7 @@ package com.alcarrer.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
 
-@Entity(name = "medida")
 public class Medida implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;

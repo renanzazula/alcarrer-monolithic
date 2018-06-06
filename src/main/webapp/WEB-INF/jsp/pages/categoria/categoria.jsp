@@ -80,14 +80,14 @@
 			$("form[name='categoriaForm']").submit();
 		});		
 				
-	    <c:if test="${not empty categoriaForm.subCategoriasSet}">
+	    <c:if test="${not empty categoriaForm.subCategorias}">
 	    	selectLineFunction();
 	    </c:if>
 	});
 	
 	function selectLineFunction(){
     	//Array com os codigos
-    	var codigos = [<c:forEach items="${categoriaForm.subCategoriasSet}" var="item" varStatus="loop">${item.codigo}<c:if test="${ (fn:length(categoriaForm.subCategoriasSet) -1) > loop.index}">,</c:if></c:forEach>];
+    	var codigos = [<c:forEach items="${categoriaForm.subCategorias}" var="item" varStatus="loop">${item.codigo}<c:if test="${ (fn:length(categoriaForm.subCategorias) -1) > loop.index}">,</c:if></c:forEach>];
 
     	var data = $('#tableSubCategoria').DataTable().rows().data();
 		for (var j=0; j < codigos.length ;j++){
