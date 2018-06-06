@@ -12,12 +12,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.alcarrer.model.Caixa;
-import com.alcarrer.model.Cliente;
-import com.alcarrer.model.FormaDePagamento;
-import com.alcarrer.model.Produto;
-import com.alcarrer.model.Venda;
-import com.alcarrer.model.VendaHasProduto;
+import com.alcarrer.dto.CaixaDTO;
+import com.alcarrer.dto.ClienteDTO;
+import com.alcarrer.dto.FormaDePagamentoDTO;
+import com.alcarrer.dto.ProdutoDTO;
+import com.alcarrer.dto.VendaDTO;
+import com.alcarrer.dto.VendaHasProdutoDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
@@ -34,17 +34,17 @@ public class VendaRepositoryTest {
 
 		Date dataHoraAbertura = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2017-11-15 15:30:14.332");
 		Date dataHoraFechamento = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2017-11-15 15:30:14.332");
-		Caixa caixa = new Caixa(dataHoraAbertura, dataHoraFechamento, new Double(10), new Double(5), new Double(15), "open");
-		FormaDePagamento formaDePagamento = new FormaDePagamento("FormaDePagamento", "Descricao", 1);
-		Cliente cliente = new Cliente();
+		CaixaDTO caixa = new CaixaDTO(dataHoraAbertura, dataHoraFechamento, new Double(10), new Double(5), new Double(15), "open");
+		FormaDePagamentoDTO formaDePagamento = new FormaDePagamentoDTO("FormaDePagamento", "Descricao", 1);
+		ClienteDTO cliente = new ClienteDTO();
 
-		Venda venda = new Venda();
-		Set<VendaHasProduto> vendaHasProdutoSet = new HashSet<VendaHasProduto>();
+		VendaDTO venda = new VendaDTO();
+		Set<VendaHasProdutoDTO> vendaHasProdutoSet = new HashSet<VendaHasProdutoDTO>();
 		for (int i = 0; i < 5; i++) {
 
-			VendaHasProduto itenVenda = new VendaHasProduto();
+			VendaHasProdutoDTO itenVenda = new VendaHasProdutoDTO();
 
-			Produto produto = new Produto();
+			ProdutoDTO produto = new ProdutoDTO();
 			produto.setCodigo(i);
 
 			itenVenda.setProduto(produto);
@@ -60,7 +60,7 @@ public class VendaRepositoryTest {
 		venda.setFormaDePagamento(formaDePagamento);
 		venda.setVendaHasProduto(vendaHasProdutoSet);
 
-		Venda objDB = entityManager.persist(venda);
+		VendaDTO objDB = entityManager.persist(venda);
 //		Optional<Venda> optional = repository.findById(objDB.getCodigo());
 		
 //		optional.get().getVendaHasProduto().forEach(action -> System.out.println(action.getProduto().getCodigo()));

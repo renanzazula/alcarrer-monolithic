@@ -16,30 +16,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
-@Entity(name = "categoria")
+
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "codigo")
 	private Integer codigo;
-
-	@Column(name = "nome")
 	private String nome;
-
-	@Column(name = "descricao")
 	private String descricao;
-
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable( name = "categoria_has_sub_categoria", joinColumns = {
-		@JoinColumn(name = "categoria_codigo",     nullable = false, updatable = false, referencedColumnName="codigo" ) }, 
-		inverseJoinColumns = {
-		@JoinColumn(name = "sub_categoria_codigo", nullable = false, updatable = false) })
-	private Set<SubCategoria> subCategoriasSet;
-
-	@Transient
 	private List<SubCategoria> subCategorias; 
 	
 	public Categoria() {
@@ -74,14 +58,6 @@ public class Categoria implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public Set<SubCategoria> getSubCategoriasSet() {
-		return subCategoriasSet;
-	}
-
-	public void setSubCategoriasSet(Set<SubCategoria> subCategoriasSet) {
-		this.subCategoriasSet = subCategoriasSet;
 	}
 
 	public List<SubCategoria> getSubCategorias() {

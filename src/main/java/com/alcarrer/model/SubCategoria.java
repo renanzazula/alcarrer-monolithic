@@ -1,34 +1,21 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity(name = "sub_categoria")
 public class SubCategoria implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "codigo")
 	private Integer codigo;
-
-	@Column(name = "nome")
 	private String nome;
-
-	@Column(name = "descricao")
 	private String descricao;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategoriasSet")
-	private Set<Categoria> categoria;
+	// TODO: se eu preciso disso
+	private List<Categoria> categoria;
 
 	public SubCategoria() {
 
@@ -64,11 +51,11 @@ public class SubCategoria implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Set<Categoria> getCategoria() {
+	public List<Categoria> getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Set<Categoria> categoria) {
+	public void setCategoria(List<Categoria> categoria) {
 		this.categoria = categoria;
 	}
 

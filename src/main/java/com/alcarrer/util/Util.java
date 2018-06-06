@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 
-import com.alcarrer.model.BreadCrumbVO;
+import com.alcarrer.model.BreadCrumb;
 
 public class Util {
 
@@ -45,18 +45,18 @@ public class Util {
 	 * @param statusCaixa
 	 * @return
 	 */
-	public static List<BreadCrumbVO> breadCrumbList(MessageSource message, List<String> listMessage) {
+	public static List<BreadCrumb> breadCrumbList(MessageSource message, List<String> listMessage) {
 
-		List<BreadCrumbVO> breadCrumb = new ArrayList<BreadCrumbVO>();
+		List<BreadCrumb> breadCrumb = new ArrayList<BreadCrumb>();
 
-		BreadCrumbVO home = new BreadCrumbVO();
+		BreadCrumb home = new BreadCrumb();
 		home.setTexto(message.getMessage("global.home", null, Locale.US));
 		home.setLink("index");
 		home.setLast("FALSE");
 		breadCrumb.add(home);
 
 		for (int i = 0; i < listMessage.size(); i++) {
-			BreadCrumbVO menu = new BreadCrumbVO();
+			BreadCrumb menu = new BreadCrumb();
 			menu.setTexto(message.getMessage(listMessage.get(i), null, Locale.US));
 			menu.setLink("#");
 			if (listMessage.size() == i + 1) {

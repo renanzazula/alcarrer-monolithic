@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.alcarrer.model.BreadCrumbVO;
+import com.alcarrer.model.BreadCrumb;
 import com.alcarrer.model.Marca;
 import com.alcarrer.service.marca.MarcaService;
 import com.alcarrer.util.Util;
@@ -98,7 +98,7 @@ public class MarcaController {
 		return VIEW_COLSULTA;
 	}
 
-	public List<BreadCrumbVO> breadCrumbList() {
+	public List<BreadCrumb> breadCrumbList() {
 		List<String> msg = new ArrayList<String>();
 		msg.add("menu.cadastro");
 		msg.add("menu.cadastro.marca");

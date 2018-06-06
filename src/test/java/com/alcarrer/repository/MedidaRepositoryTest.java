@@ -10,11 +10,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.alcarrer.model.Categoria;
-import com.alcarrer.model.ItensTipoMedida;
-import com.alcarrer.model.Marca;
-import com.alcarrer.model.Medida;
-import com.alcarrer.model.SubCategoria;
+import com.alcarrer.dto.CategoriaDTO;
+import com.alcarrer.dto.ItensTipoMedidaDTO;
+import com.alcarrer.dto.MarcaDTO;
+import com.alcarrer.dto.MedidaDTO;
+import com.alcarrer.dto.SubCategoriaDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
@@ -29,23 +29,22 @@ public class MedidaRepositoryTest {
 	@Test
 	public void testSaveMedida() {
 
-		Medida medida = new Medida("medida", "Descricao");
-		Categoria categoria = new Categoria("categoria", "Descricao");
-		Marca marca = new Marca("nome", "Descricao");
-		SubCategoria subCategoria = new SubCategoria("nome", "Descricao");
+		MedidaDTO medida = new MedidaDTO("medida", "Descricao");
+		CategoriaDTO categoria = new CategoriaDTO("categoria", "Descricao");
+		MarcaDTO marca = new MarcaDTO("nome", "Descricao");
+		SubCategoriaDTO subCategoria = new SubCategoriaDTO("nome", "Descricao");
 
-		ItensTipoMedida itensTipoMedida = new ItensTipoMedida();
+		ItensTipoMedidaDTO itensTipoMedida = new ItensTipoMedidaDTO();
 		itensTipoMedida.setMedida(medida);
 		itensTipoMedida.setMarca(marca);
 		itensTipoMedida.setCategoria(categoria);
 		itensTipoMedida.setSubCategoria(subCategoria);
 
-		Set<ItensTipoMedida> itensTipoMedidaSet = new HashSet<ItensTipoMedida>();
+		Set<ItensTipoMedidaDTO> itensTipoMedidaSet = new HashSet<ItensTipoMedidaDTO>();
 		itensTipoMedidaSet.add(itensTipoMedida);
-
 		medida.setItensTipoMedida(itensTipoMedidaSet);
 
-		Medida objDB = entityManager.persist(medida);
+		MedidaDTO objDB = entityManager.persist(medida);
 //		Optional<Medida> optional = repository.findById(objDB.getCodigo());
 
 	}

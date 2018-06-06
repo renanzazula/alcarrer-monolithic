@@ -4,13 +4,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alcarrer.dto.CategoriaDTO;
+import com.alcarrer.dto.SubCategoriaDTO;
+import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Categoria;
-import com.alcarrer.model.SubCategoria;
 import com.alcarrer.repository.CategoriaRepository;
 import com.alcarrer.repository.SubCategoriaRepository;
 
@@ -26,42 +29,39 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Override
 	@Transactional
 	public Categoria incluir(Categoria categoria) {
-
-		Categoria categoriaDB = new Categoria();
+		CategoriaDTO categoriaDB = new CategoriaDTO();
 		categoriaDB.setDescricao(categoria.getDescricao());
 		categoriaDB.setNome(categoria.getNome());
 
-		Set<SubCategoria> subCategoria = new HashSet<>();
+		Set<SubCategoriaDTO> subCategoria = new HashSet<>();
 		categoria.getSubCategorias().forEach(sub -> {
 			subCategoria.add(subCategoriaRepository.findOne(sub.getCodigo()));
 		});
-
 		categoriaDB.setSubCategoriasSet(subCategoria);
-
-		return repository.saveAndFlush(categoriaDB);
+		return JpaFunctions.categoriaDTOtoCategoria.apply(repository.saveAndFlush(categoriaDB));
 	}
 
 	@Override
 	@Transactional
 	public Categoria alterar(Categoria categoria) {
 
-		Categoria categoriaDB = repository.findOne(categoria.getCodigo());
+		CategoriaDTO categoriaDB = repository.findOne(categoria.getCodigo());
 		categoriaDB.setDescricao(categoria.getDescricao());
 		categoriaDB.setNome(categoria.getNome());
 		categoriaDB.getSubCategoriasSet().clear();
-		Set<SubCategoria> subCategoria = new HashSet<>();
+		Set<SubCategoriaDTO> subCategoria = new HashSet<>();
 		categoria.getSubCategorias().forEach(sub -> {
 			subCategoria.add(subCategoriaRepository.findOne(sub.getCodigo()));
 		});
 		categoriaDB.getSubCategoriasSet().addAll(subCategoria);
 
-		return repository.saveAndFlush(categoriaDB);
+		return JpaFunctions.categoriaDTOtoCategoria.apply(repository.saveAndFlush(categoriaDB));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Categoria consultarByCodigo(Categoria entity) {
-		return repository.findOne(entity.getCodigo());
+		return JpaFunctions.categoriaDTOtoCategoria.apply(repository.findOne(entity.getCodigo()));
 	}
 
 	@Override
@@ -74,13 +74,13 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Categoria> consultar() {
-		return repository.findAll();
+		return repository.findAll().stream().map(JpaFunctions.categoriaDTOtoCategoria).collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional
 	public void excluir(Categoria entity) {
-		Categoria categoriaDB = repository.findOne(entity.getCodigo());
+		CategoriaDTO categoriaDB = repository.findOne(entity.getCodigo());
 		categoriaDB.getSubCategoriasSet().clear();
 		repository.saveAndFlush(categoriaDB);
 		repository.delete(repository.findOne(entity.getCodigo()));

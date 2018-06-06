@@ -1,10 +1,13 @@
 package com.alcarrer.service.fornecedor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alcarrer.dto.FornecedorDTO;
+import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Fornecedor;
 import com.alcarrer.repository.FornecedorRepository;
 
@@ -16,31 +19,34 @@ public class FornecedorServiceImpl implements FornecedorService {
 	
 	@Override
 	public Fornecedor incluir(Fornecedor entity) {
-		return repository.saveAndFlush(entity);
+		FornecedorDTO fornecedorDB = new FornecedorDTO();
+		fornecedorDB.setDescricao(entity.getDescricao());
+		fornecedorDB.setNome(entity.getNome());
+		return JpaFunctions.fornecedorDTOtoFornecedor.apply(repository.saveAndFlush(fornecedorDB));
 	}
 
 	@Override
 	public Fornecedor alterar(Fornecedor entity) {
-		Fornecedor fornecedorDB = repository.findOne(entity.getCodigo());
+		FornecedorDTO fornecedorDB = repository.findOne(entity.getCodigo());
 	 	fornecedorDB.setDescricao(entity.getDescricao());
 		fornecedorDB.setNome(entity.getNome());
-		return repository.saveAndFlush(entity);
+		return JpaFunctions.fornecedorDTOtoFornecedor.apply(repository.saveAndFlush(fornecedorDB));
 	}
 
 	@Override
 	public void excluir(Fornecedor entity) {
-		Fornecedor fornecedorDB = repository.findOne(entity.getCodigo());
+		FornecedorDTO fornecedorDB = repository.findOne(entity.getCodigo());
 		repository.delete(fornecedorDB);
 	}
 
 	@Override
 	public List<Fornecedor> consultar() {
-		return repository.findAll();
+		return repository.findAll().stream().map(JpaFunctions.fornecedorDTOtoFornecedor).collect(Collectors.toList());
 	}
 
 	@Override
 	public Fornecedor consultarByCodigo(Fornecedor entity) {
-		return repository.findOne(entity.getCodigo());
+		return JpaFunctions.fornecedorDTOtoFornecedor.apply(repository.findOne(entity.getCodigo()));
 	}
 
 }

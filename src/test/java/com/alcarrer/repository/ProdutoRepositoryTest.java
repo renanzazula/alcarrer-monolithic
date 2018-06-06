@@ -13,14 +13,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.alcarrer.model.Categoria;
-import com.alcarrer.model.Fornecedor;
-import com.alcarrer.model.ItensTipoMedida;
-import com.alcarrer.model.Marca;
-import com.alcarrer.model.Medida;
-import com.alcarrer.model.Produto;
-import com.alcarrer.model.ProdutoHasItensTipoMedida;
-import com.alcarrer.model.SubCategoria;
+import com.alcarrer.dto.CategoriaDTO;
+import com.alcarrer.dto.FornecedorDTO;
+import com.alcarrer.dto.ItensTipoMedidaDTO;
+import com.alcarrer.dto.MarcaDTO;
+import com.alcarrer.dto.MedidaDTO;
+import com.alcarrer.dto.ProdutoDTO;
+import com.alcarrer.dto.ProdutoHasItensTipoMedidaDTO;
+import com.alcarrer.dto.SubCategoriaDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
@@ -52,52 +52,52 @@ public class ProdutoRepositoryTest {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Marca marca = new Marca("marca", "descricao");
-		Fornecedor fornecedor = new Fornecedor("Fornecedor", "descricao");
-		Categoria categoria = new Categoria("Categoria", "descricao");
-		SubCategoria subCategoria = new SubCategoria("subCategoria", "descricao");
-		Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedidaSet = new HashSet<>();
+		MarcaDTO marca = new MarcaDTO("marca", "descricao");
+		FornecedorDTO fornecedor = new FornecedorDTO("Fornecedor", "descricao");
+		CategoriaDTO categoria = new CategoriaDTO("Categoria", "descricao");
+		SubCategoriaDTO subCategoria = new SubCategoriaDTO("subCategoria", "descricao");
+		Set<ProdutoHasItensTipoMedidaDTO> produtoHasItensTipoMedidaSet = new HashSet<>();
 
-		ItensTipoMedida itensTipoMedidaX = new ItensTipoMedida();
+		ItensTipoMedidaDTO itensTipoMedidaX = new ItensTipoMedidaDTO();
 		itensTipoMedidaX.setMarca(marca);
 		itensTipoMedidaX.setCategoria(categoria);
 		itensTipoMedidaX.setSubCategoria(subCategoria);
-		Medida medidaX = new Medida("X", "x");
+		MedidaDTO medidaX = new MedidaDTO("X", "x");
 
 		itensTipoMedidaX.setMedida(medidaX);
-		ProdutoHasItensTipoMedida produtoHasItensTipoMedidaX = new ProdutoHasItensTipoMedida();
+		ProdutoHasItensTipoMedidaDTO produtoHasItensTipoMedidaX = new ProdutoHasItensTipoMedidaDTO();
 		produtoHasItensTipoMedidaX.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaX.setQuantidade(10);
 		produtoHasItensTipoMedidaX.setItensTipoMedida(itensTipoMedidaX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaX);
 
-		ItensTipoMedida itensTipoMedidaP = new ItensTipoMedida();
+		ItensTipoMedidaDTO itensTipoMedidaP = new ItensTipoMedidaDTO();
 		itensTipoMedidaP.setMarca(marca);
 		itensTipoMedidaP.setCategoria(categoria);
 		itensTipoMedidaP.setSubCategoria(subCategoria);
-		itensTipoMedidaP.setMedida(new Medida("P", "p"));
-		ProdutoHasItensTipoMedida produtoHasItensTipoMedidaP = new ProdutoHasItensTipoMedida();
+		itensTipoMedidaP.setMedida(new MedidaDTO("P", "p"));
+		ProdutoHasItensTipoMedidaDTO produtoHasItensTipoMedidaP = new ProdutoHasItensTipoMedidaDTO();
 		produtoHasItensTipoMedidaP.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaP.setQuantidade(10);
 		produtoHasItensTipoMedidaP.setItensTipoMedida(itensTipoMedidaP);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaP);
 
-		ItensTipoMedida itensTipoMedidaXX = new ItensTipoMedida();
+		ItensTipoMedidaDTO itensTipoMedidaXX = new ItensTipoMedidaDTO();
 		itensTipoMedidaXX.setMarca(marca);
 		itensTipoMedidaXX.setCategoria(categoria);
 		itensTipoMedidaXX.setSubCategoria(subCategoria);
-		itensTipoMedidaXX.setMedida(new Medida("XX", "xx"));
-		ProdutoHasItensTipoMedida produtoHasItensTipoMedidaXX = new ProdutoHasItensTipoMedida();
+		itensTipoMedidaXX.setMedida(new MedidaDTO("XX", "xx"));
+		ProdutoHasItensTipoMedidaDTO produtoHasItensTipoMedidaXX = new ProdutoHasItensTipoMedidaDTO();
 		produtoHasItensTipoMedidaXX.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaXX.setQuantidade(10);
 		produtoHasItensTipoMedidaXX.setItensTipoMedida(itensTipoMedidaXX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaXX);
 
-		Produto obj = new Produto(nome, status, descricao, preco, precoVenda, precoCusto, precoOferta, desconto, peso,
+		ProdutoDTO obj = new ProdutoDTO(nome, status, descricao, preco, precoVenda, precoCusto, precoOferta, desconto, peso,
 				porcentagem, porcentagemDesconto, dataHoraCadastro, marca, fornecedor, categoria, subCategoria,
 				produtoHasItensTipoMedidaSet);
 
-		Produto objDB = entityManager.persist(obj);
+		ProdutoDTO objDB = entityManager.persist(obj);
 //		Optional<Produto> optional = repository.findById(objDB.getCodigo());
 
 //		optional.get().getProdutoHasItensTipoMedida()

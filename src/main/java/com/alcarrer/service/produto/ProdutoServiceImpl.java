@@ -1,11 +1,13 @@
 package com.alcarrer.service.produto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Produto;
 import com.alcarrer.repository.ProdutoRepository;
 
@@ -47,13 +49,13 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	@Transactional(readOnly = true)
 	public Produto consultarByCodigo(Produto produto) {
-		return repository.findOne(produto.getCodigo());
+		return JpaFunctions.produtoDTOtoProduto.apply(repository.findOne(produto.getCodigo()));
 	}
 
 	@Override
 	
 	public List<Produto> consultar() {
-		return repository.findAll();
+		return repository.findAll().stream().map(JpaFunctions.produtoDTOtoProduto).collect(Collectors.toList());
 	}
 
 }

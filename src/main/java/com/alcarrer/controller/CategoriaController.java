@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alcarrer.controller.validator.CategoriaValidator;
-import com.alcarrer.model.BreadCrumbVO;
+import com.alcarrer.model.BreadCrumb;
 import com.alcarrer.model.Categoria;
 import com.alcarrer.model.SubCategoria;
 import com.alcarrer.service.categoria.CategoriaService;
@@ -118,7 +118,7 @@ public class CategoriaController {
 		return subCategoriaService.consultar();
 	}
 
-	public List<BreadCrumbVO> breadCrumbList() {
+	public List<BreadCrumb> breadCrumbList() {
 		List<String> msg = new ArrayList<String>();
 		msg.add("menu.cadastro");
 		msg.add("menu.cadastro.categoria");
