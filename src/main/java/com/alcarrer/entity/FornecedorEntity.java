@@ -1,18 +1,16 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
-@Entity(name = "sub_categoria")
-public class SubCategoriaDTO implements Serializable {
+ 
+@Entity(name = "fornecedor")
+public class FornecedorEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -27,16 +25,13 @@ public class SubCategoriaDTO implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategoriasSet")
-	private Set<CategoriaDTO> categoria;
-
-	public SubCategoriaDTO() {
+	public FornecedorEntity() {
 
 	}
 
-	public SubCategoriaDTO(String nome, String descricao) {
+	public FornecedorEntity(String nome, String descricao) {
 		super();
-		this.nome = nome;
+ 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
@@ -63,13 +58,5 @@ public class SubCategoriaDTO implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public Set<CategoriaDTO> getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Set<CategoriaDTO> categoria) {
-		this.categoria = categoria;
-	}
-
+	
 }

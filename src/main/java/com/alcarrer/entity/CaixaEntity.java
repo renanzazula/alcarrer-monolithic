@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity(name = "caixa")
-public class CaixaDTO implements Serializable {
+public class CaixaEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -41,7 +41,7 @@ public class CaixaDTO implements Serializable {
 	@Column(name = "statusCaixa")
 	private String statusCaixa;
 
-	public CaixaDTO(Date dataHoraAbertura, Date dataHoraFechamento, Double valorInicial, Double valorFinal, Double total,
+	public CaixaEntity(Date dataHoraAbertura, Date dataHoraFechamento, Double valorInicial, Double valorFinal, Double total,
 			String statusCaixa) {
 		super();
 		this.dataHoraAbertura = dataHoraAbertura;
@@ -52,7 +52,7 @@ public class CaixaDTO implements Serializable {
 		this.statusCaixa = statusCaixa;
 	}
 
-	public CaixaDTO() {
+	public CaixaEntity() {
 
 	}
 

@@ -1,19 +1,15 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
-@Entity(name = "medida")
-public class MedidaDTO implements Serializable {
+@Entity(name = "marca")
+public class MarcaEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -28,15 +24,13 @@ public class MedidaDTO implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "medida_codigo")
-	private Set<ItensTipoMedidaDTO> itensTipoMedida;
-
-	public MedidaDTO() {
+//	private Status status;
+	
+	public MarcaEntity() {
 
 	}
 
-	public MedidaDTO(String nome, String descricao) {
+	public MarcaEntity(String nome, String descricao) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
@@ -66,12 +60,12 @@ public class MedidaDTO implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Set<ItensTipoMedidaDTO> getItensTipoMedida() {
-		return itensTipoMedida;
-	}
-
-	public void setItensTipoMedida(Set<ItensTipoMedidaDTO> itensTipoMedida) {
-		this.itensTipoMedida = itensTipoMedida;
-	}
+//	public Status getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(Status status) {
+//		this.status = status;
+//	}
 
 }

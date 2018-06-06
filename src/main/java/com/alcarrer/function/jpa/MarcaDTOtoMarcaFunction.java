@@ -2,14 +2,18 @@ package com.alcarrer.function.jpa;
 
 import java.util.function.Function;
 
-import com.alcarrer.dto.MarcaDTO;
+import com.alcarrer.entity.MarcaEntity;
 import com.alcarrer.model.Marca;
 
-public class MarcaDTOtoMarcaFunction implements Function<MarcaDTO, Marca> {
+public class MarcaDTOtoMarcaFunction implements Function<MarcaEntity, Marca> {
 
 	@Override
-	public Marca apply(MarcaDTO t) {
-		return null;
+	public Marca apply(MarcaEntity input) {
+		Marca output = new Marca();
+		output.setCodigo(input.getCodigo());
+		output.setNome(input.getNome());
+		output.setDescricao(input.getDescricao());
+		return output;
 	}
 
 }

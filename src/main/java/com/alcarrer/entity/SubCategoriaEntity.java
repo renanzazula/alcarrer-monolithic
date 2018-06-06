@@ -1,15 +1,18 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
-@Entity(name = "marca")
-public class MarcaDTO implements Serializable {
+@Entity(name = "sub_categoria")
+public class SubCategoriaEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -24,13 +27,14 @@ public class MarcaDTO implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-//	private Status status;
-	
-	public MarcaDTO() {
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategoriasSet")
+	private Set<CategoriaEntity> categoria;
+
+	public SubCategoriaEntity() {
 
 	}
 
-	public MarcaDTO(String nome, String descricao) {
+	public SubCategoriaEntity(String nome, String descricao) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
@@ -60,12 +64,12 @@ public class MarcaDTO implements Serializable {
 		this.descricao = descricao;
 	}
 
-//	public Status getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(Status status) {
-//		this.status = status;
-//	}
+	public Set<CategoriaEntity> getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Set<CategoriaEntity> categoria) {
+		this.categoria = categoria;
+	}
 
 }

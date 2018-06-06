@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "itens_tipo_medida")
-public class ItensTipoMedidaDTO implements Serializable {
+public class ItensTipoMedidaEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -28,34 +28,34 @@ public class ItensTipoMedidaDTO implements Serializable {
 //	@Nullable
 	@ManyToOne
 	@JoinColumn(name = "medida_codigo")
-	private MedidaDTO medida;
+	private MedidaEntity medida;
 
 	@ManyToOne
 	@JoinColumn(name = "marca_codigo")
-	private MarcaDTO marca;
+	private MarcaEntity marca;
 
 //	@Nullables
 	@ManyToOne
 	@JoinColumn(name = "categoria_codigo")
-	private CategoriaDTO categoria;
+	private CategoriaEntity categoria;
 
 	@ManyToOne
 	@JoinColumn(name = "sub_categoria_codigo")
-	private SubCategoriaDTO subCategoria;
+	private SubCategoriaEntity subCategoria;
 
 	@OneToMany
 	@JoinColumn(name = "itens_tipo_medida_codigo")
-	private Set<ProdutoHasItensTipoMedidaDTO> produtoHasItensTipoMedida;
+	private Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida;
 	
-	public ItensTipoMedidaDTO() {
+	public ItensTipoMedidaEntity() {
 
 	}
 
-	public SubCategoriaDTO getSubCategoria() {
+	public SubCategoriaEntity getSubCategoria() {
 		return subCategoria;
 	}
 
-	public void setSubCategoria(SubCategoriaDTO subCategoria) {
+	public void setSubCategoria(SubCategoriaEntity subCategoria) {
 		this.subCategoria = subCategoria;
 	}
 
@@ -75,27 +75,27 @@ public class ItensTipoMedidaDTO implements Serializable {
 		this.valor = valor;
 	}
 
-	public MedidaDTO getMedida() {
+	public MedidaEntity getMedida() {
 		return medida;
 	}
 
-	public void setMedida(MedidaDTO medida) {
+	public void setMedida(MedidaEntity medida) {
 		this.medida = medida;
 	}
 
-	public MarcaDTO getMarca() {
+	public MarcaEntity getMarca() {
 		return marca;
 	}
 
-	public void setMarca(MarcaDTO marca) {
+	public void setMarca(MarcaEntity marca) {
 		this.marca = marca;
 	}
 
-	public CategoriaDTO getCategoria() {
+	public CategoriaEntity getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(CategoriaDTO categoria) {
+	public void setCategoria(CategoriaEntity categoria) {
 		this.categoria = categoria;
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alcarrer.dto.MarcaDTO;
+import com.alcarrer.entity.MarcaEntity;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Marca;
 import com.alcarrer.repository.MarcaRepository;
@@ -21,7 +21,7 @@ public class MarcaServiceImpl implements MarcaService {
 	@Override
 	@Transactional
 	public Marca incluir(Marca entity) {
-		MarcaDTO marcaDB = new MarcaDTO();
+		MarcaEntity marcaDB = new MarcaEntity();
 		marcaDB.setDescricao(entity.getDescricao());
 		marcaDB.setNome(entity.getNome());
 		return JpaFunctions.marcaDTOtomarca.apply(repository.save(marcaDB));
@@ -30,7 +30,7 @@ public class MarcaServiceImpl implements MarcaService {
 	@Override
 	@Transactional
 	public Marca alterar(Marca entity) {
-		MarcaDTO marcaDB = repository.getOne(entity.getCodigo());
+		MarcaEntity marcaDB = repository.getOne(entity.getCodigo());
 		marcaDB.setDescricao(entity.getDescricao());
 		marcaDB.setNome(entity.getNome());
 		return JpaFunctions.marcaDTOtomarca.apply(repository.saveAndFlush(marcaDB));
@@ -39,7 +39,7 @@ public class MarcaServiceImpl implements MarcaService {
 	@Override
 	@Transactional
 	public void excluir(Marca entity) {
-		MarcaDTO marcaDB = repository.getOne(entity.getCodigo());
+		MarcaEntity marcaDB = repository.getOne(entity.getCodigo());
 		// marcaDB.setStatus(Status.Inativo);
 		repository.delete(marcaDB);
 	}

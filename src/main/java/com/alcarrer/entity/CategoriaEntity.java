@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
 @Entity(name = "categoria")
-public class CategoriaDTO implements Serializable {
+public class CategoriaEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -37,16 +37,16 @@ public class CategoriaDTO implements Serializable {
 		@JoinColumn(name = "categoria_codigo",     nullable = false, updatable = false, referencedColumnName="codigo" ) }, 
 		inverseJoinColumns = {
 		@JoinColumn(name = "sub_categoria_codigo", nullable = false, updatable = false) })
-	private Set<SubCategoriaDTO> subCategoriasSet;
+	private Set<SubCategoriaEntity> subCategoriasSet;
 
 	@Transient
-	private List<SubCategoriaDTO> subCategorias; 
+	private List<SubCategoriaEntity> subCategorias; 
 	
-	public CategoriaDTO() {
+	public CategoriaEntity() {
 
 	}
 
-	public CategoriaDTO(String nome, String descricao) {
+	public CategoriaEntity(String nome, String descricao) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
@@ -76,19 +76,19 @@ public class CategoriaDTO implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Set<SubCategoriaDTO> getSubCategoriasSet() {
+	public Set<SubCategoriaEntity> getSubCategoriasSet() {
 		return subCategoriasSet;
 	}
 
-	public void setSubCategoriasSet(Set<SubCategoriaDTO> subCategoriasSet) {
+	public void setSubCategoriasSet(Set<SubCategoriaEntity> subCategoriasSet) {
 		this.subCategoriasSet = subCategoriasSet;
 	}
 
-	public List<SubCategoriaDTO> getSubCategorias() {
+	public List<SubCategoriaEntity> getSubCategorias() {
 		return subCategorias;
 	}
 
-	public void setSubCategorias(List<SubCategoriaDTO> subCategorias) {
+	public void setSubCategorias(List<SubCategoriaEntity> subCategorias) {
 		this.subCategorias = subCategorias;
 	}
  

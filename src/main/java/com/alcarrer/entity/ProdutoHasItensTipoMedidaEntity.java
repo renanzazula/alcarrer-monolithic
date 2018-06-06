@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "produto_has_itens_tipo_medida")
-public class ProdutoHasItensTipoMedidaDTO implements Serializable {
+public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -28,13 +28,13 @@ public class ProdutoHasItensTipoMedidaDTO implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "itens_tipo_medida_codigo")
-	private ItensTipoMedidaDTO itensTipoMedida;
+	private ItensTipoMedidaEntity itensTipoMedida;
 	
 	@ManyToOne
 	@JoinColumn(name = "produto_codigo") 
-	private ProdutoDTO produto;
+	private ProdutoEntity produto;
 	
-	public ProdutoHasItensTipoMedidaDTO() {
+	public ProdutoHasItensTipoMedidaEntity() {
 
 	}
 	
@@ -62,19 +62,19 @@ public class ProdutoHasItensTipoMedidaDTO implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public ItensTipoMedidaDTO getItensTipoMedida() {
+	public ItensTipoMedidaEntity getItensTipoMedida() {
 		return itensTipoMedida;
 	}
 
-	public void setItensTipoMedida(ItensTipoMedidaDTO itensTipoMedida) {
+	public void setItensTipoMedida(ItensTipoMedidaEntity itensTipoMedida) {
 		this.itensTipoMedida = itensTipoMedida;
 	}
 
-	public ProdutoDTO getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(ProdutoDTO produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

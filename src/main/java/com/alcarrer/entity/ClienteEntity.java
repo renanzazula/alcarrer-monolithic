@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "cliente")
-public class ClienteDTO implements Serializable {
+public class ClienteEntity implements Serializable {
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class ClienteDTO implements Serializable {
 	@Column(name = "codigo")
 	private Integer codigo;
 
-	public ClienteDTO() {
+	public ClienteEntity() {
 	 
 	} 
 	

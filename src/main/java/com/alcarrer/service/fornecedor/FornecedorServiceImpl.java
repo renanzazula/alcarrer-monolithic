@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alcarrer.dto.FornecedorDTO;
+import com.alcarrer.entity.FornecedorEntity;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Fornecedor;
 import com.alcarrer.repository.FornecedorRepository;
@@ -19,7 +19,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 	
 	@Override
 	public Fornecedor incluir(Fornecedor entity) {
-		FornecedorDTO fornecedorDB = new FornecedorDTO();
+		FornecedorEntity fornecedorDB = new FornecedorEntity();
 		fornecedorDB.setDescricao(entity.getDescricao());
 		fornecedorDB.setNome(entity.getNome());
 		return JpaFunctions.fornecedorDTOtoFornecedor.apply(repository.saveAndFlush(fornecedorDB));
@@ -27,7 +27,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 	@Override
 	public Fornecedor alterar(Fornecedor entity) {
-		FornecedorDTO fornecedorDB = repository.findOne(entity.getCodigo());
+		FornecedorEntity fornecedorDB = repository.findOne(entity.getCodigo());
 	 	fornecedorDB.setDescricao(entity.getDescricao());
 		fornecedorDB.setNome(entity.getNome());
 		return JpaFunctions.fornecedorDTOtoFornecedor.apply(repository.saveAndFlush(fornecedorDB));
@@ -35,7 +35,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 	@Override
 	public void excluir(Fornecedor entity) {
-		FornecedorDTO fornecedorDB = repository.findOne(entity.getCodigo());
+		FornecedorEntity fornecedorDB = repository.findOne(entity.getCodigo());
 		repository.delete(fornecedorDB);
 	}
 

@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 
@@ -8,11 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
- 
-@Entity(name = "fornecedor")
-public class FornecedorDTO implements Serializable {
+@Entity(name = "formasDePagamento")
+public class FormaDePagamentoEntity implements Serializable {
 
-	private static final long serialVersionUID = -6612762288260227887L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,15 +27,20 @@ public class FornecedorDTO implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	public FornecedorDTO() {
+	@Column(name = "porcentagemDesconto")
+	private int porcentagemDesconto;
 
-	}
-
-	public FornecedorDTO(String nome, String descricao) {
+	public FormaDePagamentoEntity() {
 		super();
- 		this.nome = nome;
-		this.descricao = descricao;
 	}
+
+	public FormaDePagamentoEntity(String nome, String descricao, int porcentagemDesconto) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.porcentagemDesconto = porcentagemDesconto;
+	}
+	
+	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -51,6 +58,14 @@ public class FornecedorDTO implements Serializable {
 		this.nome = nome;
 	}
 
+	public int getPorcentagemDesconto() {
+		return porcentagemDesconto;
+	}
+
+	public void setPorcentagemDesconto(int porcentagemDesconto) {
+		this.porcentagemDesconto = porcentagemDesconto;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -58,5 +73,5 @@ public class FornecedorDTO implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 }

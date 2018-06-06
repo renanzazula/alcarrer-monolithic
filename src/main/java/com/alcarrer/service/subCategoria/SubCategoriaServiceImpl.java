@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alcarrer.dto.SubCategoriaDTO;
+import com.alcarrer.entity.SubCategoriaEntity;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.SubCategoria;
 import com.alcarrer.repository.SubCategoriaRepository;
@@ -19,7 +19,7 @@ public class SubCategoriaServiceImpl implements SubCategoriaService {
 
 	@Override
 	public SubCategoria incluir(SubCategoria entity) {
-		SubCategoriaDTO subCategoriaDB = new SubCategoriaDTO();
+		SubCategoriaEntity subCategoriaDB = new SubCategoriaEntity();
 		subCategoriaDB.setNome(entity.getNome());
 		subCategoriaDB.setDescricao(entity.getDescricao());
 		return JpaFunctions.subCategoriaDTOtoCategoria.apply(repository.saveAndFlush(subCategoriaDB));
@@ -27,7 +27,7 @@ public class SubCategoriaServiceImpl implements SubCategoriaService {
 
 	@Override
 	public SubCategoria alterar(SubCategoria entity) {
-		SubCategoriaDTO subCategoriaDB = repository.findOne(entity.getCodigo());
+		SubCategoriaEntity subCategoriaDB = repository.findOne(entity.getCodigo());
 		subCategoriaDB.setDescricao(entity.getDescricao());
 		subCategoriaDB.setNome(entity.getNome());
 		return JpaFunctions.subCategoriaDTOtoCategoria.apply(repository.saveAndFlush(subCategoriaDB));
@@ -35,7 +35,7 @@ public class SubCategoriaServiceImpl implements SubCategoriaService {
 
 	@Override
 	public void excluir(SubCategoria entity) {
-		SubCategoriaDTO subCategoriaDB = repository.findOne(entity.getCodigo());
+		SubCategoriaEntity subCategoriaDB = repository.findOne(entity.getCodigo());
 		repository.delete(subCategoriaDB);
 	}
 

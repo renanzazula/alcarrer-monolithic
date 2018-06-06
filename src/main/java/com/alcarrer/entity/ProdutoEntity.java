@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity(name = "produto")
-public class ProdutoDTO implements Serializable {
+public class ProdutoEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -67,87 +67,87 @@ public class ProdutoDTO implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "marca_codigo")
-	private MarcaDTO marca;
+	private MarcaEntity marca;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fornecedor_codigo")
-	private FornecedorDTO fornecedor;
+	private FornecedorEntity fornecedor;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "categoria_codigo")
-	private CategoriaDTO categoria;
+	private CategoriaEntity categoria;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "sub_categoria_codigo")
-	private SubCategoriaDTO subCategoria;
+	private SubCategoriaEntity subCategoria;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "produto_codigo")
-	private Set<ProdutoHasItensTipoMedidaDTO> produtoHasItensTipoMedida;
+	private Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida;
 
 	@Transient
-	private List<FornecedorDTO> fornecedores;
+	private List<FornecedorEntity> fornecedores;
 
 	@Transient
-	private List<MarcaDTO> marcas;
+	private List<MarcaEntity> marcas;
 
-	public List<FornecedorDTO> getFornecedores() {
+	public List<FornecedorEntity> getFornecedores() {
 		return fornecedores;
 	}
 
-	public void setFornecedores(List<FornecedorDTO> fornecedores) {
+	public void setFornecedores(List<FornecedorEntity> fornecedores) {
 		this.fornecedores = fornecedores;
 	}
 
-	public List<MarcaDTO> getMarcas() {
+	public List<MarcaEntity> getMarcas() {
 		return marcas;
 	}
 
-	public void setMarcas(List<MarcaDTO> marcas) {
+	public void setMarcas(List<MarcaEntity> marcas) {
 		this.marcas = marcas;
 	}
 
-	public List<CategoriaDTO> getCategorias() {
+	public List<CategoriaEntity> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(List<CategoriaDTO> categorias) {
+	public void setCategorias(List<CategoriaEntity> categorias) {
 		this.categorias = categorias;
 	}
 
-	public List<SubCategoriaDTO> getSubCategorias() {
+	public List<SubCategoriaEntity> getSubCategorias() {
 		return subCategorias;
 	}
 
-	public void setSubCategorias(List<SubCategoriaDTO> subCategorias) {
+	public void setSubCategorias(List<SubCategoriaEntity> subCategorias) {
 		this.subCategorias = subCategorias;
 	}
 
-	public List<MedidaDTO> getItensMedida() {
+	public List<MedidaEntity> getItensMedida() {
 		return itensMedida;
 	}
 
-	public void setItensMedida(List<MedidaDTO> itensMedida) {
+	public void setItensMedida(List<MedidaEntity> itensMedida) {
 		this.itensMedida = itensMedida;
 	}
 
 	@Transient
-	private List<CategoriaDTO> categorias;
+	private List<CategoriaEntity> categorias;
 
 	@Transient
-	private List<SubCategoriaDTO> subCategorias;
+	private List<SubCategoriaEntity> subCategorias;
 
 	@Transient
-	private List<MedidaDTO> itensMedida;
+	private List<MedidaEntity> itensMedida;
 
-	public ProdutoDTO() {
+	public ProdutoEntity() {
 
 	}
 
-	public ProdutoDTO(String nome, String status, String descricao, Double preco, Double precoVenda, Double precoCusto,
+	public ProdutoEntity(String nome, String status, String descricao, Double preco, Double precoVenda, Double precoCusto,
 			Double precoOferta, Double desconto, Double peso, Integer porcentagem, Integer porcentagemDesconto,
-			Date dataHoraCadastro, MarcaDTO marca, FornecedorDTO fornecedor, CategoriaDTO categoria, SubCategoriaDTO subCategoria,
-			Set<ProdutoHasItensTipoMedidaDTO> produtoHasItensTipoMedida) {
+			Date dataHoraCadastro, MarcaEntity marca, FornecedorEntity fornecedor, CategoriaEntity categoria, SubCategoriaEntity subCategoria,
+			Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida) {
 		super();
 
 		this.nome = nome;
@@ -273,43 +273,43 @@ public class ProdutoDTO implements Serializable {
 		this.dataHoraCadastro = dataHoraCadastro;
 	}
 
-	public MarcaDTO getMarca() {
+	public MarcaEntity getMarca() {
 		return marca;
 	}
 
-	public void setMarca(MarcaDTO marca) {
+	public void setMarca(MarcaEntity marca) {
 		this.marca = marca;
 	}
 
-	public FornecedorDTO getFornecedor() {
+	public FornecedorEntity getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(FornecedorDTO fornecedor) {
+	public void setFornecedor(FornecedorEntity fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
-	public CategoriaDTO getCategoria() {
+	public CategoriaEntity getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(CategoriaDTO categoria) {
+	public void setCategoria(CategoriaEntity categoria) {
 		this.categoria = categoria;
 	}
 
-	public SubCategoriaDTO getSubCategoria() {
+	public SubCategoriaEntity getSubCategoria() {
 		return subCategoria;
 	}
 
-	public void setSubCategoria(SubCategoriaDTO subCategoria) {
+	public void setSubCategoria(SubCategoriaEntity subCategoria) {
 		this.subCategoria = subCategoria;
 	}
 
-	public Set<ProdutoHasItensTipoMedidaDTO> getProdutoHasItensTipoMedida() {
+	public Set<ProdutoHasItensTipoMedidaEntity> getProdutoHasItensTipoMedida() {
 		return produtoHasItensTipoMedida;
 	}
 
-	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedidaDTO> produtoHasItensTipoMedida) {
+	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida) {
 		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
 	}
 

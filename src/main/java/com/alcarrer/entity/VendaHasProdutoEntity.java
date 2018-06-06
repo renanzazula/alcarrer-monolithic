@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "venda_has_produto")
-public class VendaHasProdutoDTO implements Serializable {
+public class VendaHasProdutoEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -22,11 +22,11 @@ public class VendaHasProdutoDTO implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "venda_codigo")
-	private VendaDTO venda;
+	private VendaEntity venda;
 	
 	@ManyToOne
 	@JoinColumn(name = "produto_codigo")
-	private ProdutoDTO produto;
+	private ProdutoEntity produto;
 
   	@Column(name = "valorUnitario")
 	private Double valorUnitario;
@@ -34,23 +34,23 @@ public class VendaHasProdutoDTO implements Serializable {
 	@Column(name = "quantidade")
 	private Integer quantidade;
 
-	public VendaHasProdutoDTO() {
+	public VendaHasProdutoEntity() {
 		 
 	}
 
-	public VendaDTO getVenda() {
+	public VendaEntity getVenda() {
 		return venda;
 	}
 
-	public void setVenda(VendaDTO venda) {
+	public void setVenda(VendaEntity venda) {
 		this.venda = venda;
 	}
 
-	public ProdutoDTO getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(ProdutoDTO produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

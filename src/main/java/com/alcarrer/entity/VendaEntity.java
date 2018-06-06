@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity(name = "venda")
-public class VendaDTO implements Serializable {
+public class VendaEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -37,21 +37,21 @@ public class VendaDTO implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "caixa_codigo")
-	private CaixaDTO caixa;
+	private CaixaEntity caixa;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_codigo")
-	private ClienteDTO cliente;
+	private ClienteEntity cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "formasDePagamento_codigo")
-	private FormaDePagamentoDTO formaDePagamento;
+	private FormaDePagamentoEntity formaDePagamento;
 	
 	@OneToMany
 	@JoinColumn(name = "venda_codigo")
-	private Set<VendaHasProdutoDTO> vendaHasProduto;
+	private Set<VendaHasProdutoEntity> vendaHasProduto;
 
-	public VendaDTO() {
+	public VendaEntity() {
 	 
 	}
 	
@@ -87,35 +87,35 @@ public class VendaDTO implements Serializable {
 		this.status = status;
 	}
 
-	public CaixaDTO getCaixa() {
+	public CaixaEntity getCaixa() {
 		return caixa;
 	}
 
-	public void setCaixa(CaixaDTO caixa) {
+	public void setCaixa(CaixaEntity caixa) {
 		this.caixa = caixa;
 	}
 
-	public ClienteDTO getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(ClienteDTO cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 
-	public FormaDePagamentoDTO getFormaDePagamento() {
+	public FormaDePagamentoEntity getFormaDePagamento() {
 		return formaDePagamento;
 	}
 
-	public void setFormaDePagamento(FormaDePagamentoDTO formaDePagamento) {
+	public void setFormaDePagamento(FormaDePagamentoEntity formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
 	}
 
-	public Set<VendaHasProdutoDTO> getVendaHasProduto() {
+	public Set<VendaHasProdutoEntity> getVendaHasProduto() {
 		return vendaHasProduto;
 	}
 
-	public void setVendaHasProduto(Set<VendaHasProdutoDTO> vendaHasProduto) {
+	public void setVendaHasProduto(Set<VendaHasProdutoEntity> vendaHasProduto) {
 		this.vendaHasProduto = vendaHasProduto;
 	} 
 	

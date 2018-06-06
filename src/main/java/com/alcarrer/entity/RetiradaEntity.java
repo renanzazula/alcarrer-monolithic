@@ -1,4 +1,4 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity(name = "recebimento")
-public class RecebimentoDTO implements Serializable {
+@Entity(name = "retirada")
+public class RetiradaEntity implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
@@ -20,9 +20,6 @@ public class RecebimentoDTO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "codigo")
 	private Integer codigo;
-
-	@Column(name = "nome")
-	private String nome;
 
 	@Column(name = "descricao")
 	private String descricao;
@@ -35,24 +32,18 @@ public class RecebimentoDTO implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "caixa_codigo")
-	private CaixaDTO caixa;
+	private CaixaEntity caixa;
 
-	@ManyToOne
-	@JoinColumn(name = "cliente_codigo")
-	private ClienteDTO cliente;
-
-	public RecebimentoDTO() {
+	public RetiradaEntity() {
 
 	}
 
-	public RecebimentoDTO(String nome, String descricao, Date dataHora, Double valor, CaixaDTO caixa, ClienteDTO cliente) {
+	public RetiradaEntity(String descricao, Date dataHora, Double valor, CaixaEntity caixa) {
 		super();
-		this.nome = nome;
 		this.descricao = descricao;
 		this.dataHora = dataHora;
 		this.valor = valor;
 		this.caixa = caixa;
-		this.cliente = cliente;
 	}
 
 	public Integer getCodigo() {
@@ -61,14 +52,6 @@ public class RecebimentoDTO implements Serializable {
 
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getDescricao() {
@@ -95,20 +78,12 @@ public class RecebimentoDTO implements Serializable {
 		this.valor = valor;
 	}
 
-	public CaixaDTO getCaixa() {
+	public CaixaEntity getCaixa() {
 		return caixa;
 	}
 
-	public void setCaixa(CaixaDTO caixa) {
+	public void setCaixa(CaixaEntity caixa) {
 		this.caixa = caixa;
-	}
-
-	public ClienteDTO getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteDTO cliente) {
-		this.cliente = cliente;
 	}
 
 }

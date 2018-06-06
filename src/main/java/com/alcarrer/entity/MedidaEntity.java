@@ -1,20 +1,21 @@
-package com.alcarrer.dto;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
-@Entity(name = "formasDePagamento")
-public class FormaDePagamentoDTO implements Serializable {
+@Entity(name = "medida")
+public class MedidaEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6612762288260227887L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,20 +28,19 @@ public class FormaDePagamentoDTO implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@Column(name = "porcentagemDesconto")
-	private int porcentagemDesconto;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "medida_codigo")
+	private Set<ItensTipoMedidaEntity> itensTipoMedida;
 
-	public FormaDePagamentoDTO() {
-		super();
+	public MedidaEntity() {
+
 	}
 
-	public FormaDePagamentoDTO(String nome, String descricao, int porcentagemDesconto) {
+	public MedidaEntity(String nome, String descricao) {
+		super();
 		this.nome = nome;
 		this.descricao = descricao;
-		this.porcentagemDesconto = porcentagemDesconto;
 	}
-	
-	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -58,20 +58,20 @@ public class FormaDePagamentoDTO implements Serializable {
 		this.nome = nome;
 	}
 
-	public int getPorcentagemDesconto() {
-		return porcentagemDesconto;
-	}
-
-	public void setPorcentagemDesconto(int porcentagemDesconto) {
-		this.porcentagemDesconto = porcentagemDesconto;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Set<ItensTipoMedidaEntity> getItensTipoMedida() {
+		return itensTipoMedida;
+	}
+
+	public void setItensTipoMedida(Set<ItensTipoMedidaEntity> itensTipoMedida) {
+		this.itensTipoMedida = itensTipoMedida;
 	}
 
 }

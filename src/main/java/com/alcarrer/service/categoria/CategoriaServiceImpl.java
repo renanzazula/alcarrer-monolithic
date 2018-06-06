@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alcarrer.dto.CategoriaDTO;
-import com.alcarrer.dto.SubCategoriaDTO;
+import com.alcarrer.entity.CategoriaEntity;
+import com.alcarrer.entity.SubCategoriaEntity;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Categoria;
 import com.alcarrer.repository.CategoriaRepository;
@@ -29,11 +29,11 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Override
 	@Transactional
 	public Categoria incluir(Categoria categoria) {
-		CategoriaDTO categoriaDB = new CategoriaDTO();
+		CategoriaEntity categoriaDB = new CategoriaEntity();
 		categoriaDB.setDescricao(categoria.getDescricao());
 		categoriaDB.setNome(categoria.getNome());
 
-		Set<SubCategoriaDTO> subCategoria = new HashSet<>();
+		Set<SubCategoriaEntity> subCategoria = new HashSet<>();
 		categoria.getSubCategorias().forEach(sub -> {
 			subCategoria.add(subCategoriaRepository.findOne(sub.getCodigo()));
 		});
@@ -45,11 +45,11 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Transactional
 	public Categoria alterar(Categoria categoria) {
 
-		CategoriaDTO categoriaDB = repository.findOne(categoria.getCodigo());
+		CategoriaEntity categoriaDB = repository.findOne(categoria.getCodigo());
 		categoriaDB.setDescricao(categoria.getDescricao());
 		categoriaDB.setNome(categoria.getNome());
 		categoriaDB.getSubCategoriasSet().clear();
-		Set<SubCategoriaDTO> subCategoria = new HashSet<>();
+		Set<SubCategoriaEntity> subCategoria = new HashSet<>();
 		categoria.getSubCategorias().forEach(sub -> {
 			subCategoria.add(subCategoriaRepository.findOne(sub.getCodigo()));
 		});
@@ -80,7 +80,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Override
 	@Transactional
 	public void excluir(Categoria entity) {
-		CategoriaDTO categoriaDB = repository.findOne(entity.getCodigo());
+		CategoriaEntity categoriaDB = repository.findOne(entity.getCodigo());
 		categoriaDB.getSubCategoriasSet().clear();
 		repository.saveAndFlush(categoriaDB);
 		repository.delete(repository.findOne(entity.getCodigo()));

@@ -3,9 +3,9 @@ package com.alcarrer.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.alcarrer.dto.VendaDTO;
+import com.alcarrer.entity.VendaEntity;
 
 @Repository
-public interface VendaRepository extends JpaRepository<VendaDTO, Integer> {
+public interface VendaRepository extends JpaRepository<VendaEntity, Integer> {
 
 }
