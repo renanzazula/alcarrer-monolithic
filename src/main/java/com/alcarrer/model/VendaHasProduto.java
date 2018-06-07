@@ -47,4 +47,12 @@ public class VendaHasProduto implements Serializable {
 		this.quantidade = quantidade;
 	}
 
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
 }

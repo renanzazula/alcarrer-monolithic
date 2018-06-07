@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alcarrer.entity.CaixaEntity;
-import com.alcarrer.model.Caixa;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest

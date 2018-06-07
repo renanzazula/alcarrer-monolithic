@@ -12,7 +12,7 @@ public class ItensTipoMedida implements Serializable {
 	private Marca marca;
 	private Categoria categoria;
 	private SubCategoria subCategoria;
-	// private Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida;
+
 
 	public ItensTipoMedida() {
 
@@ -65,14 +65,5 @@ public class ItensTipoMedida implements Serializable {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
-	// public Set<ProdutoHasItensTipoMedida> getProdutoHasItensTipoMedida() {
-	// return produtoHasItensTipoMedida;
-	// }
-	//
-	// public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedida>
-	// produtoHasItensTipoMedida) {
-	// this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
-	// }
 
 }

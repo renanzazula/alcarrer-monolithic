@@ -110,7 +110,7 @@
   					calItensMedida();	
   				},
   				error : function(e) {
-  	  				alet("Erro" + e);
+  	  				alert("Erro" + e);
   				},
   				done : function(e) {
 					// Chama itens medida por categoria	
@@ -200,8 +200,7 @@
 										<c:if test="${alterar == true}">
 											<input type="text" class="field-long" id="codigo" placeholder="Código" disabled="${alterar}" value="${produtoForm.codigo}"/>
 											<form:hidden path="codigo"/>	 
-										</c:if>
-										
+										</c:if>										
 									</td>
 									<td width="79%">
 										<label>Nome:<span class="required">*</span></label> 

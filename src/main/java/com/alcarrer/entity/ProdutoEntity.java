@@ -2,7 +2,6 @@ package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity(name = "produto")
 public class ProdutoEntity implements Serializable {
@@ -27,6 +25,14 @@ public class ProdutoEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "codigo", updatable = false, nullable = false)
 	private Integer codigo;
+
+	/**
+	 * codigo -> sequencial (from dataBase) marca_codigo fornecedor_codigo
+	 * categoria_codigo subcategoria_codigo medida_codigo flagSite -> : LFB -> loja
+	 * fisica born : LOW -> loja online Wix
+	 */
+	@Column(name = "barCode")
+	private String barCode;
 
 	@Column(name = "nome")
 	private String nome;
@@ -84,69 +90,15 @@ public class ProdutoEntity implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "produto_codigo")
 	private Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida;
-
-	@Transient
-	private List<FornecedorEntity> fornecedores;
-
-	@Transient
-	private List<MarcaEntity> marcas;
-
-	public List<FornecedorEntity> getFornecedores() {
-		return fornecedores;
-	}
-
-	public void setFornecedores(List<FornecedorEntity> fornecedores) {
-		this.fornecedores = fornecedores;
-	}
-
-	public List<MarcaEntity> getMarcas() {
-		return marcas;
-	}
-
-	public void setMarcas(List<MarcaEntity> marcas) {
-		this.marcas = marcas;
-	}
-
-	public List<CategoriaEntity> getCategorias() {
-		return categorias;
-	}
-
-	public void setCategorias(List<CategoriaEntity> categorias) {
-		this.categorias = categorias;
-	}
-
-	public List<SubCategoriaEntity> getSubCategorias() {
-		return subCategorias;
-	}
-
-	public void setSubCategorias(List<SubCategoriaEntity> subCategorias) {
-		this.subCategorias = subCategorias;
-	}
-
-	public List<MedidaEntity> getItensMedida() {
-		return itensMedida;
-	}
-
-	public void setItensMedida(List<MedidaEntity> itensMedida) {
-		this.itensMedida = itensMedida;
-	}
-
-	@Transient
-	private List<CategoriaEntity> categorias;
-
-	@Transient
-	private List<SubCategoriaEntity> subCategorias;
-
-	@Transient
-	private List<MedidaEntity> itensMedida;
-
+	 
 	public ProdutoEntity() {
 
 	}
 
-	public ProdutoEntity(String nome, String status, String descricao, Double preco, Double precoVenda, Double precoCusto,
-			Double precoOferta, Double desconto, Double peso, Integer porcentagem, Integer porcentagemDesconto,
-			Date dataHoraCadastro, MarcaEntity marca, FornecedorEntity fornecedor, CategoriaEntity categoria, SubCategoriaEntity subCategoria,
+	public ProdutoEntity(String nome, String status, String descricao, Double preco, Double precoVenda,
+			Double precoCusto, Double precoOferta, Double desconto, Double peso, Integer porcentagem,
+			Integer porcentagemDesconto, Date dataHoraCadastro, MarcaEntity marca, FornecedorEntity fornecedor,
+			CategoriaEntity categoria, SubCategoriaEntity subCategoria,
 			Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida) {
 		super();
 
@@ -311,6 +263,14 @@ public class ProdutoEntity implements Serializable {
 
 	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida) {
 		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
+	}
+ 
+	public String getBarCode() {
+		return barCode;
+	}
+
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
 	}
 
 }

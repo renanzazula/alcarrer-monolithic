@@ -11,4 +11,5 @@ public interface ProdutoService {
 	boolean validarCodigoProduto(Produto produto);
 	Produto consultarByCodigo(Produto produto);
 	List<Produto> consultar();
+	
 }

@@ -107,19 +107,19 @@ public class ProdutoController {
 	public String incluir(@ModelAttribute("produtoForm") @Validated Produto produtoForm, BindingResult result,
 			Model model, final RedirectAttributes redirectAttributes) {
 		
-		if (result.hasErrors()) {
-			produtoForm = carregaProduto(produtoForm);
-			model.addAttribute("produtoForm", produtoForm);
-			return VIEW;
-		}
-		
-		// Caso possua o codigo indicado ou id invalido.
-		if(produtoService.validarCodigoProduto(produtoForm) == true) {
-			produtoForm = carregaProduto(produtoForm);
-			model.addAttribute("produtoForm", produtoForm);
-			model.addAttribute("codigoInvalido" , message.getMessage("NotEmpty.produtoForm.codigo.invalido", null, Locale.US));
-			return VIEW;
-		}
+//		if (result.hasErrors()) {
+//			produtoForm = carregaProduto(produtoForm);
+//			model.addAttribute("produtoForm", produtoForm);
+//			return VIEW;
+//		}
+//		
+//		// Caso possua o codigo indicado ou id invalido.
+//		if(produtoService.validarCodigoProduto(produtoForm) == true) {
+//			produtoForm = carregaProduto(produtoForm);
+//			model.addAttribute("produtoForm", produtoForm);
+//			model.addAttribute("codigoInvalido" , message.getMessage("NotEmpty.produtoForm.codigo.invalido", null, Locale.US));
+//			return VIEW;
+//		}
 
 		produtoService.incluir(produtoForm);
 		model.addAttribute("mensagem", message.getMessage("global.inclusao", null, Locale.US));
@@ -132,12 +132,12 @@ public class ProdutoController {
 	public String alterar(@ModelAttribute("produtoForm") @Validated Produto produtoForm, BindingResult result,
 			Model model, final RedirectAttributes redirectAttributes) {
 		
-		model.addAttribute("alterar", "true");
-		if (result.hasErrors()) {
-			produtoForm = carregaProduto(produtoForm);
-			model.addAttribute("produtoForm", produtoForm);
-			return VIEW;
-		}
+//		model.addAttribute("alterar", "true");
+//		if (result.hasErrors()) {
+//			produtoForm = carregaProduto(produtoForm);
+//			model.addAttribute("produtoForm", produtoForm);
+//			return VIEW;
+//		}
 		 
 		produtoService.alterar(produtoForm);
 		model.addAttribute("mensagem", message.getMessage("global.alteracao", null, Locale.US));

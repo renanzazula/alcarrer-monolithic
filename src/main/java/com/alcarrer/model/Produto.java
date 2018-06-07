@@ -9,6 +9,7 @@ public class Produto implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 	private Integer codigo;
+	private String barCode;
 	private String nome;
 	private String status;
 	private String descricao;
@@ -32,10 +33,6 @@ public class Produto implements Serializable {
 	private List<Fornecedor> fornecedores;
 	private List<Marca> marcas;
 
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "produto_codigo")
-//	private Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida;
-
 	public Produto() {
 
 	}
@@ -43,7 +40,7 @@ public class Produto implements Serializable {
 	public Produto(String nome, String status, String descricao, Double preco, Double precoVenda, Double precoCusto,
 			Double precoOferta, Double desconto, Double peso, Integer porcentagem, Integer porcentagemDesconto,
 			Date dataHoraCadastro, Marca marca, Fornecedor fornecedor, Categoria categoria, SubCategoria subCategoria
-//			,Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida
+
 			) {
 		super();
 
@@ -63,7 +60,7 @@ public class Produto implements Serializable {
 		this.fornecedor = fornecedor;
 		this.categoria = categoria;
 		this.subCategoria = subCategoria;
-//		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
+
 	}
 
 	public Integer getCodigo() {
@@ -242,11 +239,12 @@ public class Produto implements Serializable {
 		this.itensMedida = itensMedida;
 	}
 
-//	public Set<ProdutoHasItensTipoMedida> getProdutoHasItensTipoMedida() {
-//		return produtoHasItensTipoMedida;
-//	}
-//
-//	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida) {
-//		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
-//	}
+	public String getBarCode() {
+		return barCode;
+	}
+
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
+	}
+
 }

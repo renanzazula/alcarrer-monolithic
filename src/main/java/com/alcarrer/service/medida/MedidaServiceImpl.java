@@ -2,6 +2,7 @@ package com.alcarrer.service.medida;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,8 +60,11 @@ public class MedidaServiceImpl implements MedidaService {
 
 	@Override
 	public List<Medida> consultarByCategoriaSubCategoriaMarca(Produto produto) {
-
-		return null;
+		System.out.println("okey");
+		return repository
+				.findByItensTipoMedidaCategoriaAndItensTipoMedidaSubCategoriaAndItensTipoMedidaMarca(produto.getCategoria().getCodigo(),
+						produto.getSubCategoria().getCodigo(), produto.getMarca().getCodigo())
+				.stream().map(JpaFunctions.medidaDTOtoMedida).collect(Collectors.toList());
 	}
 
 }
