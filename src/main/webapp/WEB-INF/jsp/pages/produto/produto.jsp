@@ -336,10 +336,10 @@
 					 			<form:option value="NONE" label="Selecione"/>
 					 			<c:forEach items="${produtoForm.fornecedores}" var="item">
  									<c:if test="${item.codigo eq  produtoForm.fornecedor.codigo}">
- 										<form:option value="${item}" label="${item.nome}" selected="selected"/>
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
  									</c:if>
  									<c:if test="${item.codigo ne produtoForm.fornecedor.codigo}">
- 										<form:option value="${item}" label="${item.nome}"/>
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}"/>
  									</c:if>	
  								</c:forEach> 					 			
 					 		</form:select>
@@ -355,7 +355,7 @@
  										<form:option value="${item}" label="${item.nome}" selected="selected"/>
  									</c:if>
  									<c:if test="${item.codigo ne produtoForm.categoria.codigo}">
- 										<form:option value="${item}" label="${item.nome}"/>
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}"/>
  									</c:if>	
  								</c:forEach>
 				        	</form:select> 
@@ -368,10 +368,10 @@
 						    	<form:option value="{}" label="Selecione"/>
  								<c:forEach items="${produtoForm.subCategorias}" var="item">
  									<c:if test="${item.codigo eq  produtoForm.subCategoria.codigo}">
- 										<form:option value="${item}" label="${item.nome}" selected="selected"/>
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
  									</c:if>
  									<c:if test="${item.codigo ne produtoForm.subCategoria.codigo}">
- 										<form:option value="${item}" label="${item.nome}"/>
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}"/>
  									</c:if>	
  								</c:forEach>
 				        	</form:select>
@@ -384,10 +384,10 @@
 						    	<form:option value="{}" label="Selecione"/>
 					 			<c:forEach items="${produtoForm.marcas}" var="item">
  									<c:if test="${item.codigo eq  produtoForm.marca.codigo}">
- 										<form:option value="${item}" label="${item.nome}" selected="selected"/>
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
  									</c:if>
  									<c:if test="${item.codigo ne produtoForm.marca.codigo}">
- 										<form:option value="${item}" label="${item.nome}"/>
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}"/>
  									</c:if>	
  								</c:forEach>
 				        	</form:select> 
