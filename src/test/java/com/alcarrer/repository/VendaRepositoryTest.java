@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alcarrer.entity.CaixaEntity;
 import com.alcarrer.entity.ClienteEntity;
-import com.alcarrer.entity.FormaDePagamentoEntity;
+import com.alcarrer.entity.FormasDePagamentoEntity;
 import com.alcarrer.entity.ProdutoEntity;
 import com.alcarrer.entity.VendaEntity;
 import com.alcarrer.entity.VendaHasProdutoEntity;
@@ -35,7 +35,7 @@ public class VendaRepositoryTest {
 		Date dataHoraAbertura = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2017-11-15 15:30:14.332");
 		Date dataHoraFechamento = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2017-11-15 15:30:14.332");
 		CaixaEntity caixa = new CaixaEntity(dataHoraAbertura, dataHoraFechamento, new Double(10), new Double(5), new Double(15), "open");
-		FormaDePagamentoEntity formaDePagamento = new FormaDePagamentoEntity("FormaDePagamento", "Descricao", 1);
+		FormasDePagamentoEntity formaDePagamento = new FormasDePagamentoEntity("FormaDePagamento", "Descricao", 1);
 		ClienteEntity cliente = new ClienteEntity();
 
 		VendaEntity venda = new VendaEntity();
