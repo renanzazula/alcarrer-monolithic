@@ -352,7 +352,7 @@
 						    	<form:option value="{}" label="Selecione"/>
 					 			<c:forEach items="${produtoForm.categorias}" var="item">
  									<c:if test="${item.codigo eq  produtoForm.categoria.codigo}">
- 										<form:option value="${item}" label="${item.nome}" selected="selected"/>
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
  									</c:if>
  									<c:if test="${item.codigo ne produtoForm.categoria.codigo}">
  										<form:option value="${item}" label="${item.codigo} - ${item.nome}"/>

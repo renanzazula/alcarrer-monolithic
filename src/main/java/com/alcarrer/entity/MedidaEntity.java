@@ -31,6 +31,7 @@ public class MedidaEntity implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "medida_codigo")
 	private Set<ItensTipoMedidaEntity> itensTipoMedida;
+	
 
 	public MedidaEntity() {
 
