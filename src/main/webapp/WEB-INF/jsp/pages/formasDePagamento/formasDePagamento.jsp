@@ -38,21 +38,12 @@
 </script>
  
 <form:form method="post" modelAttribute="formasDePagamentoForm" action="abrirFormasDePagamento" name="formasDePagamentoForm">
-	</br>
+	<br>
 	<fieldset>
 		<legend>Gerenciar FormasDePagamento</legend>
 		<ul class="form-style-1">
-			<c:if test="${formasDePagamentoForm.codigo != 0}">
-				<li>
-					<label>Codigo:<span class="required">*</span></label>
-					<form:input path="codigo" type="text" class="field-long"
-								  id="codigo" placeholder="codigo" disabled="true"/>
-								  
-					<form:hidden path="codigo"/> 			  
-				</li>
-			</c:if>
-			
-			<li>
+			<form:hidden path="codigo"/> 			  
+ 			<li>
 				<label>Nome:<span class="required">*</span></label>
 				<form:input path="nome" type="text" class="field-long"
 							  id="nome" placeholder="Nome"/>
@@ -83,10 +74,10 @@
 			<li class="text-align-right">
 				<input type="button" id="cancelarFormasDePagamento" value="Cancelar" />
 				
-				<c:if test="${formasDePagamentoForm.codigo == 0}">
+				<c:if test="${formasDePagamentoForm.codigo == null}">
 					<input type="button" id="incluirFormasDePagamento" value="Gravar" />
 				</c:if>
-				<c:if test="${formasDePagamentoForm.codigo != 0}">
+				<c:if test="${formasDePagamentoForm.codigo != null}">
 					<input type="button" id="excluirFormasDePagamento" value="Excluir" />
 					<input type="button" id="alterarFormasDePagamento" value="Alterar" />
 				</c:if>
@@ -95,5 +86,5 @@
 			
 		</ul>
 	</fieldset>	
-	</br>
+	<br>
 </form:form >

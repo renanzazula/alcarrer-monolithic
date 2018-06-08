@@ -45,7 +45,7 @@ public class VendaEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "formasDePagamento_codigo")
-	private FormaDePagamentoEntity formaDePagamento;
+	private FormasDePagamentoEntity formaDePagamento;
 	
 	@OneToMany
 	@JoinColumn(name = "venda_codigo")
@@ -103,11 +103,11 @@ public class VendaEntity implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public FormaDePagamentoEntity getFormaDePagamento() {
+	public FormasDePagamentoEntity getFormaDePagamento() {
 		return formaDePagamento;
 	}
 
-	public void setFormaDePagamento(FormaDePagamentoEntity formaDePagamento) {
+	public void setFormaDePagamento(FormasDePagamentoEntity formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
 	}
 

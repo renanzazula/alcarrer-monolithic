@@ -1,21 +1,40 @@
-package com.alcarrer.model;
+package com.alcarrer.entity;
 
 import java.io.Serializable;
 
-public class FormaDePagamento implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity(name = "formasDePagamento")
+public class FormasDePagamentoEntity implements Serializable {
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "codigo")
 	private Integer codigo;
+
+	@Column(name = "nome")
 	private String nome;
+
+	@Column(name = "descricao")
 	private String descricao;
+
+	@Column(name = "porcentagemDesconto")
 	private int porcentagemDesconto;
 
-	public FormaDePagamento() {
+	public FormasDePagamentoEntity() {
 		super();
 	}
 
-	public FormaDePagamento(String nome, String descricao, int porcentagemDesconto) {
+	public FormasDePagamentoEntity(String nome, String descricao, int porcentagemDesconto) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.porcentagemDesconto = porcentagemDesconto;

@@ -1,6 +1,7 @@
 package com.alcarrer.function;
 
 import com.alcarrer.function.jpa.CategoriaDTOtoCategoriaFunction;
+import com.alcarrer.function.jpa.FormasDePagamentoDTOtoFormasDePagamentoFunction;
 import com.alcarrer.function.jpa.FornecedorDTOtoFornecedorFunction;
 import com.alcarrer.function.jpa.ItensTipoMedidaDTOtoItensTipoMedidaFunction;
 import com.alcarrer.function.jpa.MarcaDTOtoMarcaFunction;
@@ -21,5 +22,5 @@ public class JpaFunctions {
 	public static final MedidaDTOtoMedidaFunction medidaDTOtoMedida = new MedidaDTOtoMedidaFunction();
 	public static final ItensTipoMedidaDTOtoItensTipoMedidaFunction itensTipoMedidaDTOtoItensTipoMedida = new ItensTipoMedidaDTOtoItensTipoMedidaFunction();
 	public static final ProdutoDTOtoProdutoFunction produtoDTOtoProduto = new ProdutoDTOtoProdutoFunction();
-
+	public static final FormasDePagamentoDTOtoFormasDePagamentoFunction formasDePagamentoDTOtoFormasDePagamento = new FormasDePagamentoDTOtoFormasDePagamentoFunction();
 }

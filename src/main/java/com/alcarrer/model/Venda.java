@@ -13,7 +13,7 @@ public class Venda implements Serializable {
 	private String status;
 	private Caixa caixa;
 	private Cliente cliente;
-	private FormaDePagamento formaDePagamento;
+	private FormasDePagamento formaDePagamento;
 	// private Set<VendaHasProduto> vendaHasProduto;
 
 	public Venda() {
@@ -68,11 +68,11 @@ public class Venda implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public FormaDePagamento getFormaDePagamento() {
+	public FormasDePagamento getFormaDePagamento() {
 		return formaDePagamento;
 	}
 
-	public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
+	public void setFormaDePagamento(FormasDePagamento formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
 	}
 
