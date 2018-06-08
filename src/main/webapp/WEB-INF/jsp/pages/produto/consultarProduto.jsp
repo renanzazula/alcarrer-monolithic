@@ -37,9 +37,44 @@
 	            tr.removeClass('shown');
 	        }
 	        else {
-	            // Open this row
-	            row.child( format(row.data()) ).show();
-	            tr.addClass('shown');
+	        	
+	        	var fieldsetInicio = '<fieldset><legend></legend><ul class="form-style-1"><li>';
+        		var fieldsetFim = '</li></ul></fieldset>';	
+	        	
+	        	var inicioTable = '<table class="display dataTable no-footer" border="0">'+
+			    						'<thead><tr><th>Tamanho</th><th>Descricao</th><th>Quantidade</th><th>Site</th></tr></thead><tbody>';
+				var	lines = '';
+				var finalTable = '</tbody></table>';
+	        	var codigo = '{"codigo":'+ row.data()[1] +'}';
+	        	$.ajax({
+	  				type : "POST",
+	  				contentType : "application/json",
+	  				url : "${home}ajaxConsultarItensMedidaByProdutoCodigo",
+	  				data : JSON.stringify(jQuery.parseJSON(codigo)),
+	  				dataType : 'json',
+	  				timeout : 100000,
+	  				success : function(data) {
+	  					console.log(data);
+	  					$.each(data, function(key, value) {
+	  						lines = lines +  '<tr><td>' + value.nome + '</td>';
+	  						lines = lines +  '<td>' + value.descricao +'</td>';
+	  						$.each(data[key].itensTipoMedida, function(i, item) {
+	  							lines = lines +  '<td>' + item.valor + '</td>';
+		  						lines = lines +  '<td>flagSite</td>';		  						
+	  						});
+	  						lines = lines + '</tr>';
+	  					});
+	  					// Open this row
+	  					//console.log(inicioTable + lines + finalTable);
+	  		            row.child(fieldsetInicio + inicioTable + lines + finalTable + fieldsetFim).show();
+	  		            tr.addClass('shown');
+	  				},
+	  				error : function(e) {
+	  	  				alert("Erro" + e);
+	  				},
+	  				done : function(e) {
+	   				}
+	  			});
 	        }
 	    } );
 		
@@ -48,48 +83,6 @@
 // 			$("#codigo").val($(this).closest('tr').children('td.cod').text());
 // 			$("form[name='produtoForm']").submit();
 // 		});
-		
-		/* Formatting function for row details - modify as you need */
-		function format ( d ) {
-			
-			var codigo = '{"codigo":'+ d[1] +'}';
-			var lines = "";
-			$.ajax({
-  				type : "POST",
-  				contentType : "application/json",
-  				url : "${home}ajaxConsultarItensMedidaByProdutoCodigo",
-  				data : JSON.stringify(jQuery.parseJSON(codigo)),
-  				dataType : 'json',
-  				timeout : 100000,
-  				success : function(data) {
-  					
-  					$.each(data, function(key, value) {
-  						lines = lines + '<tr>' + '<td>' + key + '-'+ value +'</td>'+ '</tr>';  					      
-  					});
-  				},
-  				error : function(e) {
-  	  				alert("Erro" + e);
-  				},
-  				done : function(e) {
-					// Chama itens medida por categoria	
-					
-   				}
-  			});
-			
-		    // `d` is the original data object for the row
-		    var table = '<table cellpadding="13" cellspacing="0" border="0" style="padding-left:50px;">'+
-		    	'<thead>'  + 
-			    	'<tr>' +
-			            '<td>Full name:</td>'+
-			        '</tr>'+
-		    	'</thead>' +
-		    	'<tbody>'  + 
-					lines +
-	    		'</tbody>' +
-		    '</table>';
-		    console.log(table);
-		    return table;
-		}
 	});
 </script>
 <form:form method="post" modelAttribute="produtoForm" action="abrirAlterarProduto" name="produtoForm">
