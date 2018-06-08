@@ -20,7 +20,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 
 @EnableWebMvc
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter  {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public UrlBasedViewResolver tilesViewResolver() {
@@ -41,32 +41,32 @@ public class WebConfig extends WebMvcConfigurerAdapter  {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/theme1/").setCachePeriod(31556926)
 				.resourceChain(true).addResolver(new PathResourceResolver());
 	}
-	
+
 	@Bean
 	public LocaleResolver localeResolver() {
-	    SessionLocaleResolver slr = new SessionLocaleResolver();
-	    Locale Locale = new Locale("pt", "BR");
-	    slr.setDefaultLocale(Locale);
-	    return slr;
+		SessionLocaleResolver slr = new SessionLocaleResolver();
+		Locale Locale = new Locale("pt", "BR");
+		slr.setDefaultLocale(Locale);
+		return slr;
 	}
-	
+
 	@Bean
 	public LocaleChangeInterceptor localeChangeInterceptor() {
-	    LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-	    lci.setParamName("lang");
-	    return lci;
+		LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+		lci.setParamName("lang");
+		return lci;
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
-	    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-	    messageSource.setBasename("classpath:messages");
-	    messageSource.setCacheSeconds(10); //reload messages every 10 seconds
-	    return messageSource;
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		messageSource.setCacheSeconds(10); // reload messages every 10 seconds
+		return messageSource;
 	}
-	
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-	    registry.addInterceptor(localeChangeInterceptor());
+		registry.addInterceptor(localeChangeInterceptor());
 	}
 }

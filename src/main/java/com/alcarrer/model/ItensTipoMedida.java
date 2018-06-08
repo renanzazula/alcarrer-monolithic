@@ -1,52 +1,19 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-@Entity(name = "itens_tipo_medida")
 public class ItensTipoMedida implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "codigo")
 	private Integer codigo;
-
-	@Column(name = "valor")
 	private String valor;
-
-//	@Nullable
-	@ManyToOne
-	@JoinColumn(name = "medida_codigo")
 	private Medida medida;
-
-	@ManyToOne
-	@JoinColumn(name = "marca_codigo")
 	private Marca marca;
-
-//	@Nullables
-	@ManyToOne
-	@JoinColumn(name = "categoria_codigo")
 	private Categoria categoria;
-
-	@ManyToOne
-	@JoinColumn(name = "sub_categoria_codigo")
 	private SubCategoria subCategoria;
 
-	@OneToMany
-	@JoinColumn(name = "itens_tipo_medida_codigo")
-	private Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida;
-	
+
 	public ItensTipoMedida() {
 
 	}
@@ -99,13 +66,4 @@ public class ItensTipoMedida implements Serializable {
 		this.categoria = categoria;
 	}
 
-//	public Set<ProdutoHasItensTipoMedida> getProdutoHasItensTipoMedida() {
-//		return produtoHasItensTipoMedida;
-//	}
-//
-//	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida) {
-//		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
-//	}
-
-	
 }

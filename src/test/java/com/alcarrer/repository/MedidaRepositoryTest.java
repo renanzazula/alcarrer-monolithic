@@ -10,11 +10,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.alcarrer.model.Categoria;
-import com.alcarrer.model.ItensTipoMedida;
-import com.alcarrer.model.Marca;
-import com.alcarrer.model.Medida;
-import com.alcarrer.model.SubCategoria;
+import com.alcarrer.entity.CategoriaEntity;
+import com.alcarrer.entity.ItensTipoMedidaEntity;
+import com.alcarrer.entity.MarcaEntity;
+import com.alcarrer.entity.MedidaEntity;
+import com.alcarrer.entity.SubCategoriaEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
@@ -29,23 +29,22 @@ public class MedidaRepositoryTest {
 	@Test
 	public void testSaveMedida() {
 
-		Medida medida = new Medida("medida", "Descricao");
-		Categoria categoria = new Categoria("categoria", "Descricao");
-		Marca marca = new Marca("nome", "Descricao");
-		SubCategoria subCategoria = new SubCategoria("nome", "Descricao");
+		MedidaEntity medida = new MedidaEntity("medida", "Descricao");
+		CategoriaEntity categoria = new CategoriaEntity("categoria", "Descricao");
+		MarcaEntity marca = new MarcaEntity("nome", "Descricao");
+		SubCategoriaEntity subCategoria = new SubCategoriaEntity("nome", "Descricao");
 
-		ItensTipoMedida itensTipoMedida = new ItensTipoMedida();
+		ItensTipoMedidaEntity itensTipoMedida = new ItensTipoMedidaEntity();
 		itensTipoMedida.setMedida(medida);
 		itensTipoMedida.setMarca(marca);
 		itensTipoMedida.setCategoria(categoria);
 		itensTipoMedida.setSubCategoria(subCategoria);
 
-		Set<ItensTipoMedida> itensTipoMedidaSet = new HashSet<ItensTipoMedida>();
+		Set<ItensTipoMedidaEntity> itensTipoMedidaSet = new HashSet<ItensTipoMedidaEntity>();
 		itensTipoMedidaSet.add(itensTipoMedida);
-
 		medida.setItensTipoMedida(itensTipoMedidaSet);
 
-		Medida objDB = entityManager.persist(medida);
+		MedidaEntity objDB = entityManager.persist(medida);
 //		Optional<Medida> optional = repository.findById(objDB.getCodigo());
 
 	}

@@ -2,7 +2,7 @@ package com.alcarrer.model;
 
 import java.io.Serializable;
 
-public class BreadCrumbVO implements Serializable{
+public class BreadCrumb implements Serializable{
 
 	/**
 	 * 
@@ -13,10 +13,10 @@ public class BreadCrumbVO implements Serializable{
 	private String texto;
 	private String last;
 
-	public BreadCrumbVO() {
+	public BreadCrumb() {
 	}
 
-	public BreadCrumbVO(String link, String texto, String last) {
+	public BreadCrumb(String link, String texto, String last) {
 		this.link = link;
 		this.texto = texto;
 		this.setLast(last);

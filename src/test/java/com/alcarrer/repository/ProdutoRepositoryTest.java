@@ -13,14 +13,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.alcarrer.model.Categoria;
-import com.alcarrer.model.Fornecedor;
-import com.alcarrer.model.ItensTipoMedida;
-import com.alcarrer.model.Marca;
-import com.alcarrer.model.Medida;
-import com.alcarrer.model.Produto;
-import com.alcarrer.model.ProdutoHasItensTipoMedida;
-import com.alcarrer.model.SubCategoria;
+import com.alcarrer.entity.CategoriaEntity;
+import com.alcarrer.entity.FornecedorEntity;
+import com.alcarrer.entity.ItensTipoMedidaEntity;
+import com.alcarrer.entity.MarcaEntity;
+import com.alcarrer.entity.MedidaEntity;
+import com.alcarrer.entity.ProdutoEntity;
+import com.alcarrer.entity.ProdutoHasItensTipoMedidaEntity;
+import com.alcarrer.entity.SubCategoriaEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
@@ -52,52 +52,52 @@ public class ProdutoRepositoryTest {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Marca marca = new Marca("marca", "descricao");
-		Fornecedor fornecedor = new Fornecedor("Fornecedor", "descricao");
-		Categoria categoria = new Categoria("Categoria", "descricao");
-		SubCategoria subCategoria = new SubCategoria("subCategoria", "descricao");
-		Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedidaSet = new HashSet<>();
+		MarcaEntity marca = new MarcaEntity("marca", "descricao");
+		FornecedorEntity fornecedor = new FornecedorEntity("Fornecedor", "descricao");
+		CategoriaEntity categoria = new CategoriaEntity("Categoria", "descricao");
+		SubCategoriaEntity subCategoria = new SubCategoriaEntity("subCategoria", "descricao");
+		Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedidaSet = new HashSet<>();
 
-		ItensTipoMedida itensTipoMedidaX = new ItensTipoMedida();
+		ItensTipoMedidaEntity itensTipoMedidaX = new ItensTipoMedidaEntity();
 		itensTipoMedidaX.setMarca(marca);
 		itensTipoMedidaX.setCategoria(categoria);
 		itensTipoMedidaX.setSubCategoria(subCategoria);
-		Medida medidaX = new Medida("X", "x");
+		MedidaEntity medidaX = new MedidaEntity("X", "x");
 
 		itensTipoMedidaX.setMedida(medidaX);
-		ProdutoHasItensTipoMedida produtoHasItensTipoMedidaX = new ProdutoHasItensTipoMedida();
+		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaX = new ProdutoHasItensTipoMedidaEntity();
 		produtoHasItensTipoMedidaX.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaX.setQuantidade(10);
 		produtoHasItensTipoMedidaX.setItensTipoMedida(itensTipoMedidaX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaX);
 
-		ItensTipoMedida itensTipoMedidaP = new ItensTipoMedida();
+		ItensTipoMedidaEntity itensTipoMedidaP = new ItensTipoMedidaEntity();
 		itensTipoMedidaP.setMarca(marca);
 		itensTipoMedidaP.setCategoria(categoria);
 		itensTipoMedidaP.setSubCategoria(subCategoria);
-		itensTipoMedidaP.setMedida(new Medida("P", "p"));
-		ProdutoHasItensTipoMedida produtoHasItensTipoMedidaP = new ProdutoHasItensTipoMedida();
+		itensTipoMedidaP.setMedida(new MedidaEntity("P", "p"));
+		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaP = new ProdutoHasItensTipoMedidaEntity();
 		produtoHasItensTipoMedidaP.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaP.setQuantidade(10);
 		produtoHasItensTipoMedidaP.setItensTipoMedida(itensTipoMedidaP);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaP);
 
-		ItensTipoMedida itensTipoMedidaXX = new ItensTipoMedida();
+		ItensTipoMedidaEntity itensTipoMedidaXX = new ItensTipoMedidaEntity();
 		itensTipoMedidaXX.setMarca(marca);
 		itensTipoMedidaXX.setCategoria(categoria);
 		itensTipoMedidaXX.setSubCategoria(subCategoria);
-		itensTipoMedidaXX.setMedida(new Medida("XX", "xx"));
-		ProdutoHasItensTipoMedida produtoHasItensTipoMedidaXX = new ProdutoHasItensTipoMedida();
+		itensTipoMedidaXX.setMedida(new MedidaEntity("XX", "xx"));
+		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaXX = new ProdutoHasItensTipoMedidaEntity();
 		produtoHasItensTipoMedidaXX.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaXX.setQuantidade(10);
 		produtoHasItensTipoMedidaXX.setItensTipoMedida(itensTipoMedidaXX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaXX);
 
-		Produto obj = new Produto(nome, status, descricao, preco, precoVenda, precoCusto, precoOferta, desconto, peso,
+		ProdutoEntity obj = new ProdutoEntity(nome, status, descricao, preco, precoVenda, precoCusto, precoOferta, desconto, peso,
 				porcentagem, porcentagemDesconto, dataHoraCadastro, marca, fornecedor, categoria, subCategoria,
 				produtoHasItensTipoMedidaSet);
 
-		Produto objDB = entityManager.persist(obj);
+		ProdutoEntity objDB = entityManager.persist(obj);
 //		Optional<Produto> optional = repository.findById(objDB.getCodigo());
 
 //		optional.get().getProdutoHasItensTipoMedida()

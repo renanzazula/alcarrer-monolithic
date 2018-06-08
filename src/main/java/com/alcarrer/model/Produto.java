@@ -2,86 +2,35 @@ package com.alcarrer.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity(name = "produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "codigo", updatable = false, nullable = false)
 	private Integer codigo;
-
-	@Column(name = "nome")
+	private String barCode;
 	private String nome;
-
-	@Column(name = "status")
 	private String status;
-
-	@Column(name = "descricao")
 	private String descricao;
-
-	@Column(name = "preco")
 	private Double preco;
-
-	@Column(name = "precoVenda")
 	private Double precoVenda;
-
-	@Column(name = "precoCusto")
 	private Double precoCusto;
-
-	@Column(name = "precoOferta")
 	private Double precoOferta;
-
-	@Column(name = "desconto")
 	private Double desconto;
-
-	@Column(name = "peso")
 	private Double peso;
-
-	@Column(name = "porcentagem")
 	private Integer porcentagem;
-
-	@Column(name = "porcentagemDesconto")
 	private Integer porcentagemDesconto;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "dataHoraCadastro")
 	private Date dataHoraCadastro;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "marca_codigo")
 	private Marca marca;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fornecedor_codigo")
 	private Fornecedor fornecedor;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "categoria_codigo")
 	private Categoria categoria;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "sub_categoria_codigo")
 	private SubCategoria subCategoria;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "produto_codigo")
-	private Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida;
+	private List<Categoria> categorias;
+	private List<SubCategoria> subCategorias;
+	private List<Medida> itensMedida;
+	private List<Fornecedor> fornecedores;
+	private List<Marca> marcas;
 
 	public Produto() {
 
@@ -89,8 +38,9 @@ public class Produto implements Serializable {
 
 	public Produto(String nome, String status, String descricao, Double preco, Double precoVenda, Double precoCusto,
 			Double precoOferta, Double desconto, Double peso, Integer porcentagem, Integer porcentagemDesconto,
-			Date dataHoraCadastro, Marca marca, Fornecedor fornecedor, Categoria categoria, SubCategoria subCategoria,
-			Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida) {
+			Date dataHoraCadastro, Marca marca, Fornecedor fornecedor, Categoria categoria, SubCategoria subCategoria
+
+	) {
 		super();
 
 		this.nome = nome;
@@ -109,7 +59,7 @@ public class Produto implements Serializable {
 		this.fornecedor = fornecedor;
 		this.categoria = categoria;
 		this.subCategoria = subCategoria;
-		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
+
 	}
 
 	public Integer getCodigo() {
@@ -248,12 +198,52 @@ public class Produto implements Serializable {
 		this.subCategoria = subCategoria;
 	}
 
-	public Set<ProdutoHasItensTipoMedida> getProdutoHasItensTipoMedida() {
-		return produtoHasItensTipoMedida;
+	public List<Fornecedor> getFornecedores() {
+		return fornecedores;
 	}
 
-	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida) {
-		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+
+	public List<Marca> getMarcas() {
+		return marcas;
+	}
+
+	public void setMarcas(List<Marca> marcas) {
+		this.marcas = marcas;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<SubCategoria> getSubCategorias() {
+		return subCategorias;
+	}
+
+	public void setSubCategorias(List<SubCategoria> subCategorias) {
+		this.subCategorias = subCategorias;
+	}
+
+	public List<Medida> getItensMedida() {
+		return itensMedida;
+	}
+
+	public void setItensMedida(List<Medida> itensMedida) {
+		this.itensMedida = itensMedida;
+	}
+
+	public String getBarCode() {
+		return barCode;
+	}
+
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
 	}
 
 }
