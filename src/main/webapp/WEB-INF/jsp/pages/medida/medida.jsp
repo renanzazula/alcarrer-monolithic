@@ -26,7 +26,7 @@
 			var table = $('#tableMedida').DataTable();
 			var data = table.rows().data();
 			for (var i=0; i < data.length ;i++){
-				$("form[name='medidaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="itensMedida['+i+'].valor"/>');
+				$("form[name='medidaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="itensTipoMedida['+i+'].valor"/>');
 			}
 			$("form[name='medidaForm']").submit();
 		});		
@@ -36,7 +36,7 @@
 			var table = $('#tableMedida').DataTable();
 			var data = table.rows().data();
 			for (var i=0; i < data.length ;i++){
-				$("form[name='medidaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="itensMedida['+i+'].valor"/>');
+				$("form[name='medidaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="itensTipoMedida['+i+'].valor"/>');
 			}
 			$("form[name='medidaForm']").submit();
 		});	
@@ -112,17 +112,8 @@
 	<fieldset>
 		<legend>Gerenciar Medida</legend>
 		<ul class="form-style-1">
-			<c:if test="${medidaForm.codigo != 0}">
-				<li>
-					<label>Codigo:<span class="required">*</span></label>
-					<form:input path="codigo" type="text" class="field-long"
-								  id="codigo" placeholder="codigo" disabled="true"/>
-								  
-					<form:hidden path="codigo"/> 			  
-				</li>
-			</c:if>
-			
-			<li>
+			<form:hidden path="codigo"/> 			  
+	 		<li>
 				<label>Nome:<span class="required">*</span></label>
 				<form:input path="nome" type="text" class="field-long"
 							  id="nome" placeholder="Nome"/>
@@ -209,7 +200,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${medidaForm.itensMedida}" var="i">
+								<c:forEach items="${medidaForm.itensTipoMedida}" var="i">
 									<tr>
 										<td class="cod">${i.valor}</td>
 									</tr>
@@ -224,10 +215,10 @@
 			<li class="text-align-right">
 				<input type="button" id="cancelarMedida" value="Cancelar" />
 				
-				<c:if test="${medidaForm.codigo == 0}">
+				<c:if test="${medidaForm.codigo == null}">
 					<input type="button" id="incluirMedida" value="Gravar" />
 				</c:if>
-				<c:if test="${medidaForm.codigo != 0}">
+				<c:if test="${medidaForm.codigo != null}">
 					<input type="button" id="excluirMedida" value="Excluir" />
 					<input type="button" id="alterarMedida" value="Alterar" />
 				</c:if>

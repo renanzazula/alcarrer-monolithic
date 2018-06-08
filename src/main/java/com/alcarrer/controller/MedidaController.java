@@ -122,11 +122,11 @@ public class MedidaController {
 	}
 
 	private Medida carregaMedida(Medida medida) {
-//		medida.setMarcas(marcaService.consultar());
-//		medida.setCategorias(categoriaService.consultar());
-//		if (medida.getCategoria() != null) {
-//			medida.setSubCategorias(categoriaService.consultarByCodigo(medida.getCategoria()).getSubCategorias());
-//		}
+		medida.setMarcas(marcaService.consultar());
+		medida.setCategorias(categoriaService.consultar());
+		if (medida.getCategoria() != null) {
+			medida.setSubCategorias(categoriaService.consultarByCodigo(medida.getCategoria()).getSubCategorias());
+		}
 		return medida;
 	}
 
