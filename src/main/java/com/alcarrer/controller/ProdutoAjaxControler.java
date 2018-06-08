@@ -48,5 +48,11 @@ public class ProdutoAjaxControler {
     public List<Medida> ajaxConsultarItensMedidaByCategoria(@RequestBody Produto produto) {
   		return  medidaService.consultarByCategoriaSubCategoriaMarca(produto);
 	}
-	
+  	
+  	@ResponseBody
+	@RequestMapping(value = "/ajaxConsultarItensMedidaByProdutoCodigo")
+  	public List<Medida> ajaxConsultarItensMedidaByProdutoCodigo(@RequestBody Produto produto){
+  		Produto produtoDB = produtoService.consultarByCodigo(produto);
+  		return medidaService.consultarByCategoriaSubCategoriaMarca(produtoDB);
+  	}
 }

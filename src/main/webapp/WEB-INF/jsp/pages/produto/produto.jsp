@@ -153,11 +153,10 @@
 					$.each(data, function(key, value) {
 						var inputHidden = "<input type='text' name='itensMedida["+key +"].codigo' value='"+value.codigo+"'/>";
 						$("#hiddensInput").append(inputHidden);
-						var input = "<input type='text' name='itensMedida["+key +"].quantidade' value='0'/>";
+						var input = "<input type='text' name='itensMedida["+key +"].quantidade' value='" + 1 +" '/>";
 						var check = "<input type='checkbox' name='itensMedida["+key +"].flagSite'/>";
-						table.row.add([value.valor, preco, input, peso, check]).draw(false);
+						table.row.add([value.itensTipoMedida[key].valor, preco, input, peso, check]).draw(false);
 					});
-
 					
 				display(data)
 			},
@@ -323,7 +322,7 @@
 					</ul>
 				</fieldset>
 		
-				</br>			
+				<br>			
 		
 				<!-- De acordo com os filtros abaixo serão apresentados os tipos de medidas para cadastrar -->
 				<fieldset>
@@ -401,46 +400,44 @@
 										${produtoForm.itensMedida[0].nome}
 									</c:if>
 								</legend>
-								<li>
 									<ul class="form-style-1">									
-										<table id="tableMedida" class="display" cellspacing="0" width="98%">
-											<thead>
-												<tr>
-													<th>Opção</th>
-													<th>Preço</th>
-													<th>Inventário</th>
-													<th>Peso</th>
-													<th>Flag Site</th>							 
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach items="${produtoForm.itensMedida}" var="item" varStatus="loop">
+										<li>
+											<table id="tableMedida" class="display" style="width:98%">
+												<thead>
 													<tr>
-														<td class="valor">${item.valor}</td>
-														<td class="precoVenda">&euro; ${produtoForm.precoVenda}</td>
-														<td class="quantidade"><input type="text" name="itensMedida[${loop.index}].quantidade" value="${item.quantidade}"/></td>
-														<td class="peso">${produtoForm.peso} kg</td>
-														<td class="flagSite">
-															<c:if test="${item.flagSite eq true}">
-																<input type="checkbox" name="itensMedida[${loop.index}].flagSite" checked="${item.flagSite}"/>
-															</c:if>
-															<c:if test="${item.flagSite eq false}">
-																<input type="checkbox" name="itensMedida[${loop.index}].flagSite"/>
-															</c:if>
-														</td>
+														<th>Opção</th>
+														<th>Preço</th>
+														<th>Inventário</th>
+														<th>Peso</th>
+														<th>Flag Site</th>							 
 													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
-									</lu>
-								</li>
+												</thead>
+												<tbody>
+													<c:forEach items="${produtoForm.itensMedida}" var="item" varStatus="loop">
+														<tr>
+															<td class="valor">${item.valor}</td>
+															<td class="precoVenda">&euro; ${produtoForm.precoVenda}</td>
+															<td class="quantidade"><input type="text" name="itensMedida[${loop.index}].quantidade" value="${item.quantidade}"/></td>
+															<td class="peso">${produtoForm.peso} kg</td>
+															<td class="flagSite">
+																<c:if test="${item.flagSite eq true}">
+																	<input type="checkbox" name="itensMedida[${loop.index}].flagSite" checked="${item.flagSite}"/>
+																</c:if>
+																<c:if test="${item.flagSite eq false}">
+																	<input type="checkbox" name="itensMedida[${loop.index}].flagSite"/>
+																</c:if>
+															</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>	
+										</li>
+									</ul>
 							</fieldset>
  						</li>
 					</ul>
 				</fieldset>
-				
-				</br>
-		
+				<br>
 				<fieldset>
 					<legend></legend>
 					<ul class="form-style-1">
@@ -460,8 +457,7 @@
 			</li>
 		</ul>
 	</fieldset>
-	</br>
-	
+	<br>
 	<div id="feedback"></div>
 	<div id="hiddensInput">
 		<c:forEach items="${produtoForm.itensMedida}" var="item" varStatus="loop">

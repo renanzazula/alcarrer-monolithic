@@ -26,7 +26,8 @@ public class Produto implements Serializable {
 	private Fornecedor fornecedor;
 	private Categoria categoria;
 	private SubCategoria subCategoria;
-
+	
+	
 	private List<Categoria> categorias;
 	private List<SubCategoria> subCategorias;
 	private List<Medida> itensMedida;
