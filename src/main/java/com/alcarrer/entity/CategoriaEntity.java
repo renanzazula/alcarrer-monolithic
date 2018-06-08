@@ -32,7 +32,7 @@ public class CategoriaEntity implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	@JoinTable( name = "categoria_has_sub_categoria", joinColumns = {
 		@JoinColumn(name = "categoria_codigo",     nullable = false, updatable = false, referencedColumnName="codigo" ) }, 
 		inverseJoinColumns = {

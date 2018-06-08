@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
@@ -26,8 +25,7 @@ public class Produto implements Serializable {
 	private Fornecedor fornecedor;
 	private Categoria categoria;
 	private SubCategoria subCategoria;
-	
-	
+
 	private List<Categoria> categorias;
 	private List<SubCategoria> subCategorias;
 	private List<Medida> itensMedida;
@@ -42,7 +40,7 @@ public class Produto implements Serializable {
 			Double precoOferta, Double desconto, Double peso, Integer porcentagem, Integer porcentagemDesconto,
 			Date dataHoraCadastro, Marca marca, Fornecedor fornecedor, Categoria categoria, SubCategoria subCategoria
 
-			) {
+	) {
 		super();
 
 		this.nome = nome;

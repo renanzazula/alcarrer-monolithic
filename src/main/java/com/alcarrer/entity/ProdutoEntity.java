@@ -19,7 +19,11 @@ import javax.persistence.TemporalType;
 @Entity(name = "produto")
 public class ProdutoEntity implements Serializable {
 
-	private static final long serialVersionUID = -6612762288260227887L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2203862074139518315L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

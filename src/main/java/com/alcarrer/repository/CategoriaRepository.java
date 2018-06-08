@@ -7,5 +7,5 @@ import com.alcarrer.entity.CategoriaEntity;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<CategoriaEntity, Integer> {
-
+	
 }
