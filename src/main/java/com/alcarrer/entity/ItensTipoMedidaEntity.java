@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,28 +26,26 @@ public class ItensTipoMedidaEntity implements Serializable {
 	@Column(name = "valor")
 	private String valor;
 
-//	@Nullable
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "medida_codigo")
 	private MedidaEntity medida;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "marca_codigo")
 	private MarcaEntity marca;
 
-//	@Nullables
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria_codigo")
 	private CategoriaEntity categoria;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "sub_categoria_codigo")
 	private SubCategoriaEntity subCategoria;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "itens_tipo_medida_codigo")
 	private Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida;
-	
+
 	public ItensTipoMedidaEntity() {
 
 	}
@@ -99,13 +98,4 @@ public class ItensTipoMedidaEntity implements Serializable {
 		this.categoria = categoria;
 	}
 
-//	public Set<ProdutoHasItensTipoMedida> getProdutoHasItensTipoMedida() {
-//		return produtoHasItensTipoMedida;
-//	}
-//
-//	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida) {
-//		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
-//	}
-
-	
 }

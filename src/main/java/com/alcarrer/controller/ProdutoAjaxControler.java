@@ -39,8 +39,8 @@ public class ProdutoAjaxControler {
 	@RequestMapping(value = "/addicionarProduto")
     public Produto addicionarProduto(@RequestBody Produto produto) {
   		Produto produtoDB = produtoService.consultarByCodigo(produto);
-  		produtoDB.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
-  		return  produto;
+  		//produtoDB.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
+  		return  produtoDB;
 	}
   	
   	@ResponseBody

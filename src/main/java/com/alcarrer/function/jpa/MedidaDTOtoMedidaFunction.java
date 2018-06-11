@@ -15,9 +15,9 @@ public class MedidaDTOtoMedidaFunction implements Function<MedidaEntity, Medida>
 		output.setCodigo(input.getCodigo());
 		output.setNome(input.getNome());
 		output.setDescricao(input.getDescricao());
+		
 		if (input.getItensTipoMedida() != null) {
-			output.setItensTipoMedida(input.getItensTipoMedida().stream()
-					.map(JpaFunctions.itensTipoMedidaDTOtoItensTipoMedida).collect(Collectors.toList()));
+			output.setItensTipoMedida(input.getItensTipoMedida().stream().map(JpaFunctions.itensTipoMedidaDTOtoItensTipoMedida).collect(Collectors.toList()));
 		}
 		return output;
 	}

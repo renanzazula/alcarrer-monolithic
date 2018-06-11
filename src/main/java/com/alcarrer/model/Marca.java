@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.alcarrer.enums.Status;
 
-
 public class Marca implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
@@ -13,9 +12,14 @@ public class Marca implements Serializable {
 	private String nome;
 	private String descricao;
 	private Status status;
-	
+
 	public Marca() {
 
+	}
+
+	public Marca(Integer codigo) {
+		super();
+		this.codigo = codigo;
 	}
 
 	public Marca(String nome, String descricao) {

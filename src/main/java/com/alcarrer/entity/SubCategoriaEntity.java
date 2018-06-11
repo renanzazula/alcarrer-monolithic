@@ -34,6 +34,11 @@ public class SubCategoriaEntity implements Serializable {
 
 	}
 
+	public SubCategoriaEntity(Integer codigo) {
+		this.codigo = codigo;
+	}
+	
+	
 	public SubCategoriaEntity(String nome, String descricao) {
 		super();
 		this.nome = nome;

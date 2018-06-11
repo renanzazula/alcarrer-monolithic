@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	@Column(name = "quantidade")
 	private Integer quantidade;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "itens_tipo_medida_codigo")
 	private ItensTipoMedidaEntity itensTipoMedida;
 	

@@ -21,17 +21,19 @@ public class Produto implements Serializable {
 	private Integer porcentagem;
 	private Integer porcentagemDesconto;
 	private Date dataHoraCadastro;
-	private Marca marca;
+	
 	private Fornecedor fornecedor;
 	private Categoria categoria;
 	private SubCategoria subCategoria;
-
+	private Marca marca;
+	
+	private List<Fornecedor> fornecedores;
 	private List<Categoria> categorias;
 	private List<SubCategoria> subCategorias;
-	private List<Medida> itensMedida;
-	private List<Fornecedor> fornecedores;
 	private List<Marca> marcas;
 
+	private List<ItensTipoMedida> itensMedida;
+	
 	public Produto() {
 
 	}
@@ -230,20 +232,20 @@ public class Produto implements Serializable {
 		this.subCategorias = subCategorias;
 	}
 
-	public List<Medida> getItensMedida() {
-		return itensMedida;
-	}
-
-	public void setItensMedida(List<Medida> itensMedida) {
-		this.itensMedida = itensMedida;
-	}
-
 	public String getBarCode() {
 		return barCode;
 	}
 
 	public void setBarCode(String barCode) {
 		this.barCode = barCode;
+	}
+
+	public List<ItensTipoMedida> getItensMedida() {
+		return itensMedida;
+	}
+
+	public void setItensMedida(List<ItensTipoMedida> itensMedida) {
+		this.itensMedida = itensMedida;
 	}
 
 }

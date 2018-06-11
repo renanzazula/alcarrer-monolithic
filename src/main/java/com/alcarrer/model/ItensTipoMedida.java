@@ -13,7 +13,6 @@ public class ItensTipoMedida implements Serializable {
 	private Categoria categoria;
 	private SubCategoria subCategoria;
 
-
 	public ItensTipoMedida() {
 
 	}

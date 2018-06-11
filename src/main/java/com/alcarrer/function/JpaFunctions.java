@@ -23,4 +23,5 @@ public class JpaFunctions {
 	public static final ItensTipoMedidaDTOtoItensTipoMedidaFunction itensTipoMedidaDTOtoItensTipoMedida = new ItensTipoMedidaDTOtoItensTipoMedidaFunction();
 	public static final ProdutoDTOtoProdutoFunction produtoDTOtoProduto = new ProdutoDTOtoProdutoFunction();
 	public static final FormasDePagamentoDTOtoFormasDePagamentoFunction formasDePagamentoDTOtoFormasDePagamento = new FormasDePagamentoDTOtoFormasDePagamentoFunction();
+	
 }

@@ -188,7 +188,7 @@ public class ProdutoController {
 		produto.setFornecedores(fornecedorService.consultar());
 		produto.setMarcas(marcaService.consultar());
 		produto.setCategorias(categoriaService.consultar());
-		produto.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
+		// produto.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
 		if(produto.getCategoria() != null) {
 			produto.setSubCategorias(categoriaService.consultarByCodigo(produto.getCategoria()).getSubCategorias());
 		}

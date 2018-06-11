@@ -13,6 +13,7 @@ import com.alcarrer.model.Produto;
 import com.alcarrer.repository.CategoriaRepository;
 import com.alcarrer.repository.FornecedorRepository;
 import com.alcarrer.repository.MarcaRepository;
+import com.alcarrer.repository.MedidaRepository;
 import com.alcarrer.repository.ProdutoRepository;
 import com.alcarrer.repository.SubCategoriaRepository;
 
@@ -33,6 +34,9 @@ public class ProdutoServiceImpl implements ProdutoService {
 	
 	@Autowired
 	private SubCategoriaRepository subCategoriaRepository;
+	
+	@Autowired 
+	private MedidaRepository medidaRepository;
 	
 	@Override
 	@Transactional
@@ -68,7 +72,6 @@ public class ProdutoServiceImpl implements ProdutoService {
 		if(produto.getSubCategoria().getCodigo() != null) {
 			produtoDB.setSubCategoria(subCategoriaRepository.findOne(produto.getSubCategoria().getCodigo()));
 		}
-		
 		// TODO: itens medida produto 
 		
 		return JpaFunctions.produtoDTOtoProduto.apply(produtoRepository.saveAndFlush(produtoDB));
