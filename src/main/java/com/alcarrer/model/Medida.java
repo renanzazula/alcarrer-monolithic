@@ -3,7 +3,6 @@ package com.alcarrer.model;
 import java.io.Serializable;
 import java.util.List;
 
-
 public class Medida implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
@@ -11,6 +10,12 @@ public class Medida implements Serializable {
 	private Integer codigo;
 	private String nome;
 	private String descricao;
+	private Marca marca;
+	private Categoria categoria;
+	private SubCategoria subCategoria;
+	private List<Categoria> categorias;
+	private List<SubCategoria> subCategorias;
+	private List<Marca> marcas;
 	private List<ItensTipoMedida> itensTipoMedida;
 
 	public Medida() {
@@ -55,4 +60,54 @@ public class Medida implements Serializable {
 		this.itensTipoMedida = itensTipoMedida;
 	}
 
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<Marca> getMarcas() {
+		return marcas;
+	}
+
+	public void setMarcas(List<Marca> marcas) {
+		this.marcas = marcas;
+	}
+
+	public Marca getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public SubCategoria getSubCategoria() {
+		return subCategoria;
+	}
+
+	public void setSubCategoria(SubCategoria subCategoria) {
+		this.subCategoria = subCategoria;
+	}
+
+	public List<SubCategoria> getSubCategorias() {
+		return subCategorias;
+	}
+
+	public void setSubCategorias(List<SubCategoria> subCategorias) {
+		this.subCategorias = subCategorias;
+	}
+
+	
+	
 }
