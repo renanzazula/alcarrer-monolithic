@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alcarrer.model.Categoria;
 import com.alcarrer.model.Medida;
 import com.alcarrer.model.Produto;
+import com.alcarrer.model.ProdutoHasItensTipoMedida;
 import com.alcarrer.model.SubCategoria;
 import com.alcarrer.service.categoria.CategoriaService;
 import com.alcarrer.service.medida.MedidaService;
@@ -51,8 +52,8 @@ public class ProdutoAjaxControler {
   	
   	@ResponseBody
 	@RequestMapping(value = "/ajaxConsultarItensMedidaByProdutoCodigo")
-  	public List<Medida> ajaxConsultarItensMedidaByProdutoCodigo(@RequestBody Produto produto){
+  	public List<ProdutoHasItensTipoMedida> ajaxConsultarItensMedidaByProdutoCodigo(@RequestBody Produto produto){
   		Produto produtoDB = produtoService.consultarByCodigo(produto);
-  		return medidaService.consultarByCategoriaSubCategoriaMarca(produtoDB);
+  		return produtoDB.getProdutoHasItensTipoMedida();
   	}
 }

@@ -46,9 +46,9 @@
 		$('#tableConsulta tbody').on('click', 'tr', function() {
 			$(this).toggleClass('selected');
 			var codigo = null;
-			if( $(this).closest('tr').children('td').attr('id') != null){
-				codigo = $(this).closest('tr').attr('id');
-			}else if($(this).closest('tr').attr('id') != null){
+			if( $(this).closest('tr').children('td').attr('id') != 'undefined'){
+				codigo = $(this).closest('tr').children('td').attr('id');
+			}else if($(this).closest('tr').attr('id') != 'undefined'){
 				codigo = $(this).closest('tr').attr('id');
 			}
 			$("#codigo").val(codigo);	

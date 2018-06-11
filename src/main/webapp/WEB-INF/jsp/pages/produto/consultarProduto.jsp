@@ -42,7 +42,7 @@
         		var fieldsetFim = '</li></ul></fieldset>';	
 	        	
 	        	var inicioTable = '<table class="display dataTable no-footer" border="0">'+
-			    						'<thead><tr><th>Tamanho</th><th>Descricao</th><th>Quantidade</th><th>Site</th></tr></thead><tbody>';
+			    						'<thead><tr><th>Tamanho</th><th>Quantidade</th><th>Site</th></tr></thead><tbody>';
 				var	lines = '';
 				var finalTable = '</tbody></table>';
 	        	var codigo = '{"codigo":'+ row.data()[1] +'}';
@@ -56,16 +56,14 @@
 	  				success : function(data) {
 	  					console.log(data);
 	  					$.each(data, function(key, value) {
-	  						lines = lines +  '<tr><td>' + value.nome + '</td>';
-	  						lines = lines +  '<td>' + value.descricao +'</td>';
-	  						$.each(data[key].itensTipoMedida, function(i, item) {
-	  							lines = lines +  '<td>' + item.valor + '</td>';
-		  						lines = lines +  '<td>flagSite</td>';		  						
-	  						});
+  							lines = lines +  '<tr>';
+	  							lines = lines +  '<td>' + data[key].itensTipoMedida.valor + '</td>';
+		  						lines = lines +  '<td>' + data[key].quantidade + '</td>';
+		  						lines = lines +  '<td>flagSite</td>';
 	  						lines = lines + '</tr>';
 	  					});
 	  					// Open this row
-	  					//console.log(inicioTable + lines + finalTable);
+	  					console.log(inicioTable + lines + finalTable);
 	  		            row.child(fieldsetInicio + inicioTable + lines + finalTable + fieldsetFim).show();
 	  		            tr.addClass('shown');
 	  				},
@@ -134,7 +132,7 @@
 									<td>${i.precoVenda}</td>					 
 									<td>${i.desconto}</td>			 
 									<td>${i.precoOferta}</td>					 
-									<td>{i.quantidade}</td>					 
+									<td>${i.quantidadeTotalEstoque}</td>					 
 									<td>${i.marca.nome}</td>					 
 									<td>${i.categoria.nome}</td>
 									<td>${i.subCategoria.nome}</td>					 

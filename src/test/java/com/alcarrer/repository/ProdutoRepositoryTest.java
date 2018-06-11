@@ -29,8 +29,7 @@ public class ProdutoRepositoryTest {
 	@Autowired
 	private TestEntityManager entityManager;
 
-	@Autowired
-	private ProdutoRepository repository;
+
 
 	@Test
 	public void testSaveProduto() {
@@ -68,7 +67,7 @@ public class ProdutoRepositoryTest {
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaX = new ProdutoHasItensTipoMedidaEntity();
 		produtoHasItensTipoMedidaX.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaX.setQuantidade(10);
-		produtoHasItensTipoMedidaX.setItensTipoMedida(itensTipoMedidaX);
+//		produtoHasItensTipoMedidaX.setItensTipoMedida(itensTipoMedidaX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaX);
 
 		ItensTipoMedidaEntity itensTipoMedidaP = new ItensTipoMedidaEntity();
@@ -79,7 +78,7 @@ public class ProdutoRepositoryTest {
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaP = new ProdutoHasItensTipoMedidaEntity();
 		produtoHasItensTipoMedidaP.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaP.setQuantidade(10);
-		produtoHasItensTipoMedidaP.setItensTipoMedida(itensTipoMedidaP);
+//		produtoHasItensTipoMedidaP.setItensTipoMedida(itensTipoMedidaP);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaP);
 
 		ItensTipoMedidaEntity itensTipoMedidaXX = new ItensTipoMedidaEntity();
@@ -90,7 +89,7 @@ public class ProdutoRepositoryTest {
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaXX = new ProdutoHasItensTipoMedidaEntity();
 		produtoHasItensTipoMedidaXX.setFlagSite("flagSite");
 		produtoHasItensTipoMedidaXX.setQuantidade(10);
-		produtoHasItensTipoMedidaXX.setItensTipoMedida(itensTipoMedidaXX);
+//		produtoHasItensTipoMedidaXX.setItensTipoMedida(itensTipoMedidaXX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaXX);
 
 		ProdutoEntity obj = new ProdutoEntity(nome, status, descricao, preco, precoVenda, precoCusto, precoOferta, desconto, peso,

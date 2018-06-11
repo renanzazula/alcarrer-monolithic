@@ -27,18 +27,18 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	@Column(name = "quantidade")
 	private Integer quantidade;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "itens_tipo_medida_codigo")
 	private ItensTipoMedidaEntity itensTipoMedida;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "produto_codigo") 
+	@JoinColumn(name = "produto_codigo")
 	private ProdutoEntity produto;
-	
+
 	public ProdutoHasItensTipoMedidaEntity() {
 
 	}
-	
+
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -63,14 +63,6 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public ItensTipoMedidaEntity getItensTipoMedida() {
-		return itensTipoMedida;
-	}
-
-	public void setItensTipoMedida(ItensTipoMedidaEntity itensTipoMedida) {
-		this.itensTipoMedida = itensTipoMedida;
-	}
-
 	public ProdutoEntity getProduto() {
 		return produto;
 	}
@@ -79,6 +71,12 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 		this.produto = produto;
 	}
 
-	  
+	public ItensTipoMedidaEntity getItensTipoMedida() {
+		return itensTipoMedida;
+	}
+
+	public void setItensTipoMedida(ItensTipoMedidaEntity itensTipoMedida) {
+		this.itensTipoMedida = itensTipoMedida;
+	}
 
 }

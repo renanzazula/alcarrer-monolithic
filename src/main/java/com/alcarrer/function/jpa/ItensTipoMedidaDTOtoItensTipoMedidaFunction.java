@@ -13,7 +13,7 @@ public class ItensTipoMedidaDTOtoItensTipoMedidaFunction implements Function<Ite
 		ItensTipoMedida output = new ItensTipoMedida();
 		output.setCodigo(input.getCodigo());
 		output.setValor(input.getValor());
-
+		
 		if (input.getCategoria() != null) {
 			output.setCategoria(JpaFunctions.categoriaDTOtoCategoria.apply(input.getCategoria()));
 		}

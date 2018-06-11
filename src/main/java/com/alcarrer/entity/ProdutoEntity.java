@@ -133,6 +133,14 @@ public class ProdutoEntity implements Serializable {
 		this.codigo = codigo;
 	}
 
+	public String getBarCode() {
+		return barCode;
+	}
+
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -268,13 +276,7 @@ public class ProdutoEntity implements Serializable {
 	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida) {
 		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
 	}
- 
-	public String getBarCode() {
-		return barCode;
-	}
 
-	public void setBarCode(String barCode) {
-		this.barCode = barCode;
-	}
+	 
 
 }

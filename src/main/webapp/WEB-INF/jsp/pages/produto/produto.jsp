@@ -150,8 +150,8 @@
 					var preco = $("#precoVenda").val();
 					var peso = $("#peso").val();
 
-					$.each(data, function(key, value) {
-						var inputHidden = "<input type='text' name='itensMedida["+key +"].codigo' value='"+value.codigo+"'/>";
+					$.each(data, function(key, value) {         
+						var inputHidden = "<input type='text' name='itensMedida["+ key +"].codigo' value='"+value.itensTipoMedida[key].codigo+"'/>";
 						$("#hiddensInput").append(inputHidden);
 						var input = "<input type='text' name='itensMedida["+key +"].quantidade' value='" + 1 +" '/>";
 						var check = "<input type='checkbox' name='itensMedida["+key +"].flagSite'/>";
@@ -415,10 +415,19 @@
 												<tbody>
 													<c:forEach items="${produtoForm.itensMedida}" var="item" varStatus="loop">
 														<tr>
-															<td class="valor">${item.valor}</td>
+															<td class="valor">
+															<input type="text" name="itensMedida[${loop.index}].codigo" value="${item.medida.codigo}"/>
+																${item.medida.nome} - ${item.medida.codigo} - ${item.valor}
+															</td>
+															
 															<td class="precoVenda">&euro; ${produtoForm.precoVenda}</td>
-															<td class="quantidade"><input type="text" name="itensMedida[${loop.index}].quantidade" value="${item.quantidade}"/></td>
+															
+															<td class="quantidade">
+																<input type="text" name="itensMedida[${loop.index}].quantidade" value="${item.quantidade}"/>
+															</td>
+															
 															<td class="peso">${produtoForm.peso} kg</td>
+															
 															<td class="flagSite">
 																<c:if test="${item.flagSite eq true}">
 																	<input type="checkbox" name="itensMedida[${loop.index}].flagSite" checked="${item.flagSite}"/>
@@ -427,6 +436,7 @@
 																	<input type="checkbox" name="itensMedida[${loop.index}].flagSite"/>
 																</c:if>
 															</td>
+															
 														</tr>
 													</c:forEach>
 												</tbody>

@@ -1,6 +1,8 @@
 package com.alcarrer.service.produto;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alcarrer.entity.ProdutoEntity;
+import com.alcarrer.entity.ProdutoHasItensTipoMedidaEntity;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Produto;
 import com.alcarrer.repository.CategoriaRepository;
 import com.alcarrer.repository.FornecedorRepository;
+import com.alcarrer.repository.ItensTipoMedidaRepository;
 import com.alcarrer.repository.MarcaRepository;
-import com.alcarrer.repository.MedidaRepository;
 import com.alcarrer.repository.ProdutoRepository;
 import com.alcarrer.repository.SubCategoriaRepository;
 
@@ -36,7 +39,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	private SubCategoriaRepository subCategoriaRepository;
 	
 	@Autowired 
-	private MedidaRepository medidaRepository;
+	private ItensTipoMedidaRepository itensTipoMedidaRepository;
 	
 	@Override
 	@Transactional
@@ -72,8 +75,17 @@ public class ProdutoServiceImpl implements ProdutoService {
 		if(produto.getSubCategoria().getCodigo() != null) {
 			produtoDB.setSubCategoria(subCategoriaRepository.findOne(produto.getSubCategoria().getCodigo()));
 		}
-		// TODO: itens medida produto 
 		
+		if(produto.getItensMedida() != null) {
+			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
+			produto.getItensMedida().forEach(itensTipoMedida -> {
+				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
+				produtoHasItensTipoMedida.setQuantidade(itensTipoMedida.getQuantidade());
+				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(itensTipoMedida.getCodigo()));
+				set.add(produtoHasItensTipoMedida);
+			});
+			produtoDB.setProdutoHasItensTipoMedida(set);
+		}
 		return JpaFunctions.produtoDTOtoProduto.apply(produtoRepository.saveAndFlush(produtoDB));
 	}
 
@@ -131,7 +143,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	@Transactional(readOnly = true)
 	public Produto consultarByCodigo(Produto produto) {
-		return JpaFunctions.produtoDTOtoProduto.apply(produtoRepository.findOne(produto.getCodigo()));
+		ProdutoEntity p = produtoRepository.findOne(produto.getCodigo());
+		return JpaFunctions.produtoDTOtoProduto.apply(p);
 	}
 	
 	@Override

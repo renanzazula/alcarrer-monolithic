@@ -8,6 +8,7 @@ public class ItensTipoMedida implements Serializable {
 
 	private Integer codigo;
 	private String valor;
+	private Integer quantidade;
 	private Medida medida;
 	private Marca marca;
 	private Categoria categoria;
@@ -63,6 +64,14 @@ public class ItensTipoMedida implements Serializable {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 }
