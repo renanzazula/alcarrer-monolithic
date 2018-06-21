@@ -37,6 +37,7 @@ import com.alcarrer.model.SubCategoria;
 import com.alcarrer.service.categoria.CategoriaService;
 import com.alcarrer.service.fornecedor.FornecedorService;
 import com.alcarrer.service.marca.MarcaService;
+import com.alcarrer.service.medida.MedidaService;
 import com.alcarrer.service.produto.ProdutoService;
 import com.alcarrer.util.ObjectConversor;
 import com.alcarrer.util.Util;
@@ -61,12 +62,15 @@ public class ProdutoController {
 
 	@Autowired
 	private MarcaService marcaService;
-
+	
 	@Autowired
-	private MessageSource message;
+	private MedidaService medidaService;
 
 	@Autowired
 	private ProdutoService produtoService;
+	
+	@Autowired
+	private MessageSource message;
 
  	// Set a form validator
 	@InitBinder
@@ -184,7 +188,7 @@ public class ProdutoController {
 		produto.setFornecedores(fornecedorService.consultar());
 		produto.setMarcas(marcaService.consultar());
 		produto.setCategorias(categoriaService.consultar());
-//		 produto.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
+		produto.setMedidas(medidaService.consultar());
 		if(produto.getCategoria() != null) {
 			produto.setSubCategorias(categoriaService.consultarByCodigo(produto.getCategoria()).getSubCategorias());
 		}

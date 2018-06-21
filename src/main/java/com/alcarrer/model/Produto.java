@@ -23,6 +23,7 @@ public class Produto implements Serializable {
 	private Date dataHoraCadastro;
 
 	private Fornecedor fornecedor;
+	private Medida medida;
 	private Categoria categoria;
 	private SubCategoria subCategoria;
 	private Marca marca;
@@ -31,6 +32,9 @@ public class Produto implements Serializable {
 	private List<Categoria> categorias;
 	private List<SubCategoria> subCategorias;
 	private List<Marca> marcas;
+	private List<Medida> medidas;
+
+	@Deprecated
 	private List<ItensTipoMedida> itensMedida;
 	private List<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida;
 
@@ -255,15 +259,29 @@ public class Produto implements Serializable {
 	public void setProdutoHasItensTipoMedida(List<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida) {
 		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
 	}
-	
+
+	public List<Medida> getMedidas() {
+		return medidas;
+	}
+
+	public void setMedidas(List<Medida> medidas) {
+		this.medidas = medidas;
+	}
+
 	public Integer getQuantidadeTotalEstoque() {
 		Integer quantidadeTotalEstoque = new Integer(0);
 		for (ProdutoHasItensTipoMedida produtoHasItensTipoMedida : this.produtoHasItensTipoMedida) {
 			quantidadeTotalEstoque = quantidadeTotalEstoque + produtoHasItensTipoMedida.getQuantidade();
 		}
 		return quantidadeTotalEstoque;
-	}  
-	
-	
+	}
+
+	public Medida getMedida() {
+		return medida;
+	}
+
+	public void setMedida(Medida medida) {
+		this.medida = medida;
+	}
 
 }

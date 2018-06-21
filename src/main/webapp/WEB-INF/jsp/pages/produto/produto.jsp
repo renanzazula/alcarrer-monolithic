@@ -106,8 +106,6 @@
   					         .attr("value", JSON.stringify(value))
   					         .text(value.nome));
   					});
-
-  					calItensMedida();	
   				},
   				error : function(e) {
   	  				alert("Erro" + e);
@@ -119,46 +117,37 @@
   			});
 			 
   		});
-  		 
-		// SubCategoria
-		$( "#subCategoria" ).change(function() {
+		
+		$( "#medida" ).change(function() {
 			calItensMedida();			 
   		});
-		
-		$( "#marca" ).change(function() {
-			calItensMedida();			 
-  		});
-		
+		  		
   		function calItensMedida(){
   			var table = $('#tableMedida').DataTable();
   			table.clear().draw();
  			$('#hiddensInput').html("");
-  			var produto = '{"codigo":"0", "categoria":' + $("#categoria").val() + 
-  						   ' ,"subCategoria":' + $("#subCategoria").val() + 
-  						   ' ,"marca":' + $("#marca").val() + '}';
-
-  				// Categoria + subCategoria + marca
+  				
 			$.ajax({
-				type : "POST",
+				type : "POST",                                                            
 				contentType : "application/json",
-				url : "${home}ajaxConsultarItensMedidaByCategoria",
-				data : JSON.stringify( jQuery.parseJSON(produto)),
+				url : "${home}ajaxConsultarItensMedidaByMedidaCodigo",
+				data : JSON.stringify( jQuery.parseJSON($("#medida").val())),
 				dataType : 'json',
 				timeout : 100000,
 				success : function(data) {
-
+					
+					display(data);
+					
 					var preco = $("#precoVenda").val();
 					var peso = $("#peso").val();
 
 					$.each(data, function(key, value) {         
-						var inputHidden = "<input type='text' name='itensMedida["+ key +"].codigo' value='"+value.itensTipoMedida[key].codigo+"'/>";
+						var inputHidden = "<input type='text' name='itensMedida["+ key +"].codigo' value='"+value.codigo+"'/>";
 						$("#hiddensInput").append(inputHidden);
 						var input = "<input type='text' name='itensMedida["+key +"].quantidade' value='" + 1 +" '/>";
 						var check = "<input type='checkbox' name='itensMedida["+key +"].flagSite'/>";
-						table.row.add([value.itensTipoMedida[key].valor, preco, input, peso, check]).draw(false);
+						table.row.add([value.valor, preco, input, peso, check]).draw(false);
 					});
-					
-				display(data)
 			},
 				error : function(e) {
 					alert("Erro" + e)
@@ -191,14 +180,16 @@
 							<table style="width:100%">
 								<tr>
 									<td width="20%">
-										<label>Código:<span class="required">*</span></label>
+										<form:hidden path="codigo"/>
+										
+										<label>Bar Code:<span class="required">*</span></label>
 										
 										<c:if test="${alterar != true}">
-											<form:input path="codigo" type="text" class="field-long" id="codigo" placeholder="Código"/>
+											<form:input path="barCode" type="text" class="field-long" id="barCode" placeholder="Bar Code"/>
 										</c:if>
 										<c:if test="${alterar == true}">
-											<input type="text" class="field-long" id="codigo" placeholder="Código" disabled="${alterar}" value="${produtoForm.codigo}"/>
-											<form:hidden path="codigo"/>	 
+											<input type="text" class="field-long" id="barCode" placeholder="Bar Code" disabled="${alterar}" value="${produtoForm.codigo}"/>
+											<form:hidden path="barCode"/>	 
 										</c:if>										
 									</td>
 									<td width="79%">
@@ -328,6 +319,22 @@
 				<fieldset>
 					<legend></legend>
 					<ul class="form-style-1">
+						
+						<li>
+							<label>Medida<span class="required">*</span></label> 
+					 		<form:select path="medida" cssClass="field-select" cssStyle="width: 60%" multiple="false">
+					 			<form:option value="NONE" label="Selecione"/>
+					 			<c:forEach items="${produtoForm.medidas}" var="item">
+ 									<c:if test="${item.codigo eq  produtoForm.medida.codigo}">
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
+ 									</c:if>
+ 									<c:if test="${item.codigo ne produtoForm.medida.codigo}">
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}"/>
+ 									</c:if>	
+ 								</c:forEach> 					 			
+					 		</form:select>
+					 		<input type="button" id="abrirMedida" value="Nova Medida"  style="width: 38%" /> 
+						</li>
 						
 						<li>
 							<label>Fornecedor<span class="required">*</span></label> 

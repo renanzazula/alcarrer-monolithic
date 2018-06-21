@@ -1,6 +1,7 @@
 package com.alcarrer.repository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -27,26 +28,45 @@ public class MedidaRepositoryTest {
 	private MedidaRepository repository;
 
 	@Test
-	public void testSaveMedida() {
+	public void testSaveMedidaWithCategoriaAndSubCategoria() {
 
 		MedidaEntity medida = new MedidaEntity("medida", "Descricao");
 		CategoriaEntity categoria = new CategoriaEntity("categoria", "Descricao");
 		MarcaEntity marca = new MarcaEntity("nome", "Descricao");
 		SubCategoriaEntity subCategoria = new SubCategoriaEntity("nome", "Descricao");
 
-		ItensTipoMedidaEntity itensTipoMedida = new ItensTipoMedidaEntity();
-		itensTipoMedida.setMedida(medida);
-		itensTipoMedida.setMarca(marca);
-		itensTipoMedida.setCategoria(categoria);
-		itensTipoMedida.setSubCategoria(subCategoria);
-
 		Set<ItensTipoMedidaEntity> itensTipoMedidaSet = new HashSet<ItensTipoMedidaEntity>();
-		itensTipoMedidaSet.add(itensTipoMedida);
+
+		for (int i = 0; i < 3; i++) {
+			ItensTipoMedidaEntity itensTipoMedida = new ItensTipoMedidaEntity();
+			itensTipoMedida.setMedida(medida);
+			itensTipoMedida.setMarca(marca);
+			itensTipoMedida.setCategoria(categoria);
+			itensTipoMedida.setSubCategoria(subCategoria);
+			itensTipoMedida.setValor("");
+			itensTipoMedidaSet.add(itensTipoMedida);
+		}
 		medida.setItensTipoMedida(itensTipoMedidaSet);
 
 		MedidaEntity objDB = entityManager.persist(medida);
-//		Optional<Medida> optional = repository.findById(objDB.getCodigo());
+		
+		List<MedidaEntity> foundAll = repository.findAll();
 
+		for (MedidaEntity medidaEntity : foundAll) {
+			System.out.println(""+medidaEntity.getNome());
+		}
+		
+	}
+
+	@Test
+	public void testFindAll() {
+
+		List<MedidaEntity> found = repository.findAll();
+
+		for (MedidaEntity medidaEntity : found) {
+			System.out.println(""+medidaEntity.getNome());
+		}
+		
 	}
 
 }
