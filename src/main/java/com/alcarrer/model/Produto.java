@@ -33,9 +33,6 @@ public class Produto implements Serializable {
 	private List<SubCategoria> subCategorias;
 	private List<Marca> marcas;
 	private List<Medida> medidas;
-
-	@Deprecated
-	private List<ItensTipoMedida> itensMedida;
 	private List<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida;
 
 	public Produto() {
@@ -242,14 +239,6 @@ public class Produto implements Serializable {
 
 	public void setBarCode(String barCode) {
 		this.barCode = barCode;
-	}
-
-	public List<ItensTipoMedida> getItensMedida() {
-		return itensMedida;
-	}
-
-	public void setItensMedida(List<ItensTipoMedida> itensMedida) {
-		this.itensMedida = itensMedida;
 	}
 
 	public List<ProdutoHasItensTipoMedida> getProdutoHasItensTipoMedida() {

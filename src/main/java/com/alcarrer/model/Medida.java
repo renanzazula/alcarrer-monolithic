@@ -36,6 +36,13 @@ public class Medida implements Serializable {
 		this.descricao = descricao;
 	}
 
+	public Medida(Integer codigo, String nome, String descricao) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.descricao = descricao;
+	}
+	
 	public Integer getCodigo() {
 		return codigo;
 	}

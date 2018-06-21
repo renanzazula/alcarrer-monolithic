@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +19,6 @@ import javax.persistence.TemporalType;
 
 @Entity(name = "produto")
 public class ProdutoEntity implements Serializable {
-
 
 	/**
 	 * 
@@ -88,13 +88,17 @@ public class ProdutoEntity implements Serializable {
 	private CategoriaEntity categoria;
 
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "medida_codigo")
+	private MedidaEntity medida;
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "sub_categoria_codigo")
 	private SubCategoriaEntity subCategoria;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "produto_codigo")
 	private Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida;
-	 
+
 	public ProdutoEntity() {
 
 	}
@@ -277,6 +281,12 @@ public class ProdutoEntity implements Serializable {
 		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
 	}
 
-	 
+	public MedidaEntity getMedida() {
+		return medida;
+	}
+
+	public void setMedida(MedidaEntity medida) {
+		this.medida = medida;
+	}
 
 }

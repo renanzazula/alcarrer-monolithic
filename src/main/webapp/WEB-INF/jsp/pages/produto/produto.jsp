@@ -188,7 +188,7 @@
 											<form:input path="barCode" type="text" class="field-long" id="barCode" placeholder="Bar Code"/>
 										</c:if>
 										<c:if test="${alterar == true}">
-											<input type="text" class="field-long" id="barCode" placeholder="Bar Code" disabled="${alterar}" value="${produtoForm.codigo}"/>
+											<input type="text" class="field-long" id="barCode" placeholder="Bar Code" disabled="${alterar}" value="${produtoForm.barCode}"/>
 											<form:hidden path="barCode"/>	 
 										</c:if>										
 									</td>
@@ -214,7 +214,7 @@
 						</li>
 						
 						<li>
-							<label>Descrição:<span class="required">*</span></label> 
+							<label>Descrição:<span class="required">*</span></label>
 					 		<form:textarea path="descricao"  class="field-long field-textarea" cssStyle="height: 60px"/>
 						</li>
 						<li>
@@ -420,11 +420,11 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach items="${produtoForm.itensMedida}" var="item" varStatus="loop">
+													<c:forEach items="${produtoForm.produtoHasItensTipoMedida}" var="item" varStatus="loop">
 														<tr>
 															<td class="valor">
-															<input type="text" name="itensMedida[${loop.index}].codigo" value="${item.medida.codigo}"/>
-																${item.medida.nome} - ${item.medida.codigo} - ${item.valor}
+															<input type="text" name="itensMedida[${loop.index}].codigo" value="${item.itensTipoMedida.codigo}"/>
+																${item.itensTipoMedida.codigo} - ${item.itensTipoMedida.valor}
 															</td>
 															
 															<td class="precoVenda">&euro; ${produtoForm.precoVenda}</td>
@@ -442,8 +442,7 @@
 																<c:if test="${item.flagSite eq false}">
 																	<input type="checkbox" name="itensMedida[${loop.index}].flagSite"/>
 																</c:if>
-															</td>
-															
+															</td>															
 														</tr>
 													</c:forEach>
 												</tbody>

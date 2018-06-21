@@ -15,8 +15,7 @@ public class ProdutoHasItensTipoMedidaDTOtoprodutoHasItensTipoMedidaFunction
 		output.setCodigo(input.getCodigo());
 		output.setFlagSite(input.getFlagSite());
 		if (input.getItensTipoMedida() != null) {
-			output.setItensTipoMedida(
-					JpaFunctions.itensTipoMedidaDTOtoItensTipoMedida.apply(input.getItensTipoMedida()));
+			output.setItensTipoMedida(JpaFunctions.itensTipoMedidaDTOtoItensTipoMedida.apply(input.getItensTipoMedida()));
 		}
 		output.setQuantidade(input.getQuantidade());
 		return output;

@@ -19,6 +19,11 @@
 	tr.shown td.details-control {
 	    background: url('resources/images/details_close.png') no-repeat center center;
 	}
+	
+	td.edit-control{
+		background: url('resources/images/edit.png') no-repeat center center;
+	}
+	
 </style>
 
 <script type="text/javascript">
@@ -76,11 +81,11 @@
 	        }
 	    } );
 		
-// 		$('#tableConsulta tbody').on('click', 'tr', function() {
-// 			$(this).toggleClass('selected');
-// 			$("#codigo").val($(this).closest('tr').children('td.cod').text());
-// 			$("form[name='produtoForm']").submit();
-// 		});
+	    $('#tableConsulta tbody').on('click', 'td.edit-control', function () {
+	    	console.log($(this).closest('tr').children('td.cod').text());
+	        $("#codigo").val($(this).closest('tr').children('td.cod').text());
+			$("form[name='produtoForm']").submit();
+		});
 	});
 </script>
 <form:form method="post" modelAttribute="produtoForm" action="abrirAlterarProduto" name="produtoForm">
@@ -94,8 +99,8 @@
 						<div class="ui-widget">
 							<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
 								<p>
-									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span> <strong>Hey!</strong>
-									${mensagem} 
+									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span> 
+									<strong>Hey!</strong> ${mensagem} 
 								</p>
 							</div>
 						</div>
@@ -106,6 +111,7 @@
 							<tr>
 							 	<th></th>
 								<th>Código</th>
+								<th>Bar Code</th>
 								<th>Nome</th>
 								<th>Descrição</th>
 								<th>Porcentagem</th>
@@ -118,13 +124,15 @@
 								<th>Categoría</th>
 								<th>Subcategoría</th>
 								<th>Fornecedor</th>
+								<th></th>
 							</tr>
 						</thead>				
 						<tbody>
 							<c:forEach items="${list}" var="i">
 								<tr>
 									<td class="details-control"></td>				
-									<td class="cod">${i.codigo}</td>					
+									<td class="cod">${i.codigo}</td>
+									<td>${i.barCode}</td>
 									<td>${i.nome}</td>					 
 									<td>${i.descricao}</td>					 
 									<td>${i.porcentagem}%</td>									
@@ -136,7 +144,8 @@
 									<td>${i.marca.nome}</td>					 
 									<td>${i.categoria.nome}</td>
 									<td>${i.subCategoria.nome}</td>					 
-									<td>${i.fornecedor.nome}</td>					
+									<td>${i.fornecedor.nome}</td>
+									<td class="edit-control"></td>			
 								</tr>
 							</c:forEach>	
 						</tbody>
