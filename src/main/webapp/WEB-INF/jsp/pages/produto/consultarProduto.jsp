@@ -50,6 +50,8 @@
 			    						'<thead><tr><th>Tamanho</th><th>Quantidade</th><th>Site</th></tr></thead><tbody>';
 				var	lines = '';
 				var finalTable = '</tbody></table>';
+				
+				
 	        	var codigo = '{"codigo":'+ row.data()[1] +'}';
 	        	$.ajax({
 	  				type : "POST",
@@ -64,7 +66,7 @@
   							lines = lines +  '<tr>';
 	  							lines = lines +  '<td>' + data[key].itensTipoMedida.valor + '</td>';
 		  						lines = lines +  '<td>' + data[key].quantidade + '</td>';
-		  						lines = lines +  '<td>flagSite</td>';
+		  						lines = lines +  "<td>"+  data[key].flagSite +"</td>";
 	  						lines = lines + '</tr>';
 	  					});
 	  					// Open this row

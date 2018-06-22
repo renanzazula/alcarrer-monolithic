@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.alcarrer.enums.FlagSiteEnum;
 
 @Entity(name = "produto_has_itens_tipo_medida")
 public class ProdutoHasItensTipoMedidaEntity implements Serializable {
@@ -21,14 +25,15 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	@Column(name = "codigo")
 	private Integer codigo;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "flagSite")
-	private String flagSite;
+	private FlagSiteEnum flagSite;
 
 	@Column(name = "quantidade")
 	private Integer quantidade;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "itens_tipo_medida_codigo")
+	@JoinColumn(name = "itens_tipo_medida_codigo", updatable = false)
 	private ItensTipoMedidaEntity itensTipoMedida;
 
 	@ManyToOne
@@ -45,14 +50,6 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getFlagSite() {
-		return flagSite;
-	}
-
-	public void setFlagSite(String flagSite) {
-		this.flagSite = flagSite;
 	}
 
 	public Integer getQuantidade() {
@@ -77,6 +74,14 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 
 	public void setItensTipoMedida(ItensTipoMedidaEntity itensTipoMedida) {
 		this.itensTipoMedida = itensTipoMedida;
+	}
+
+	public FlagSiteEnum getFlagSite() {
+		return flagSite;
+	}
+
+	public void setFlagSite(FlagSiteEnum flagSite) {
+		this.flagSite = flagSite;
 	}
 
 }

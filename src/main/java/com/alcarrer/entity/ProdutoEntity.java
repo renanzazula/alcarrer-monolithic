@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.alcarrer.enums.StatusEnum;
 
 @Entity(name = "produto")
 public class ProdutoEntity implements Serializable {
@@ -41,8 +45,9 @@ public class ProdutoEntity implements Serializable {
 	@Column(name = "nome")
 	private String nome;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
-	private String status;
+	private StatusEnum status;
 
 	@Column(name = "descricao")
 	private String descricao;
@@ -76,7 +81,7 @@ public class ProdutoEntity implements Serializable {
 	private Date dataHoraCadastro;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "marca_codigo")
+	@JoinColumn(name = "marca_codigo", updatable = false)
 	private MarcaEntity marca;
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -95,7 +100,7 @@ public class ProdutoEntity implements Serializable {
 	@JoinColumn(name = "sub_categoria_codigo")
 	private SubCategoriaEntity subCategoria;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval= true)
 	@JoinColumn(name = "produto_codigo")
 	private Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida;
 
@@ -103,7 +108,7 @@ public class ProdutoEntity implements Serializable {
 
 	}
 
-	public ProdutoEntity(String nome, String status, String descricao, Double preco, Double precoVenda,
+	public ProdutoEntity(String nome, StatusEnum status, String descricao, Double preco, Double precoVenda,
 			Double precoCusto, Double precoOferta, Double desconto, Double peso, Integer porcentagem,
 			Integer porcentagemDesconto, Date dataHoraCadastro, MarcaEntity marca, FornecedorEntity fornecedor,
 			CategoriaEntity categoria, SubCategoriaEntity subCategoria,
@@ -151,14 +156,6 @@ public class ProdutoEntity implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getDescricao() {
@@ -288,5 +285,13 @@ public class ProdutoEntity implements Serializable {
 	public void setMedida(MedidaEntity medida) {
 		this.medida = medida;
 	}
+
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}	
 
 }

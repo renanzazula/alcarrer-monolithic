@@ -72,6 +72,11 @@
 			$("form[name='produtoForm']").attr('action', 'abrirSubCategoria');
 			$("form[name='produtoForm']").submit();
 		});		
+  		
+  		$('#abrirMedida').on( 'click', function () {
+			$("form[name='produtoForm']").attr('action', 'abrirMedida');
+			$("form[name='produtoForm']").submit();
+		});		
   		  		 
   		$.extend( true, $.fn.dataTable.defaults, {
 		    "searching": false,
@@ -111,7 +116,6 @@
   	  				alert("Erro" + e);
   				},
   				done : function(e) {
-					// Chama itens medida por categoria	
 					alert("done!")
    				}
   			});
@@ -142,11 +146,15 @@
 					var peso = $("#peso").val();
 
 					$.each(data, function(key, value) {         
-						var inputHidden = "<input type='text' name='itensMedida["+ key +"].codigo' value='"+value.codigo+"'/>";
+						var inputHidden = "<input type='text' name='produtoHasItensTipoMedida["+ key +"].itensTipoMedida.codigo' value='"+value.codigo+"'/>";
 						$("#hiddensInput").append(inputHidden);
-						var input = "<input type='text' name='itensMedida["+key +"].quantidade' value='" + 1 +" '/>";
-						var check = "<input type='checkbox' name='itensMedida["+key +"].flagSite'/>";
-						table.row.add([value.valor, preco, input, peso, check]).draw(false);
+						var input = "<input type='text' name='produtoHasItensTipoMedida["+key +"].quantidade' value='" + 1 +" '/>";
+						
+						var selectIni = "<select name='produtoHasItensTipoMedida["+key+"].flagSite' class='field-select' style='width: 60%'>";
+						var option = "<option value='fisico'>fisico</option><option value='Web'>Web</option>";
+				  		var selectFinal = "</select>";
+				  		table.row.add([value.valor, preco, input, peso, selectIni + option + selectFinal]).draw(false);
+				  		
 					});
 			},
 				error : function(e) {
@@ -156,6 +164,8 @@
 			}); 
   		}
 
+
+		
   		$('input[name^=number]').maskMoney({thousands:''});
   		
   		function display(data) {
@@ -168,7 +178,7 @@
 </script>
 
 <form:form method="post" modelAttribute="produtoForm" action="abrirProduto" name="produtoForm">
-	</br>
+	<br>
 	<fieldset>
 		<legend>Gerenciar Produto</legend>
 		<ul class="form-style-1">
@@ -198,7 +208,6 @@
 										  id="nome" placeholder="Nome"/>
 						 			</td>
 						 		</tr>
-
 								<tr>
 									<td width="20%">
 										<c:if test="${not empty codigoInvalido}">
@@ -212,7 +221,6 @@
 						 		</tr>						 		
 						 	</table>				
 						</li>
-						
 						<li>
 							<label>Descrição:<span class="required">*</span></label>
 					 		<form:textarea path="descricao"  class="field-long field-textarea" cssStyle="height: 60px"/>
@@ -223,7 +231,7 @@
 					</ul>
 				</fieldset>		
 				
-				</br>			
+				<br>			
 				
 				<fieldset>
 					<legend></legend>
@@ -246,23 +254,18 @@
 					 					<form:input path="precoVenda" type="text" cssClass="field-long money"
 										  id="precoVenda" placeholder="Preço Venda"/>
 						 			</td>
-						 			
 					 			</tr>
-
 								<tr>
 									<td>
 										<form:errors path="porcentagem" cssClass="required"/>
 									</td>
-									
 									<td>
 										<form:errors path="precoCusto" cssClass="required"/>
 						 			</td>
-						 			
 						 			<td>
 						 				<form:errors path="precoVenda" cssClass="required"/>
 						 			</td>
 					 			</tr>
-
 					 			<tr>
 					 				<td>
 						 				<label>Porcentagem Desconto:<span class="required">*</span></label>
@@ -280,21 +283,17 @@
 										  id="precoOferta" placeholder="Preço Oferta"/>
 					 				</td>				 	
 					 			</tr>
-					 			
 					 			<tr>
 									<td>
 										<form:errors path="porcentagemDesconto" cssClass="required"/>
 									</td>
-									
 									<td>
 										<form:errors path="desconto" cssClass="required"/>
 						 			</td>
-						 			
 						 			<td>
 						 				<form:errors path="precoOferta" cssClass="required"/>
 						 			</td>
 					 			</tr>
-					 			
 					 			<tr>
 					 				<td colspan="3">
 					 					<label>Peso:<span class="required">*</span></label> 
@@ -312,20 +311,16 @@
 						</li> 
 					</ul>
 				</fieldset>
-		
 				<br>			
-		
-				<!-- De acordo com os filtros abaixo serão apresentados os tipos de medidas para cadastrar -->
 				<fieldset>
 					<legend></legend>
-					<ul class="form-style-1">
-						
+					<ul class="form-style-1">						
 						<li>
 							<label>Medida<span class="required">*</span></label> 
 					 		<form:select path="medida" cssClass="field-select" cssStyle="width: 60%" multiple="false">
 					 			<form:option value="NONE" label="Selecione"/>
 					 			<c:forEach items="${produtoForm.medidas}" var="item">
- 									<c:if test="${item.codigo eq  produtoForm.medida.codigo}">
+ 									<c:if test="${item.codigo eq produtoForm.medida.codigo}">
  										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
  									</c:if>
  									<c:if test="${item.codigo ne produtoForm.medida.codigo}">
@@ -334,8 +329,7 @@
  								</c:forEach> 					 			
 					 		</form:select>
 					 		<input type="button" id="abrirMedida" value="Nova Medida"  style="width: 38%" /> 
-						</li>
-						
+						</li>						
 						<li>
 							<label>Fornecedor<span class="required">*</span></label> 
 					 		<form:select path="fornecedor" cssClass="field-select" cssStyle="width: 60%" multiple="false">
@@ -350,14 +344,13 @@
  								</c:forEach> 					 			
 					 		</form:select>
 					 		<input type="button" id="abrirFornecedor" value="Novo Fornecedor"  style="width: 38%" />
-						</li>
-						
+						</li>						
 						<li>
 							<label>Categoria<span class="required">*</span></label> 
 							<form:select path="categoria" cssClass="field-select" cssStyle="width: 60%" multiple="false">
 						    	<form:option value="{}" label="Selecione"/>
 					 			<c:forEach items="${produtoForm.categorias}" var="item">
- 									<c:if test="${item.codigo eq  produtoForm.categoria.codigo}">
+ 									<c:if test="${item.codigo eq produtoForm.categoria.codigo}">
  										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
  									</c:if>
  									<c:if test="${item.codigo ne produtoForm.categoria.codigo}">
@@ -366,14 +359,13 @@
  								</c:forEach>
 				        	</form:select> 
 				        	<input type="button" id="abrirCategoria" value="Nova Categoria"  style="width: 38%" />
-						</li>
-						
+						</li>						
 						<li> 
 							<label>Subcategoria<span class="required">*</span></label> 
 					 		<form:select path="subCategoria" cssClass="field-select" cssStyle="width: 60%" multiple="false">
 						    	<form:option value="{}" label="Selecione"/>
  								<c:forEach items="${produtoForm.subCategorias}" var="item">
- 									<c:if test="${item.codigo eq  produtoForm.subCategoria.codigo}">
+ 									<c:if test="${item.codigo eq produtoForm.subCategoria.codigo}">
  										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
  									</c:if>
  									<c:if test="${item.codigo ne produtoForm.subCategoria.codigo}">
@@ -382,8 +374,7 @@
  								</c:forEach>
 				        	</form:select>
  				        	<input type="button"  id="abrirSubCategoria" value="Nova Subcategoria"  style="width: 38%" />
-						</li> 
-						
+						</li> 						
 						<li>
 							<label>Marca<span class="required">*</span></label> 
 					 		<form:select path="marca" cssClass="field-select" cssStyle="width: 60%" multiple="false" >
@@ -402,9 +393,9 @@
 						
 						<li>
 							<fieldset>
-								<legend>
-									<c:if test="${fn:length(produtoForm.itensMedida) > 0 }">
-										${produtoForm.itensMedida[0].nome}
+								<legend>itensMedida
+									<c:if test="${fn:length(produtoForm.produtoHasItensTipoMedida) > 0 }">
+										-${produtoForm.produtoHasItensTipoMedida[0].itensTipoMedida.medida.nome}-
 									</c:if>
 								</legend>
 									<ul class="form-style-1">									
@@ -423,25 +414,30 @@
 													<c:forEach items="${produtoForm.produtoHasItensTipoMedida}" var="item" varStatus="loop">
 														<tr>
 															<td class="valor">
-															<input type="text" name="itensMedida[${loop.index}].codigo" value="${item.itensTipoMedida.codigo}"/>
+															<input type="hidden" name="produtoHasItensTipoMedida[${loop.index}].itensTipoMedida.codigo" value="${item.itensTipoMedida.codigo}"/>
 																${item.itensTipoMedida.codigo} - ${item.itensTipoMedida.valor}
 															</td>
 															
 															<td class="precoVenda">&euro; ${produtoForm.precoVenda}</td>
 															
 															<td class="quantidade">
-																<input type="text" name="itensMedida[${loop.index}].quantidade" value="${item.quantidade}"/>
+																<input type="text" name="produtoHasItensTipoMedida[${loop.index}].quantidade" value="${item.quantidade}"/>
 															</td>
 															
 															<td class="peso">${produtoForm.peso} kg</td>
 															
-															<td class="flagSite">
-																<c:if test="${item.flagSite eq true}">
-																	<input type="checkbox" name="itensMedida[${loop.index}].flagSite" checked="${item.flagSite}"/>
-																</c:if>
-																<c:if test="${item.flagSite eq false}">
-																	<input type="checkbox" name="itensMedida[${loop.index}].flagSite"/>
-																</c:if>
+															<td class="flagSite"> 
+																<form:select path="produtoHasItensTipoMedida[${loop.index}].flagSite" cssClass="field-select" cssStyle="width: 60%" multiple="false" >
+															    	<form:option value="{}" label="Selecione"/>
+														 			<c:forEach items="${produtoForm.flagSite}" var="item">
+									 									<c:if test="${item eq produtoHasItensTipoMedida[loop.index].flagSite}">
+									 										<form:option value="${item}" label="${item}" selected="selected"/>
+									 									</c:if>
+									 									<c:if test="${item ne produtoHasItensTipoMedida[loop.index].flagSite}">
+									 										<form:option value="${item}" label="${item}"/>
+									 									</c:if>	
+									 								</c:forEach>
+													        	</form:select> 
 															</td>															
 														</tr>
 													</c:forEach>
@@ -453,7 +449,6 @@
  						</li>
 					</ul>
 				</fieldset>
-				<br>
 				<fieldset>
 					<legend></legend>
 					<ul class="form-style-1">
@@ -462,7 +457,6 @@
 							<c:if test="${alterar != true}">
 								<input type="button"  id="incluirProduto" value="Gravar"/>
 							</c:if>
-
 							<c:if test="${alterar == true}">
 								<input type="button" id="excluirProduto" value="Excluir" />
 								<input type="button" id="alterarProduto" value="Alterar" />
@@ -476,11 +470,8 @@
 	<br>
 	<div id="feedback"></div>
 	<div id="hiddensInput">
-		<c:forEach items="${produtoForm.itensMedida}" var="item" varStatus="loop">
+		<c:forEach items="${produtoForm.produtoHasItensTipoMedida}" var="item" varStatus="loop">
 			<input type="hidden"  name="itensMedida[${loop.index}].codigo" value="${item.codigo}"/>
 		</c:forEach>
 	</div>
 </form:form>
-
-
-

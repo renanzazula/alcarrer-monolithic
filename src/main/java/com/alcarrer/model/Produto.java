@@ -1,8 +1,12 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import com.alcarrer.enums.FlagSiteEnum;
+import com.alcarrer.enums.StatusEnum;
 
 public class Produto implements Serializable {
 
@@ -10,7 +14,7 @@ public class Produto implements Serializable {
 	private Integer codigo;
 	private String barCode;
 	private String nome;
-	private String status;
+	private StatusEnum status;
 	private String descricao;
 	private Double preco;
 	private Double precoVenda;
@@ -39,7 +43,7 @@ public class Produto implements Serializable {
 
 	}
 
-	public Produto(String nome, String status, String descricao, Double preco, Double precoVenda, Double precoCusto,
+	public Produto(String nome, StatusEnum status, String descricao, Double preco, Double precoVenda, Double precoCusto,
 			Double precoOferta, Double desconto, Double peso, Integer porcentagem, Integer porcentagemDesconto,
 			Date dataHoraCadastro, Marca marca, Fornecedor fornecedor, Categoria categoria, SubCategoria subCategoria
 
@@ -47,7 +51,7 @@ public class Produto implements Serializable {
 		super();
 
 		this.nome = nome;
-		this.status = status;
+		this.setStatus(status);
 		this.descricao = descricao;
 		this.preco = preco;
 		this.precoVenda = precoVenda;
@@ -81,15 +85,7 @@ public class Produto implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getDescricao() {
+ 	public String getDescricao() {
 		return descricao;
 	}
 
@@ -265,6 +261,11 @@ public class Produto implements Serializable {
 		return quantidadeTotalEstoque;
 	}
 
+
+	public List<FlagSiteEnum> getFlagSite() {
+		return Arrays.asList(FlagSiteEnum.values()); 
+	}
+	
 	public Medida getMedida() {
 		return medida;
 	}
@@ -273,4 +274,14 @@ public class Produto implements Serializable {
 		this.medida = medida;
 	}
 
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
+
+	
+	
 }

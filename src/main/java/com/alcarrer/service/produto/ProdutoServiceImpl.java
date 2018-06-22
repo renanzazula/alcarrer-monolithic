@@ -1,6 +1,8 @@
 package com.alcarrer.service.produto;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alcarrer.entity.ProdutoEntity;
+import com.alcarrer.entity.ProdutoHasItensTipoMedidaEntity;
+import com.alcarrer.enums.StatusEnum;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Produto;
 import com.alcarrer.repository.CategoriaRepository;
@@ -49,7 +53,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 		produtoDB.setCodigo(produto.getCodigo());
 		produtoDB.setBarCode(produto.getBarCode());
 		produtoDB.setNome(produto.getNome());
-		produtoDB.setStatus(produto.getStatus());
+		produtoDB.setStatus(StatusEnum.Ativo);
 		produtoDB.setDescricao(produto.getDescricao());
 		produtoDB.setPreco(produto.getPreco());
 		produtoDB.setPrecoVenda(produto.getPrecoVenda());
@@ -81,17 +85,17 @@ public class ProdutoServiceImpl implements ProdutoService {
 			produtoDB.setMarca(marcaRepository.findOne(produto.getMarca().getCodigo()));
 		}
 		
-//		if(produto.getItensMedida() != null) {
-//			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
-//			produto.getItensMedida().forEach(itensTipoMedida -> {
-//				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
-//				produtoHasItensTipoMedida.setQuantidade(0);	// TODO: FIX ME 
-//				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(itensTipoMedida.getCodigo()));
-//				set.add(produtoHasItensTipoMedida);
-//			});
-//			produtoDB.setProdutoHasItensTipoMedida(set);
-//		}
-		
+		if(produto.getProdutoHasItensTipoMedida() != null) {
+			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
+			produto.getProdutoHasItensTipoMedida().forEach(phitm -> {
+				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
+				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());	 
+				produtoHasItensTipoMedida.setFlagSite(phitm.getFlagSite());
+				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(phitm.getItensTipoMedida().getCodigo()));
+				set.add(produtoHasItensTipoMedida);
+			});
+			produtoDB.setProdutoHasItensTipoMedida(set);
+		}
 		return JpaFunctions.produtoDTOtoProduto.apply(produtoRepository.saveAndFlush(produtoDB));
 	}
 
@@ -102,7 +106,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 		produtoDB.setCodigo(produto.getCodigo());
 		produtoDB.setBarCode(produto.getBarCode());
 		produtoDB.setNome(produto.getNome());
-		produtoDB.setStatus(produto.getStatus());
+		produtoDB.setStatus(StatusEnum.Ativo);
 		produtoDB.setDescricao(produto.getDescricao());
 		produtoDB.setPreco(produto.getPreco());
 		produtoDB.setPrecoVenda(produto.getPrecoVenda());
@@ -136,16 +140,17 @@ public class ProdutoServiceImpl implements ProdutoService {
 		
 		produtoDB.getProdutoHasItensTipoMedida().clear();
 		
-//		if(produto.getItensMedida() != null) {
-//			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
-//			produto.getItensMedida().forEach(itensTipoMedida -> {
-//				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
-//				produtoHasItensTipoMedida.setQuantidade(0); 
-//				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(itensTipoMedida.getCodigo()));
-//				set.add(produtoHasItensTipoMedida);
-//			});
-//			produtoDB.setProdutoHasItensTipoMedida(set);
-//		}
+		if(produto.getProdutoHasItensTipoMedida() != null) {
+			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
+			produto.getProdutoHasItensTipoMedida().forEach(phitm -> {
+				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
+				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());	 
+				produtoHasItensTipoMedida.setFlagSite(phitm.getFlagSite());
+				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(phitm.getItensTipoMedida().getCodigo()));
+				set.add(produtoHasItensTipoMedida);
+			});
+			produtoDB.getProdutoHasItensTipoMedida().addAll(set);
+		}
 		
 		return JpaFunctions.produtoDTOtoProduto.apply(produtoRepository.saveAndFlush(produtoDB));
 	}
@@ -154,7 +159,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Transactional
 	public void excluir(Produto produto) {
 		ProdutoEntity produtoDB = produtoRepository.findOne(produto.getCodigo());
-		produtoRepository.delete(produtoDB);
+		produtoDB.setStatus(StatusEnum.Inativo);
+		produtoRepository.saveAndFlush(produtoDB);
 	}
 
 	@Override
