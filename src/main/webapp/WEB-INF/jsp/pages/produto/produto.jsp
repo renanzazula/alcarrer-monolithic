@@ -150,7 +150,7 @@
 						$("#hiddensInput").append(inputHidden);
 						var input = "<input type='text' name='produtoHasItensTipoMedida["+key +"].quantidade' value='" + 1 +" '/>";
 						
-						var selectIni = "<select name='produtoHasItensTipoMedida["+key+"].flagSite' class='field-select' style='width: 60%'>";
+						var selectIni = "<select name='produtoHasItensTipoMedida["+key+"].flagSite' class='field-select' style='width: 60%'>0";
 						var option = "<option value='fisico'>fisico</option><option value='Web'>Web</option>";
 				  		var selectFinal = "</select>";
 				  		table.row.add([value.valor, preco, input, peso, selectIni + option + selectFinal]).draw(false);

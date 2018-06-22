@@ -35,11 +35,11 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "itens_tipo_medida_codigo", updatable = false)
 	private ItensTipoMedidaEntity itensTipoMedida;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "produto_codigo")
 	private ProdutoEntity produto;
-
+	
 	public ProdutoHasItensTipoMedidaEntity() {
 
 	}

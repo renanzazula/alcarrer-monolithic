@@ -103,7 +103,7 @@ public class ProdutoEntity implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval= true)
 	@JoinColumn(name = "produto_codigo")
 	private Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida;
-
+	
 	public ProdutoEntity() {
 
 	}

@@ -90,6 +90,7 @@
 				<li><a href="abrirCategoria">Categoria</a></li>
 				<li><a href="abrirSubCategoria">SubCategoría</a></li>
 				<li><a href="abrirFormasDePagamento">Formas de Pagamento</a></li>
+				<li><a href="abrirDominio">Dominios</a></li>
 			</ul>
 		</li>
 		<li>
@@ -104,6 +105,7 @@
 				<li><a href="consultarFormasDePagamento">Formas de Pagamento</a></li>
 				<li><a href="consultarVendas">Vendas</a></li>
 				<li><a href="consultarRetirada">Retirada</a></li>
+				<li><a href="consultarDominio">Dominios</a></li>
 			</ul>
 		</li>
 		
