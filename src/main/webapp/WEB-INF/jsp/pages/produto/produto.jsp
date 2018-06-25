@@ -31,6 +31,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		 
+		
 	  	$('#datepicker').datepicker({dateFormat : 'dd/mm/yy'}).val();
 
 	  	$('#incluirProduto').on( 'click', function () {  		

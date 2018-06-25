@@ -32,6 +32,7 @@ public class Produto implements Serializable {
 	private SubCategoria subCategoria;
 	private Marca marca;
 
+	private List<Dominio> dominios;
 	private List<Fornecedor> fornecedores;
 	private List<Categoria> categorias;
 	private List<SubCategoria> subCategorias;
@@ -282,6 +283,10 @@ public class Produto implements Serializable {
 		this.status = status;
 	}
 
-	
-	
-}
+	public List<Dominio> getDominios() {
+		return dominios;
+	}
+
+	public void setDominios(List<Dominio> dominios) {
+		this.dominios = dominios;
+	} }

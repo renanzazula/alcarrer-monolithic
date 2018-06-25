@@ -1,24 +1,22 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
-
-import com.alcarrer.enums.FlagSiteEnum;
-
+import java.util.List;
 
 public class ProdutoHasItensTipoMedida implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
 	private Integer codigo;
-	private FlagSiteEnum flagSite;
+	private List<Dominio> dominios;
 	private Integer quantidade;
 	private ItensTipoMedida itensTipoMedida;
 	private Produto produto;
-	
+
 	public ProdutoHasItensTipoMedida() {
 
 	}
-	
+
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -27,7 +25,7 @@ public class ProdutoHasItensTipoMedida implements Serializable {
 		this.codigo = codigo;
 	}
 
- 	public Integer getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
@@ -51,14 +49,12 @@ public class ProdutoHasItensTipoMedida implements Serializable {
 		this.produto = produto;
 	}
 
-	public FlagSiteEnum getFlagSite() {
-		return flagSite;
+	public List<Dominio> getDominios() {
+		return dominios;
 	}
 
-	public void setFlagSite(FlagSiteEnum flagSite) {
-		this.flagSite = flagSite;
+	public void setDominios(List<Dominio> dominios) {
+		this.dominios = dominios;
 	}
-
-	  
 
 }

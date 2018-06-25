@@ -1,6 +1,7 @@
 package com.alcarrer.function.jpa;
 
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.alcarrer.entity.ProdutoHasItensTipoMedidaEntity;
 import com.alcarrer.function.JpaFunctions;
@@ -13,7 +14,7 @@ public class ProdutoHasItensTipoMedidaDTOtoprodutoHasItensTipoMedidaFunction
 	public ProdutoHasItensTipoMedida apply(ProdutoHasItensTipoMedidaEntity input) {
 		ProdutoHasItensTipoMedida output = new ProdutoHasItensTipoMedida();
 		output.setCodigo(input.getCodigo());
-		output.setFlagSite(input.getFlagSite());
+		output.setDominios( input.getDominios().stream().map(JpaFunctions.dominioDTOtoDominio).collect(Collectors.toList()));		
 		if (input.getItensTipoMedida() != null) {
 			output.setItensTipoMedida(JpaFunctions.itensTipoMedidaDTOtoItensTipoMedida.apply(input.getItensTipoMedida()));
 		}

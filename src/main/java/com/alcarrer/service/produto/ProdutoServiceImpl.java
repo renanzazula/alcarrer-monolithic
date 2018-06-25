@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alcarrer.entity.DominioEntity;
 import com.alcarrer.entity.ProdutoEntity;
 import com.alcarrer.entity.ProdutoHasItensTipoMedidaEntity;
 import com.alcarrer.enums.StatusEnum;
 import com.alcarrer.function.JpaFunctions;
+import com.alcarrer.model.Dominio;
 import com.alcarrer.model.Produto;
 import com.alcarrer.repository.CategoriaRepository;
+import com.alcarrer.repository.DominioRepository;
 import com.alcarrer.repository.FornecedorRepository;
 import com.alcarrer.repository.ItensTipoMedidaRepository;
 import com.alcarrer.repository.MarcaRepository;
@@ -26,26 +29,28 @@ import com.alcarrer.repository.SubCategoriaRepository;
 public class ProdutoServiceImpl implements ProdutoService {
 
 	@Autowired
-	private ProdutoRepository produtoRepository;  
-	
-	@Autowired
+	private ProdutoRepository produtoRepository;
+
 	private MedidaRepository medidaRepository;
-	
+
+	@Autowired
+	private DominioRepository dominioRepository;
+
 	@Autowired
 	private FornecedorRepository fornecedorRepository;
-	
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
+
 	@Autowired
 	private SubCategoriaRepository subCategoriaRepository;
-	
+
 	@Autowired
 	private MarcaRepository marcaRepository;
-	
-	@Autowired 
+
+	@Autowired
 	private ItensTipoMedidaRepository itensTipoMedidaRepository;
-	
+
 	@Override
 	@Transactional
 	public Produto incluir(Produto produto) {
@@ -65,32 +70,38 @@ public class ProdutoServiceImpl implements ProdutoService {
 		produtoDB.setPorcentagemDesconto(produto.getPorcentagemDesconto());
 		produtoDB.setDataHoraCadastro(produto.getDataHoraCadastro());
 
-		if(produto.getMedida() != null  && produto.getMedida().getCodigo() != null) {
+		if (produto.getMedida() != null && produto.getMedida().getCodigo() != null) {
 			produtoDB.setMedida(medidaRepository.getOne(produto.getMedida().getCodigo()));
 		}
-		
-		if(produto.getFornecedor() != null && produto.getFornecedor().getCodigo() != null) {
+
+		if (produto.getFornecedor() != null && produto.getFornecedor().getCodigo() != null) {
 			produtoDB.setFornecedor(fornecedorRepository.findOne(produto.getFornecedor().getCodigo()));
 		}
-		
-		if(produto.getCategoria() != null && produto.getCategoria().getCodigo() != null) {
+
+		if (produto.getCategoria() != null && produto.getCategoria().getCodigo() != null) {
 			produtoDB.setCategoria(categoriaRepository.findOne(produto.getCategoria().getCodigo()));
 		}
-		
-		if(produto.getSubCategoria() != null && produto.getSubCategoria().getCodigo() != null) {
+
+		if (produto.getSubCategoria() != null && produto.getSubCategoria().getCodigo() != null) {
 			produtoDB.setSubCategoria(subCategoriaRepository.findOne(produto.getSubCategoria().getCodigo()));
 		}
 
-		if(produto.getMarca() != null &&  produto.getMarca().getCodigo() != null) {
+		if (produto.getMarca() != null && produto.getMarca().getCodigo() != null) {
 			produtoDB.setMarca(marcaRepository.findOne(produto.getMarca().getCodigo()));
 		}
-		
-		if(produto.getProdutoHasItensTipoMedida() != null) {
+
+		if (produto.getProdutoHasItensTipoMedida() != null) {
 			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
 			produto.getProdutoHasItensTipoMedida().forEach(phitm -> {
 				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
-				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());	 
-				produtoHasItensTipoMedida.setFlagSite(phitm.getFlagSite());
+				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());
+
+				Set<DominioEntity> dominiosDB = new HashSet<>();
+				phitm.getDominios().forEach(dominio -> {
+					dominiosDB.add(dominioRepository.getOne(dominio.getCodigo()));
+				});
+
+				produtoHasItensTipoMedida.setDominios(dominiosDB);
 				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(phitm.getItensTipoMedida().getCodigo()));
 				set.add(produtoHasItensTipoMedida);
 			});
@@ -117,41 +128,42 @@ public class ProdutoServiceImpl implements ProdutoService {
 		produtoDB.setPorcentagem(produto.getPorcentagem());
 		produtoDB.setPorcentagemDesconto(produto.getPorcentagemDesconto());
 		produtoDB.setDataHoraCadastro(produto.getDataHoraCadastro());
-		
-		if(produto.getMedida() != null  && produto.getMedida().getCodigo() != null) {
+
+		if (produto.getMedida() != null && produto.getMedida().getCodigo() != null) {
 			produtoDB.setMedida(medidaRepository.getOne(produto.getMedida().getCodigo()));
 		}
-		
-		if(produto.getFornecedor() != null && produto.getFornecedor().getCodigo() != null) {
+
+		if (produto.getFornecedor() != null && produto.getFornecedor().getCodigo() != null) {
 			produtoDB.setFornecedor(fornecedorRepository.findOne(produto.getFornecedor().getCodigo()));
 		}
-		
-		if(produto.getCategoria() != null && produto.getCategoria().getCodigo() != null) {
+
+		if (produto.getCategoria() != null && produto.getCategoria().getCodigo() != null) {
 			produtoDB.setCategoria(categoriaRepository.findOne(produto.getCategoria().getCodigo()));
 		}
-		
-		if(produto.getSubCategoria() != null && produto.getSubCategoria().getCodigo() != null) {
+
+		if (produto.getSubCategoria() != null && produto.getSubCategoria().getCodigo() != null) {
 			produtoDB.setSubCategoria(subCategoriaRepository.findOne(produto.getSubCategoria().getCodigo()));
 		}
 
-		if(produto.getMarca() != null &&  produto.getMarca().getCodigo() != null) {
+		if (produto.getMarca() != null && produto.getMarca().getCodigo() != null) {
 			produtoDB.setMarca(marcaRepository.findOne(produto.getMarca().getCodigo()));
 		}
-		
+
 		produtoDB.getProdutoHasItensTipoMedida().clear();
-		
-		if(produto.getProdutoHasItensTipoMedida() != null) {
+
+		if (produto.getProdutoHasItensTipoMedida() != null) {
 			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
 			produto.getProdutoHasItensTipoMedida().forEach(phitm -> {
 				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
-				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());	 
-				produtoHasItensTipoMedida.setFlagSite(phitm.getFlagSite());
-				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(phitm.getItensTipoMedida().getCodigo()));
+				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());
+				// produtoHasItensTipoMedida.setFlagSite(phitm.getFlagSite());
+				produtoHasItensTipoMedida
+						.setItensTipoMedida(itensTipoMedidaRepository.getOne(phitm.getItensTipoMedida().getCodigo()));
 				set.add(produtoHasItensTipoMedida);
 			});
 			produtoDB.getProdutoHasItensTipoMedida().addAll(set);
 		}
-		
+
 		return JpaFunctions.produtoDTOtoProduto.apply(produtoRepository.saveAndFlush(produtoDB));
 	}
 
@@ -166,7 +178,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	@Transactional(readOnly = true)
 	public boolean validarCodigoProduto(Produto produto) {
-		 
+
 		return false;
 	}
 
@@ -176,7 +188,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 		ProdutoEntity p = produtoRepository.findOne(produto.getCodigo());
 		return JpaFunctions.produtoDTOtoProduto.apply(p);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Produto> consultar() {

@@ -35,6 +35,7 @@ import com.alcarrer.model.Medida;
 import com.alcarrer.model.Produto;
 import com.alcarrer.model.SubCategoria;
 import com.alcarrer.service.categoria.CategoriaService;
+import com.alcarrer.service.dominio.DominioService;
 import com.alcarrer.service.fornecedor.FornecedorService;
 import com.alcarrer.service.marca.MarcaService;
 import com.alcarrer.service.medida.MedidaService;
@@ -68,6 +69,10 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService produtoService;
+
+	@Autowired
+	private DominioService dominioService;
+	
 	
 	@Autowired
 	private MessageSource message;
@@ -189,7 +194,7 @@ public class ProdutoController {
 		produto.setMarcas(marcaService.consultar());
 		produto.setCategorias(categoriaService.consultar());
 		produto.setMedidas(medidaService.consultar());
-		
+		produto.setDominios(dominioService.consultar());
 		if(produto.getCategoria() != null) {
 			produto.setSubCategorias(categoriaService.consultarByCodigo(produto.getCategoria()).getSubCategorias());
 		}

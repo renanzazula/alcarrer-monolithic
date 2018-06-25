@@ -1,7 +1,9 @@
 package com.alcarrer.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.alcarrer.enums.FlagSiteEnum;
@@ -39,6 +43,14 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "produto_codigo")
 	private ProdutoEntity produto;
+	
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "produto_has_itens_tipo_medida_has_dominio", 
+        joinColumns = { @JoinColumn(name = "produto_has_itens_tipo_medida_codigo") }, 
+        inverseJoinColumns = { @JoinColumn(name = "dominio_codigo") }
+    )
+    private Set<DominioEntity> dominios;
 	
 	public ProdutoHasItensTipoMedidaEntity() {
 
@@ -84,4 +96,14 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 		this.flagSite = flagSite;
 	}
 
+	public Set<DominioEntity> getDominios() {
+		return dominios;
+	}
+
+	public void setDominios(Set<DominioEntity> dominios) {
+		this.dominios = dominios;
+	}
+
+	
+	
 }
