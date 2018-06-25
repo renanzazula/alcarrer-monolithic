@@ -211,8 +211,6 @@
 				done : function(e) {}
 			}); 
   		}
-
-
 		
   		$('input[name^=number]').maskMoney({thousands:''});
   		
