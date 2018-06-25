@@ -142,6 +142,55 @@
 					
 					display(data);
 					
+					$("#categoria")[0].selectedIndex = 0;
+					$("#subCategoria")[0].selectedIndex = 0;
+					$("#marca")[0].selectedIndex = 0;
+					
+					if(data.length > 0){
+  											
+						if(data[0].categoria != null){						
+							if(data[0].categoria.codigo != null){
+	  							$("#categoria option").each(function(){
+	  								var codigo = jQuery.parseJSON($(this).val()).codigo;
+	  								if(codigo == data[0].categoria.codigo){
+	  									$(this).attr('selected', 'selected');
+	  								}
+								});
+	  						}
+						}	
+  						
+						if(data[0].subCategoria != null){
+	  						if(data[0].subCategoria.codigo != null){
+	  							$('#subCategoria').children('option:not(:first)').remove();
+	  							var subCategorias = data[0].categoria.subCategorias;
+	  		  					$.each(subCategorias, function(key, value) {
+	  		  					     $('#subCategoria')
+	  		  					         .append($("<option></option>")
+	  		  					         .attr("value", JSON.stringify(value))
+	  		  					         .attr('selected', 'selected')
+	  		  					         .text(value.nome));
+	  		  					});
+	  							$("#subCategoria option").each(function(){
+	  								var codigo = jQuery.parseJSON($(this).val()).codigo;
+	  								if(codigo == data[0].subCategoria.codigo){
+	  									$(this).attr('selected', 'selected');
+	  								}
+								});
+	  						}
+						}
+						
+  						if(data[0].marca != null){
+	  						if(data[0].marca.codigo != null){
+	  							$("#marca option").each(function(){
+	  								var codigo = jQuery.parseJSON($(this).val()).codigo;
+	  								if(codigo == data[0].marca.codigo){
+	  									$(this).attr('selected', 'selected');
+	  								}
+								});
+	  						}
+  						}
+  					}
+					
 					var preco = $("#precoVenda").val();
 					var peso = $("#peso").val();
 
@@ -149,7 +198,6 @@
 						var inputHidden = "<input type='text' name='produtoHasItensTipoMedida["+ key +"].itensTipoMedida.codigo' value='"+value.codigo+"'/>";
 						$("#hiddensInput").append(inputHidden);
 						var input = "<input type='text' name='produtoHasItensTipoMedida["+key +"].quantidade' value='" + 1 +" '/>";
-						
 						var selectIni = "<select name='produtoHasItensTipoMedida["+key+"].flagSite' class='field-select' style='width: 60%'>0";
 						var option = "<option value='fisico'>fisico</option><option value='Web'>Web</option>";
 				  		var selectFinal = "</select>";
@@ -316,21 +364,6 @@
 					<legend></legend>
 					<ul class="form-style-1">						
 						<li>
-							<label>Medida<span class="required">*</span></label> 
-					 		<form:select path="medida" cssClass="field-select" cssStyle="width: 60%" multiple="false">
-					 			<form:option value="NONE" label="Selecione"/>
-					 			<c:forEach items="${produtoForm.medidas}" var="item">
- 									<c:if test="${item.codigo eq produtoForm.medida.codigo}">
- 										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
- 									</c:if>
- 									<c:if test="${item.codigo ne produtoForm.medida.codigo}">
- 										<form:option value="${item}" label="${item.codigo} - ${item.nome}"/>
- 									</c:if>	
- 								</c:forEach> 					 			
-					 		</form:select>
-					 		<input type="button" id="abrirMedida" value="Nova Medida"  style="width: 38%" /> 
-						</li>						
-						<li>
 							<label>Fornecedor<span class="required">*</span></label> 
 					 		<form:select path="fornecedor" cssClass="field-select" cssStyle="width: 60%" multiple="false">
 					 			<form:option value="NONE" label="Selecione"/>
@@ -344,7 +377,22 @@
  								</c:forEach> 					 			
 					 		</form:select>
 					 		<input type="button" id="abrirFornecedor" value="Novo Fornecedor"  style="width: 38%" />
-						</li>						
+						</li>
+						<li>
+							<label>Medida<span class="required">*</span></label> 
+					 		<form:select path="medida" cssClass="field-select" cssStyle="width: 60%" multiple="false">
+					 			<form:option value="NONE" label="Selecione"/>
+					 			<c:forEach items="${produtoForm.medidas}" var="item">
+ 									<c:if test="${item.codigo eq produtoForm.medida.codigo}">
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}" selected="selected"/>
+ 									</c:if>
+ 									<c:if test="${item.codigo ne produtoForm.medida.codigo}">
+ 										<form:option value="${item}" label="${item.codigo} - ${item.nome}"/>
+ 									</c:if>	
+ 								</c:forEach> 					 			
+					 		</form:select>
+					 		<input type="button" id="abrirMedida" value="Nova Medida"  style="width: 38%" /> 
+						</li>
 						<li>
 							<label>Categoria<span class="required">*</span></label> 
 							<form:select path="categoria" cssClass="field-select" cssStyle="width: 60%" multiple="false">
@@ -361,7 +409,7 @@
 				        	<input type="button" id="abrirCategoria" value="Nova Categoria"  style="width: 38%" />
 						</li>						
 						<li> 
-							<label>Subcategoria<span class="required">*</span></label> 
+							<label>Sub Categoria<span class="required">*</span></label> 
 					 		<form:select path="subCategoria" cssClass="field-select" cssStyle="width: 60%" multiple="false">
 						    	<form:option value="{}" label="Selecione"/>
  								<c:forEach items="${produtoForm.subCategorias}" var="item">
