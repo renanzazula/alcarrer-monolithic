@@ -31,13 +31,13 @@ public class DominioController {
 	private static final String VIEW_COLSULTA = "consultarDominio";
 
 	@Autowired
-	DominioValidator dominioValidator;
+	private DominioValidator dominioValidator;
 
 	@Autowired
 	private MessageSource message;
 
 	@Autowired
-	DominioService dominioService;
+	private DominioService dominioService;
 
 	// Set a form validator
 	@InitBinder

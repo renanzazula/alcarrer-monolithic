@@ -14,7 +14,6 @@ import com.alcarrer.entity.ProdutoEntity;
 import com.alcarrer.entity.ProdutoHasItensTipoMedidaEntity;
 import com.alcarrer.enums.StatusEnum;
 import com.alcarrer.function.JpaFunctions;
-import com.alcarrer.model.Dominio;
 import com.alcarrer.model.Produto;
 import com.alcarrer.repository.CategoriaRepository;
 import com.alcarrer.repository.DominioRepository;
@@ -31,6 +30,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	@Autowired
 	private MedidaRepository medidaRepository;
 
 	@Autowired

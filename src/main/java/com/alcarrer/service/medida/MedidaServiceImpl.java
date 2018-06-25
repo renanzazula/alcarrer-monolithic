@@ -41,13 +41,13 @@ public class MedidaServiceImpl implements MedidaService {
 		MedidaEntity medidaDB = new MedidaEntity();
 		medidaDB.setDescricao(medida.getDescricao());
 		medidaDB.setNome(medida.getNome());
-		if(medida.getItensTipoMedida() != null) {
-			Set<ItensTipoMedidaEntity> itensSet = new HashSet<>(); 
-				medida.getItensTipoMedida().forEach( itensMedida -> {
+		if (medida.getItensTipoMedida() != null) {
+			Set<ItensTipoMedidaEntity> itensSet = new HashSet<>();
+			medida.getItensTipoMedida().forEach(itensMedida -> {
 				ItensTipoMedidaEntity itens = new ItensTipoMedidaEntity();
 				itens.setCategoria(categoriaRepository.getOne(medida.getCategoria().getCodigo()));
 				itens.setSubCategoria(subCategoriaRepository.getOne(medida.getSubCategoria().getCodigo()));
-				if(medida.getMarca() != null) {
+				if (medida.getMarca() != null) {
 					itens.setMarca(marcaRepository.getOne(medida.getMarca().getCodigo()));
 				}
 				itens.setValor(itensMedida.getValor());
@@ -64,13 +64,13 @@ public class MedidaServiceImpl implements MedidaService {
 		medidaDB.setDescricao(medida.getDescricao());
 		medidaDB.setNome(medida.getNome());
 		medidaDB.getItensTipoMedida().clear();
-		if(medida.getItensTipoMedida() != null) {
-			Set<ItensTipoMedidaEntity> itensSet = new HashSet<>(); 
-				medida.getItensTipoMedida().forEach( itensMedida -> {
+		if (medida.getItensTipoMedida() != null) {
+			Set<ItensTipoMedidaEntity> itensSet = new HashSet<>();
+			medida.getItensTipoMedida().forEach(itensMedida -> {
 				ItensTipoMedidaEntity itens = new ItensTipoMedidaEntity();
 				itens.setCategoria(categoriaRepository.getOne(medida.getCategoria().getCodigo()));
 				itens.setSubCategoria(subCategoriaRepository.getOne(medida.getSubCategoria().getCodigo()));
-				if(medida.getMarca() != null) {
+				if (medida.getMarca() != null) {
 					itens.setMarca(marcaRepository.getOne(medida.getMarca().getCodigo()));
 				}
 				itens.setValor(itensMedida.getValor());
@@ -99,7 +99,7 @@ public class MedidaServiceImpl implements MedidaService {
 
 	@Override
 	public List<Medida> consultarByProdutoAndValor(Produto produto) {
-		
+
 		return null;
 	}
 

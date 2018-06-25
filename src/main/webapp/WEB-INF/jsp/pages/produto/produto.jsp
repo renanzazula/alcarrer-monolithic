@@ -10,7 +10,7 @@
 
 <spring:url value="/resources/external/jquery/jquery.js" var="jqueryJs" />
 <script type="text/javascript" src="${jqueryJs}"></script>
-
+	
 <spring:url value="/resources/jquery-ui.js" var="jqueryUiJs" />
 <script type="text/javascript" src="${jqueryUiJs}"></script>
 
@@ -30,9 +30,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		 
 		
-	  	$('#datepicker').datepicker({dateFormat : 'dd/mm/yy'}).val();
+		var dominios = null;
+		
+		$('#datepicker').datepicker({dateFormat : 'dd/mm/yy'}).val();
 
 	  	$('#incluirProduto').on( 'click', function () {  		
 			$("form[name='produtoForm']").attr('action', 'incluirProduto');
@@ -124,15 +125,40 @@
   		});
 		
 		$( "#medida" ).change(function() {
-			calItensMedida();			 
+			calItensMedida();	
+			if(dominios == null){
+				calDominios();
+			}
   		});
-		  		
+		
+		function calDominios(){
+			$.ajax({
+				type : "POST",                                                            
+				contentType : "application/json",
+				url : "${home}ajaxObterDominios",
+				data : "",
+				dataType : 'json',
+				timeout : 100000,
+				success : function(data) {
+					dominios = data;
+				},
+			error : function(e) {
+				alert("Erro" + e)
+			},
+				done : function(e) {}
+			});
+		}
+			
   		function calItensMedida(){
   			var table = $('#tableMedida').DataTable();
   			table.clear().draw();
  			$('#hiddensInput').html("");
-  				
-			$.ajax({
+  			 
+  			$("#categoria")[0].selectedIndex = 0;
+  			$("#subCategoria")[0].selectedIndex = 0;
+  			$("#marca")[0].selectedIndex = 0;
+  			
+ 			$.ajax({
 				type : "POST",                                                            
 				contentType : "application/json",
 				url : "${home}ajaxConsultarItensMedidaByMedidaCodigo",
@@ -143,18 +169,15 @@
 					
 					display(data);
 					
-					$("#categoria")[0].selectedIndex = 0;
-					$("#subCategoria")[0].selectedIndex = 0;
-					$("#marca")[0].selectedIndex = 0;
-					
 					if(data.length > 0){
-  											
-						if(data[0].categoria != null){						
+  						if(data[0].categoria != null){						
 							if(data[0].categoria.codigo != null){
-	  							$("#categoria option").each(function(){
-	  								var codigo = jQuery.parseJSON($(this).val()).codigo;
-	  								if(codigo == data[0].categoria.codigo){
-	  									$(this).attr('selected', 'selected');
+								$("#categoria option").each(function(){
+	  								if($(this).val() != "{}"){
+										var codigo = jQuery.parseJSON($(this).val()).codigo;
+		  								if(codigo == data[0].categoria.codigo){
+		  									$("#categoria")[0].selectedIndex = $(this).length;
+		  								}
 	  								}
 								});
 	  						}
@@ -172,10 +195,13 @@
 	  		  					         .text(value.nome));
 	  		  					});
 	  							$("#subCategoria option").each(function(){
-	  								var codigo = jQuery.parseJSON($(this).val()).codigo;
-	  								if(codigo == data[0].subCategoria.codigo){
-	  									$(this).attr('selected', 'selected');
-	  								}
+	  								if($(this).val() != "{}"){
+		  								var codigo = jQuery.parseJSON($(this).val()).codigo;
+		  								if(codigo == data[0].subCategoria.codigo){
+		  									console.log("sub"+$(this).val());
+		  									$(this).attr('selected', 'selected');
+		  								}
+	  								}	
 								});
 	  						}
 						}
@@ -183,10 +209,13 @@
   						if(data[0].marca != null){
 	  						if(data[0].marca.codigo != null){
 	  							$("#marca option").each(function(){
-	  								var codigo = jQuery.parseJSON($(this).val()).codigo;
-	  								if(codigo == data[0].marca.codigo){
-	  									$(this).attr('selected', 'selected');
-	  								}
+	  								if($(this).val() != "{}"){
+		  								var codigo = jQuery.parseJSON($(this).val()).codigo;
+		  								if(codigo == data[0].marca.codigo){
+		  									console.log("marca"+$(this).val());
+		  									$(this).attr('selected', 'selected');
+		  								}
+	  								}	
 								});
 	  						}
   						}
@@ -199,11 +228,13 @@
 						var inputHidden = "<input type='text' name='produtoHasItensTipoMedida["+ key +"].itensTipoMedida.codigo' value='"+value.codigo+"'/>";
 						$("#hiddensInput").append(inputHidden);
 						var input = "<input type='text' name='produtoHasItensTipoMedida["+key +"].quantidade' value='" + 1 +" '/>";
-						var selectIni = "<select name='produtoHasItensTipoMedida["+key+"].flagSite' class='field-select' style='width: 60%'>0";
-						var option = "<option value='fisico'>fisico</option><option value='Web'>Web</option>";
-				  		var selectFinal = "</select>";
-				  		table.row.add([value.valor, preco, input, peso, selectIni + option + selectFinal]).draw(false);
+						 
 				  		
+				  		var dominioStr = "";
+				  		$.each(dominios, function(keyDominio, dominioValue) {
+				  			dominioStr = dominioStr + "<input type='checkbox' name='produtoHasItensTipoMedida["+key +"].dominios["+keyDominio+"].dominio' value='"+JSON.stringify(dominioValue)+"'>"+dominioValue.nome; 
+				  		});
+				  		table.row.add([value.valor, preco, input, peso, dominioStr]).draw(false);
 					});
 			},
 				error : function(e) {
@@ -226,6 +257,7 @@
 
 <form:form method="post" modelAttribute="produtoForm" action="abrirProduto" name="produtoForm">
 	<br>
+		 
 	<fieldset>
 		<legend>Gerenciar Produto</legend>
 		<ul class="form-style-1">
@@ -238,7 +270,7 @@
 								<tr>
 									<td width="20%">
 										<form:hidden path="codigo"/>
-										
+										 
 										<label>Bar Code:<span class="required">*</span></label>
 										
 										<c:if test="${alterar != true}">

@@ -72,7 +72,7 @@ public class ProdutoAjaxControler {
   	
   	@ResponseBody
 	@RequestMapping(value = "/ajaxObterDominios")
-  	public List<Dominio> ajaxObterDominios(@RequestBody List<Dominio> dominios){
+  	public List<Dominio> ajaxObterDominios(){
   		 return dominioService.consultar();
   	}
 }

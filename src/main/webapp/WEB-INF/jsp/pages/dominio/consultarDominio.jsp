@@ -22,7 +22,7 @@
 	});
 </script>
  
-<form:form method="post" modelAttribute="dominioForm" action="abrirAlterardominio" name="dominioForm">
+<form:form method="post" modelAttribute="dominioForm" action="abrirAlterarDominio" name="dominioForm">
 	</br>
 		<form:hidden path="codigo" id="codigo"/>
 		<fieldset>

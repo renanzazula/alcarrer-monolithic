@@ -105,6 +105,13 @@
 		<put-attribute name="title" value="Venda" />
 		<put-attribute name="body" value="/WEB-INF/jsp/pages/venda/venda.jsp" />
 	</definition>
+	
+	<!-- Dominios -->
+	<definition name="dominio" extends="baseLayout">
+		<put-attribute name="title" value="Dominios" />
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/pages/dominio/dominio.jsp" />
+	</definition>
 
 	<!-- CONSULTAS -->
 	<!-- Consultar Produto -->
@@ -147,6 +154,11 @@
 	<definition name="consultarFormasDePagamento" extends="baseLayout">
 		<put-attribute name="title" value="Consultar Formas De Pagamento" />
 		<put-attribute name="body"  value="/WEB-INF/jsp/pages/formasDePagamento/consultarFormasDePagamento.jsp" />
+	</definition>
+
+	<definition name="consultarDominio" extends="baseLayout">
+		<put-attribute name="title" value="Consultar Dominios" />
+		<put-attribute name="body"  value="/WEB-INF/jsp/pages/dominio/consultarDominio.jsp" />
 	</definition>
 
 	<!-- erro -->
