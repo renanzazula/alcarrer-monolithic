@@ -35,9 +35,9 @@
 		
 		$('#datepicker').datepicker({dateFormat : 'dd/mm/yy'}).val();
 
-	  	$('#incluirProduto').on( 'click', function () {  		
+	  	$('#incluirProduto').on( 'click', function () {
 			$("form[name='produtoForm']").attr('action', 'incluirProduto');
-			$("form[name='produtoForm']").submit();
+//			$("form[name='produtoForm']").submit();
 		});		
 
 	  	$('#alterarProduto').on( 'click', function () {
@@ -84,7 +84,7 @@
 		    "searching": false,
 		    "ordering": false
 		} );
-		
+
 	  	var table = $('#tableMedida').DataTable({
 			"lengthMenu" : [ [ 20, 27, -1 ], [ 20, 27, "All" ] ],
 	  		"bLengthChange": false,
@@ -167,7 +167,7 @@
 				timeout : 100000,
 				success : function(data) {
 					
-					display(data);
+					//display(data);
 					
 					if(data.length > 0){
   						if(data[0].categoria != null){						
@@ -198,7 +198,6 @@
 	  								if($(this).val() != "{}"){
 		  								var codigo = jQuery.parseJSON($(this).val()).codigo;
 		  								if(codigo == data[0].subCategoria.codigo){
-		  									console.log("sub"+$(this).val());
 		  									$(this).attr('selected', 'selected');
 		  								}
 	  								}	
@@ -212,7 +211,6 @@
 	  								if($(this).val() != "{}"){
 		  								var codigo = jQuery.parseJSON($(this).val()).codigo;
 		  								if(codigo == data[0].marca.codigo){
-		  									console.log("marca"+$(this).val());
 		  									$(this).attr('selected', 'selected');
 		  								}
 	  								}	
@@ -232,7 +230,10 @@
 				  		
 				  		var dominioStr = "";
 				  		$.each(dominios, function(keyDominio, dominioValue) {
-				  			dominioStr = dominioStr + "<input type='checkbox' name='produtoHasItensTipoMedida["+key +"].dominios["+keyDominio+"].dominio' value='"+JSON.stringify(dominioValue)+"'>"+dominioValue.nome; 
+				  		    //name=''
+                            var str_id =   'produtoHasItensTipoMedida[' + key +'].dominios['  + keyDominio +'].dominio|';
+							var str_name = 'produtoHasItensTipoMedida["'+ key +'"].dominios["'+ keyDominio +'"].dominio|' + dominioValue.codigo;
+				  			dominioStr = dominioStr + "<input type='checkbox' value='"+str_id+str_name+"' class='flagCheckBox' />"+dominioValue.nome;
 				  		});
 				  		table.row.add([value.valor, preco, input, peso, dominioStr]).draw(false);
 					});
@@ -243,21 +244,37 @@
 				done : function(e) {}
 			}); 
   		}
-		
-  		$('input[name^=number]').maskMoney({thousands:''});
-  		
+
+        $('input[name^=number]').maskMoney({thousands:''});
   		function display(data) {
   			var json = "<h4>Ajax Response</h4><pre>"
   					+ JSON.stringify(data, null, 4) + "</pre>";
   			$('#feedback').html(json);
   		}
-  	 	
- 	});
+
+        $('#tableMedida tbody').on( 'click', '.flagCheckBox', function () {
+            if ($(this).is(':checked')){
+                var id =    $(this).val().split("|")[0];
+                var name =  $(this).val().split("|")[1];
+                var valor = $(this).val().split("|")[2];
+                if(f(id).val() == null ){
+                    $("form[name='produtoForm']").append("<input type='text' id='"+id+"' name='"+name+"' value='"+valor+"'>");
+				}else{
+                    f(id).remove();
+                    console.log(f(id));
+				}
+			}
+        });
+
+        function f(id){
+            return $("#" + id);
+        }
+
+    });
 </script>
 
 <form:form method="post" modelAttribute="produtoForm" action="abrirProduto" name="produtoForm">
 	<br>
-		 
 	<fieldset>
 		<legend>Gerenciar Produto</legend>
 		<ul class="form-style-1">
@@ -274,7 +291,7 @@
 										<label>Bar Code:<span class="required">*</span></label>
 										
 										<c:if test="${alterar != true}">
-											<form:input path="barCode" type="text" class="field-long" id="barCode" placeholder="Bar Code"/>
+											<form:input path="barCode" type="text" class="field-long" placeholder="Bar Code"/>
 										</c:if>
 										<c:if test="${alterar == true}">
 											<input type="text" class="field-long" id="barCode" placeholder="Bar Code" disabled="${alterar}" value="${produtoForm.barCode}"/>
@@ -301,7 +318,7 @@
 						 	</table>				
 						</li>
 						<li>
-							<label>Descrição:<span class="required">*</span></label>
+							<label>Descriï¿½ï¿½o:<span class="required">*</span></label>
 					 		<form:textarea path="descricao"  class="field-long field-textarea" cssStyle="height: 60px"/>
 						</li>
 						<li>
@@ -324,14 +341,14 @@
 										  id="porcentagem" placeholder="Porcentagem"/>%				 
 									</td>
 									<td >
-										<label>Preço Custo:<span class="required">*</span></label>
+										<label>Preï¿½o Custo:<span class="required">*</span></label>
 					 					<form:input path="precoCusto" type="text" cssClass="field-long money" 
-										  id="precoCusto" placeholder="Preço Custo"/>
+										  id="precoCusto" placeholder="Preï¿½o Custo"/>
 						 			</td>
 						 			<td>
 						 				<label>Preco Venda:<span class="required">*</span></label> 
 					 					<form:input path="precoVenda" type="text" cssClass="field-long money"
-										  id="precoVenda" placeholder="Preço Venda"/>
+										  id="precoVenda" placeholder="Preï¿½o Venda"/>
 						 			</td>
 					 			</tr>
 								<tr>
@@ -357,9 +374,9 @@
 										  id="desconto" placeholder="Desconto"/>
 					 				</td>				 				
 					 				<td>
-					 					<label>Preço Oferta:<span class="required">*</span></label> 
+					 					<label>Preï¿½o Oferta:<span class="required">*</span></label> 
 					 					<form:input path="precoOferta" type="text" cssClass="field-long money"
-										  id="precoOferta" placeholder="Preço Oferta"/>
+										  id="precoOferta" placeholder="Preï¿½o Oferta"/>
 					 				</td>				 	
 					 			</tr>
 					 			<tr>
@@ -482,9 +499,9 @@
 											<table id="tableMedida" class="display" style="width:98%">
 												<thead>
 													<tr>
-														<th>Opção</th>
-														<th>Preço</th>
-														<th>Inventário</th>
+														<th>Opï¿½ï¿½o</th>
+														<th>Preï¿½o</th>
+														<th>Inventï¿½rio</th>
 														<th>Peso</th>
 														<th>Flag Site</th>							 
 													</tr>
