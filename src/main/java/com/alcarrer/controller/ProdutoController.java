@@ -6,6 +6,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -201,9 +202,31 @@ public class ProdutoController {
 
 		produto.setMedidas(listMedida);
 		produto.setDominios(dominioService.consultar());
+		
+		if(produto.getProdutoHasItensTipoMedida() != null) {
+			produto.getProdutoHasItensTipoMedida().forEach(produtoHasItensTipoMedida ->{
+				HashMap<Integer, Dominio> dominiosMap = new HashMap<>();
+				if(produtoHasItensTipoMedida.getDominios() != null)	{	
+					dominioService.consultar().forEach(action -> {
+	 					if(!dominiosMap.containsKey(action.getCodigo())) {
+	 						dominiosMap.put(action.getCodigo(), action);
+	 					}
+	 				});
+					produtoHasItensTipoMedida.getDominios().forEach(dominio ->{
+						if(dominiosMap.containsKey(dominio.getCodigo())) {
+							dominiosMap.get(dominio.getCodigo()).setChecked(true);
+						}
+					});
+					produtoHasItensTipoMedida.getDominios().clear();
+					produtoHasItensTipoMedida.getDominios().addAll(dominiosMap.values());
+				}
+			});
+		}
+		
 		if (produto.getCategoria() != null) {
 			produto.setSubCategorias(categoriaService.consultarByCodigo(produto.getCategoria()).getSubCategorias());
 		}
+		
 		return produto;
 	}
 

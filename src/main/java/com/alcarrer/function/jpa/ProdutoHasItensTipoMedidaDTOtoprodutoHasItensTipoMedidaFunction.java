@@ -14,7 +14,9 @@ public class ProdutoHasItensTipoMedidaDTOtoprodutoHasItensTipoMedidaFunction
 	public ProdutoHasItensTipoMedida apply(ProdutoHasItensTipoMedidaEntity input) {
 		ProdutoHasItensTipoMedida output = new ProdutoHasItensTipoMedida();
 		output.setCodigo(input.getCodigo());
-		output.setDominios( input.getDominios().stream().map(JpaFunctions.dominioDTOtoDominio).collect(Collectors.toList()));		
+		if( input.getDominios() != null) {
+			output.setDominios( input.getDominios().stream().map(JpaFunctions.dominioDTOtoDominio).collect(Collectors.toList()));		
+		}
 		if (input.getItensTipoMedida() != null) {
 			output.setItensTipoMedida(JpaFunctions.itensTipoMedidaDTOtoItensTipoMedida.apply(input.getItensTipoMedida()));
 		}

@@ -5,6 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
+
 <spring:url value="/resources/jquery-1.12.4.js" var="jquery124Js" />
 <script type="text/javascript" src="${jquery124Js}"></script>
 
@@ -37,7 +39,7 @@
 
 	  	$('#incluirProduto').on( 'click', function () {
 			$("form[name='produtoForm']").attr('action', 'incluirProduto');
-//			$("form[name='produtoForm']").submit();
+			$("form[name='produtoForm']").submit();
 		});		
 
 	  	$('#alterarProduto').on( 'click', function () {
@@ -230,10 +232,8 @@
 				  		
 				  		var dominioStr = "";
 				  		$.each(dominios, function(keyDominio, dominioValue) {
-				  		    //name=''
-                            var str_id =   'produtoHasItensTipoMedida[' + key +'].dominios['  + keyDominio +'].dominio|';
-							var str_name = 'produtoHasItensTipoMedida["'+ key +'"].dominios["'+ keyDominio +'"].dominio|' + dominioValue.codigo;
-				  			dominioStr = dominioStr + "<input type='checkbox' value='"+str_id+str_name+"' class='flagCheckBox' />"+dominioValue.nome;
+				  			var str_name = 'produtoHasItensTipoMedida['+ key +'].dominios['+ keyDominio +'].codigo';
+				  			dominioStr = dominioStr + "<input type='checkbox' name='" + str_name + "' value='" + dominioValue.codigo + "' class='flagCheckBox' />"+dominioValue.nome;
 				  		});
 				  		table.row.add([value.valor, preco, input, peso, dominioStr]).draw(false);
 					});
@@ -245,31 +245,43 @@
 			}); 
   		}
 
-        $('input[name^=number]').maskMoney({thousands:''});
+        $("#precoCusto").maskMoney({thousands:'', decimal:'.', allowZero:true});
+        $("#precoVenda").maskMoney({thousands:'', decimal:'.', allowZero:true});
+        $("#desconto").maskMoney({thousands:'', decimal:'.', allowZero:true});
+        $("#precoOferta").maskMoney({thousands:'', decimal:'.', allowZero:true});
+        $("#porcentagemDesconto").maskMoney({thousands:'', decimal:'.', allowZero:true});
+        $("#porcentagem").maskMoney({thousands:'', decimal:'.', allowZero:true});
+        
+        function calculaPrecoVenda(data) {
+        	var VTOTALPRODUTO = 100 - parseFloat($("#porcentagem").val());
+        	var PCUSTO = parseFloat($("#precoCusto").val());
+        	var PV = (PCUSTO / VTOTALPRODUTO)
+        	var PVENDA = (PV * 100);
+        	$("#precoVenda").val(PVENDA.toFixed(2));
+  		}
+        
+       function calculaDesconto(data) {
+			var PCUSTO = parseFloat($("#precoCusto").val());
+        	var DESCONTO = parseFloat($("#porcentagemDesconto").val());
+			var PDESCONTO = parseFloat( ( PCUSTO  * DESCONTO ) / 100 );
+ 		    $("#desconto").val(PDESCONTO.toFixed(2));
+ 		    var PVENDA = parseFloat($("#precoVenda").val());
+ 		    $("#precoOferta").val( parseFloat(PVENDA - PDESCONTO).toFixed(2) );    
+ 		}
+       
+       	$("#porcentagem").change(function() {
+       		calculaPrecoVenda();
+ 	  	});
+       
+        $("#porcentagemDesconto").change(function() {
+       		calculaDesconto();  	  		 
+ 	  	});
+        
   		function display(data) {
   			var json = "<h4>Ajax Response</h4><pre>"
   					+ JSON.stringify(data, null, 4) + "</pre>";
   			$('#feedback').html(json);
   		}
-
-        $('#tableMedida tbody').on( 'click', '.flagCheckBox', function () {
-            if ($(this).is(':checked')){
-                var id =    $(this).val().split("|")[0];
-                var name =  $(this).val().split("|")[1];
-                var valor = $(this).val().split("|")[2];
-                if(f(id).val() == null ){
-                    $("form[name='produtoForm']").append("<input type='text' id='"+id+"' name='"+name+"' value='"+valor+"'>");
-				}else{
-                    f(id).remove();
-                    console.log(f(id));
-				}
-			}
-        });
-
-        function f(id){
-            return $("#" + id);
-        }
-
     });
 </script>
 
@@ -335,16 +347,16 @@
 						<li>
 							<table style="width:100%">
 								<tr>
-									<td>
-										<label>Porcentagem:<span class="required">*</span></label>
-					 					<form:input path="porcentagem" type="text" cssClass="field-long" cssStyle="width: 97%;"
-										  id="porcentagem" placeholder="Porcentagem"/>%				 
-									</td>
 									<td >
 										<label>Pre�o Custo:<span class="required">*</span></label>
 					 					<form:input path="precoCusto" type="text" cssClass="field-long money" 
 										  id="precoCusto" placeholder="Pre�o Custo"/>
 						 			</td>
+						 			<td>
+										<label>Porcentagem:<span class="required">*</span></label>
+					 					<form:input path="porcentagem" type="text" cssClass="field-long" cssStyle="width: 97%;"
+										  id="porcentagem" placeholder="Porcentagem"/>%				 
+									</td>
 						 			<td>
 						 				<label>Preco Venda:<span class="required">*</span></label> 
 					 					<form:input path="precoVenda" type="text" cssClass="field-long money"
@@ -353,11 +365,11 @@
 					 			</tr>
 								<tr>
 									<td>
-										<form:errors path="porcentagem" cssClass="required"/>
-									</td>
-									<td>
 										<form:errors path="precoCusto" cssClass="required"/>
 						 			</td>
+						 			<td>
+										<form:errors path="porcentagem" cssClass="required"/>
+									</td>
 						 			<td>
 						 				<form:errors path="precoVenda" cssClass="required"/>
 						 			</td>
@@ -523,18 +535,15 @@
 															<td class="peso">${produtoForm.peso} kg</td>
 															
 															<td class="flagSite"> 
-																<form:select path="produtoHasItensTipoMedida[${loop.index}].flagSite" cssClass="field-select" cssStyle="width: 60%" multiple="false" >
-															    	<form:option value="{}" label="Selecione"/>
-														 			<c:forEach items="${produtoForm.flagSite}" var="item">
-									 									<c:if test="${item eq produtoHasItensTipoMedida[loop.index].flagSite}">
-									 										<form:option value="${item}" label="${item}" selected="selected"/>
-									 									</c:if>
-									 									<c:if test="${item ne produtoHasItensTipoMedida[loop.index].flagSite}">
-									 										<form:option value="${item}" label="${item}"/>
-									 									</c:if>	
-									 								</c:forEach>
-													        	</form:select> 
-															</td>															
+																<c:forEach items="${item.dominios}" var="dominio" varStatus="dominioIndex">
+																	<c:if test="${dominio.checked == true}">
+									 									<input type="checkbox" name="produtoHasItensTipoMedida[${loop.index}].dominios[${dominioIndex.index}].codigo" value="${dominio.codigo}" class="flagCheckBox" checked> ${dominio.nome}
+									 								</c:if>
+									 								<c:if test="${dominio.checked == false}">
+									 									<input type="checkbox" name="produtoHasItensTipoMedida[${loop.index}].dominios[${dominioIndex.index}].codigo" value="${dominio.codigo}" class="flagCheckBox"> ${dominio.nome}
+									 								</c:if>
+									 							</c:forEach>										 									
+								 							</td>															
 														</tr>
 													</c:forEach>
 												</tbody>

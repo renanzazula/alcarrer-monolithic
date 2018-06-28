@@ -46,11 +46,14 @@
 	        	var fieldsetInicio = '<fieldset><legend></legend><ul class="form-style-1"><li>';
         		var fieldsetFim = '</li></ul></fieldset>';	
 	        	
-	        	var inicioTable = '<table class="display dataTable no-footer" border="0">'+
-			    						'<thead><tr><th>Tamanho</th><th>Quantidade</th><th>Site</th></tr></thead><tbody>';
+	        	var inicioTable = '<table class="display dataTable no-footer" border="0">'     		+
+			    				  '<thead><tr>'													    +
+			    				  	'<th style="width: 25%;text-align: center;">Tamanho</th>' 		+
+			    				    '<th style="width: 25%;text-align: center;">Quantidade</th>'    +
+			    				    '<th style="width: 50%;text-align: center;">Dominio</th>'       +
+			    				  '</tr></thead><tbody style="text-align: center;">';
 				var	lines = '';
 				var finalTable = '</tbody></table>';
-				
 				
 	        	var codigo = '{"codigo":'+ row.data()[1] +'}';
 	        	$.ajax({
@@ -64,9 +67,9 @@
 	  					console.log(data);
 	  					$.each(data, function(key, value) {
   							lines = lines +  '<tr>';
-	  							lines = lines +  '<td>' + data[key].itensTipoMedida.valor + '</td>';
-		  						lines = lines +  '<td>' + data[key].quantidade + '</td>';
-		  						lines = lines +  "<td>"+  data[key].flagSite +"</td>";
+	  							lines = lines +  '<td style="text-align: center;">' + data[key].itensTipoMedida.valor   +'</td>';
+		  						lines = lines +  '<td>' + data[key].quantidade              +'</td>';
+		  						lines = lines +  '<td>' + flagDominios(data[key].dominios)  +'</td>';
 	  						lines = lines + '</tr>';
 	  					});
 	  					// Open this row
@@ -83,6 +86,14 @@
 	        }
 	    } );
 		
+	    function flagDominios(data){
+	    	var str_check = "";
+	    	$.each(data, function(keyD, valueD) {
+	    		str_check = str_check + "<input type='checkbox' checked disabled='disabled'>" + valueD.nome;
+			});
+	    	return str_check;  
+	    }
+	    
 	    $('#tableConsulta tbody').on('click', 'td.edit-control', function () {
 	    	console.log($(this).closest('tr').children('td.cod').text());
 	        $("#codigo").val($(this).closest('tr').children('td.cod').text());

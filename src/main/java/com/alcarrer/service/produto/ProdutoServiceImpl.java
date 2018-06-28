@@ -98,9 +98,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 				Set<DominioEntity> dominiosDB = new HashSet<>();
 				phitm.getDominios().forEach(dominio -> {
-					dominiosDB.add(dominioRepository.getOne(dominio.getCodigo()));
+					if(dominio.getCodigo() != null) {
+						dominiosDB.add(dominioRepository.getOne(dominio.getCodigo()));
+					}
 				});
-
 				produtoHasItensTipoMedida.setDominios(dominiosDB);
 				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(phitm.getItensTipoMedida().getCodigo()));
 				set.add(produtoHasItensTipoMedida);
@@ -149,19 +150,31 @@ public class ProdutoServiceImpl implements ProdutoService {
 			produtoDB.setMarca(marcaRepository.findOne(produto.getMarca().getCodigo()));
 		}
 
+		produtoDB.getProdutoHasItensTipoMedida().forEach(d -> d.getDominios().clear() );
 		produtoDB.getProdutoHasItensTipoMedida().clear();
-
+		
 		if (produto.getProdutoHasItensTipoMedida() != null) {
-			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
+			Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedidaUpdate = new HashSet<>();
 			produto.getProdutoHasItensTipoMedida().forEach(phitm -> {
+				
 				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
 				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());
-				// produtoHasItensTipoMedida.setFlagSite(phitm.getFlagSite());
-				produtoHasItensTipoMedida
-						.setItensTipoMedida(itensTipoMedidaRepository.getOne(phitm.getItensTipoMedida().getCodigo()));
-				set.add(produtoHasItensTipoMedida);
+				
+				if(phitm.getDominios() != null) {
+					Set<DominioEntity> dominiosDB = new HashSet<DominioEntity>();
+					phitm.getDominios().forEach(dominio -> {
+						if(dominio.getCodigo() != null) {
+							dominiosDB.add(dominioRepository.getOne(dominio.getCodigo()));
+						}
+					});
+					produtoHasItensTipoMedida.setDominios(dominiosDB);
+				}
+				produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(phitm.getItensTipoMedida().getCodigo()));
+				produtoHasItensTipoMedidaUpdate.add(produtoHasItensTipoMedida);
+				
 			});
-			produtoDB.getProdutoHasItensTipoMedida().addAll(set);
+			
+			produtoDB.getProdutoHasItensTipoMedida().addAll(produtoHasItensTipoMedidaUpdate);
 		}
 
 		return JpaFunctions.produtoDTOtoProduto.apply(produtoRepository.saveAndFlush(produtoDB));

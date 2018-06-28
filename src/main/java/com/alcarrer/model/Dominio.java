@@ -12,6 +12,8 @@ public class Dominio implements Serializable {
 	private Integer codigo;
 	private String nome;
 	private String descricao;
+	private boolean checked;
+	
 
 	public Dominio() {
 
@@ -39,5 +41,13 @@ public class Dominio implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 }
