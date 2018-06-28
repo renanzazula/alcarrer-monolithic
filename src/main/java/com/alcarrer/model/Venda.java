@@ -2,6 +2,7 @@ package com.alcarrer.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Venda implements Serializable {
 
@@ -13,6 +14,7 @@ public class Venda implements Serializable {
 	private String status;
 	private Caixa caixa;
 	private Cliente cliente;
+	private List<FormasDePagamento> formasDePagamento;
 	private FormasDePagamento formaDePagamento;
 	// private Set<VendaHasProduto> vendaHasProduto;
 
@@ -66,6 +68,14 @@ public class Venda implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<FormasDePagamento> getFormasDePagamento() {
+		return formasDePagamento;
+	}
+
+	public void setFormasDePagamento(List<FormasDePagamento> formasDePagamento) {
+		this.formasDePagamento = formasDePagamento;
 	}
 
 	public FormasDePagamento getFormaDePagamento() {
