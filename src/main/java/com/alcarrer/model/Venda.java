@@ -1,6 +1,7 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +15,19 @@ public class Venda implements Serializable {
 	private String status;
 	private Caixa caixa;
 	private Cliente cliente;
-	private List<FormasDePagamento> formasDePagamento;
 	private FormasDePagamento formaDePagamento;
+	private List<FormasDePagamento> formasDePagamento;
+	private List<Produto> produtos;
+	
+	private long quantidade;
+	private BigDecimal subTotal;
+	private BigDecimal valorPendente;
+	private BigDecimal valorPago;
+	private BigDecimal desconto;
+	private BigDecimal totalApagar;
+	private BigDecimal troco;
+	private BigDecimal pagamento;
+	
 	// private Set<VendaHasProduto> vendaHasProduto;
 
 	public Venda() {
@@ -86,12 +98,76 @@ public class Venda implements Serializable {
 		this.formaDePagamento = formaDePagamento;
 	}
 
-	// public Set<VendaHasProduto> getVendaHasProduto() {
-	// return vendaHasProduto;
-	// }
-	//
-	// public void setVendaHasProduto(Set<VendaHasProduto> vendaHasProduto) {
-	// this.vendaHasProduto = vendaHasProduto;
-	// }
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public long getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(long quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public BigDecimal getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(BigDecimal subTotal) {
+		this.subTotal = subTotal;
+	}
+
+	public BigDecimal getValorPendente() {
+		return valorPendente;
+	}
+
+	public void setValorPendente(BigDecimal valorPendente) {
+		this.valorPendente = valorPendente;
+	}
+
+	public BigDecimal getValorPago() {
+		return valorPago;
+	}
+
+	public void setValorPago(BigDecimal valorPago) {
+		this.valorPago = valorPago;
+	}
+
+	public BigDecimal getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(BigDecimal desconto) {
+		this.desconto = desconto;
+	}
+
+	public BigDecimal getTotalApagar() {
+		return totalApagar;
+	}
+
+	public void setTotalApagar(BigDecimal totalApagar) {
+		this.totalApagar = totalApagar;
+	}
+
+	public BigDecimal getTroco() {
+		return troco;
+	}
+
+	public void setTroco(BigDecimal troco) {
+		this.troco = troco;
+	}
+
+	public BigDecimal getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(BigDecimal pagamento) {
+		this.pagamento = pagamento;
+	}
 
 }

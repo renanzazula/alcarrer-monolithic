@@ -249,23 +249,21 @@
         $("#precoVenda").maskMoney({thousands:'', decimal:'.', allowZero:true});
         $("#desconto").maskMoney({thousands:'', decimal:'.', allowZero:true});
         $("#precoOferta").maskMoney({thousands:'', decimal:'.', allowZero:true});
-        $("#porcentagemDesconto").maskMoney({thousands:'', decimal:'.', allowZero:true});
-        $("#porcentagem").maskMoney({thousands:'', decimal:'.', allowZero:true});
-        
+         
         function calculaPrecoVenda(data) {
-        	var VTOTALPRODUTO = 100 - parseFloat($("#porcentagem").val());
-        	var PCUSTO = parseFloat($("#precoCusto").val());
-        	var PV = (PCUSTO / VTOTALPRODUTO)
+        	var VTOTALPRODUTO = (100 - parseFloat( $("#porcentagem").val() ) );
+        	var PCUSTO = parseFloat($("#precoCusto").val()).toFixed(2);
+        	var PV = (PCUSTO / VTOTALPRODUTO);
         	var PVENDA = (PV * 100);
-        	$("#precoVenda").val(PVENDA.toFixed(2));
+        	$("#precoVenda").val( PVENDA.toFixed(2) );
   		}
         
        function calculaDesconto(data) {
-			var PCUSTO = parseFloat($("#precoCusto").val());
+			var PCUSTO = parseFloat($("#precoCusto").val()).toFixed(2);
         	var DESCONTO = parseFloat($("#porcentagemDesconto").val());
 			var PDESCONTO = parseFloat( ( PCUSTO  * DESCONTO ) / 100 );
  		    $("#desconto").val(PDESCONTO.toFixed(2));
- 		    var PVENDA = parseFloat($("#precoVenda").val());
+ 		    var PVENDA = parseFloat($("#precoVenda").val()).toFixed(2);
  		    $("#precoOferta").val( parseFloat(PVENDA - PDESCONTO).toFixed(2) );    
  		}
        

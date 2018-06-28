@@ -44,8 +44,10 @@ public class ProdutoAjaxControler {
 
   	@ResponseBody
 	@RequestMapping(value = "/addicionarProduto")
-    public Produto addicionarProduto(@RequestBody Produto produto) {
-  		Produto produtoDB = produtoService.consultarByCodigo(produto);
+    public Produto addicionarProduto(@RequestBody String barCodep) {
+  		Produto barCode = new Produto();
+  		barCode.setBarCode(barCodep);
+  		Produto produtoDB = produtoService.consultarByBarCode(barCode); 
   		//produtoDB.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
   		return  produtoDB;
 	}

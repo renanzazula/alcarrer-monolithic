@@ -82,13 +82,13 @@
 	            $("#pagamento").val(total.toFixed(2));
 
 	            if (api.data().count() == 0) {
-	            	$('#formasDePagamento option:first').prop("selected", "selected");
-	            	$("#formasDePagamento").attr('disabled', true);
+	            	$('#formaDePagamento option:first').prop("selected", "selected");
+	            	$("#formaDePagamento").attr('disabled', true);
 		            $("#valorPendente").val("0.00");
 		            $("#desconto").val("0.00");
 		            $("#valorPago").val("0.00");	            	
 			    }else{
-			    	$( "#formasDePagamento" ).attr('disabled', false); 
+			    	$( "#formaDePagamento" ).attr('disabled', false); 
 				}	
 	 			
 	            // Total over this page
@@ -105,30 +105,18 @@
 		});
  
 	  	$("#adicionarProduto").click(function(event) {
-			var data = '{"codigo":' + $("#id").val().substring(0,1) +',"itemMedida":{"valor":"' + $("#id").val().substring(1,2) + '"}}'; 
-			$.ajax({ 
-				 type: "POST",
-				 contentType: "application/json",
-				 url: "${home}addicionarProduto",
-				 data: JSON.stringify(jQuery.parseJSON(data)),
-				 dataType: 'json',
-				 timeout: 600000,
-				 success: function (data) {
-					
-					if(data.codigo != null){
-  						var botao = "<input type='button' value='remover' class='delete'/>";
- 						table.row.add([data.codigo, data.nome, 1, data.itemMedida.valor, data.precoVenda, 11, 22, botao]).draw(false);
-						$("#id").val("");
-					}else{
-						alert("Produto não encontrado!");
-					}   				        						 	
-				 },
-				 error: function (e) {},
-				 done : function(e) {}
-			});
+// 	  		,"itemMedida":{"valor":"' + $("#id").val().substring(1,2) + '"} .substring(0,1)
+// 	  		var produtoBarcode = '{"barCode":"' + $("#barCode").val() +'"}';
+			oberProdutoByBarcode($("#barCode").val());
+		});
+	  	
+	  	$("#barCode").blur(function(event) {
+// 			var produtoBarcode = "{'barCode':'" + $("#barCode").val() +"'}"; 
+			oberProdutoByBarcode($("#barCode").val());
+			 $("#barCode").val("");
 		});
 
-  		$( "#formasDePagamento" ).change(function() {
+  		$( "#formaDePagamento" ).change(function() {
   			calcularFormasDePagamento();  	  		 
   	  	});
   		 
@@ -151,9 +139,32 @@
 				$("#valorPendente").val(VALOR_PENDENTE_AUX.toFixed(2));
 			}	
 		}); 
-
+// 		jQuery.parseJSON(produtoBarcode)
+		function oberProdutoByBarcode(produtoBarcode){
+			$.ajax({ 
+				 type: "POST",
+				 contentType: "application/json",
+				 url: "${home}addicionarProduto",
+				 data: produtoBarcode,
+				 dataType: 'json',
+				 timeout: 600000,
+				 success: function (data) {
+					
+					if(data.codigo != null){
+ 						var botao = "<input type='button' value='remover' class='delete'/>";
+						table.row.add([data.codigo, data.nome, 1, "b", data.precoVenda, 11, 22, botao]).draw(false);
+						$("#id").val("");
+					}else{
+						alert("Produto não encontrado!");
+					}   				        						 	
+				 },
+				 error: function (e) {},
+				 done : function(e) {}
+			});
+		}
+		
 		function calcularFormasDePagamento(){
-			var formaDePagamento = jQuery.parseJSON($( "#formasDePagamento" ).val());
+			var formaDePagamento = jQuery.parseJSON($( "#formaDePagamento" ).val());
 			// zerando total
 		    $("#totalApagar").val("0.00");  
 
@@ -187,7 +198,6 @@
 </script>
 
 <form:form method="post" modelAttribute="vendaForm" action="abrirVenda" name="vendaForm">
-	 
 	</br>
 	<fieldset>
 		<legend>Finalizar Venda</legend>		
@@ -215,7 +225,7 @@
 						<li>
 							<label>
 								Código:
-								<input type="text" style="width: 24%" id="id"/>
+								<input type="text" style="width: 24%" id="barCode"/>
 								<input type="button" id="adicionarProduto" value="+ Adicionar Produto" style="width: 70%"/>
 							</label>
 						</li>
@@ -268,13 +278,13 @@
 									<ul class="form-style-1" >
 							 			<li>
 											<label>Formas de Pagamento
-												<form:select path="formasDePagamento" cssClass="field4" cssStyle="width: 82%" multiple="false" id="formasDePagamento">
+												<form:select path="formaDePagamento" cssClass="field4" cssStyle="width: 82%" multiple="false" id="formaDePagamento">
 					 								<form:option value="NONE" label="Selecione"/>
-					 								<c:forEach items="${vendaForm.listFormasDePagamento}" var="item">
-					 									<c:if test="${item.codigo eq  vendaForm.formasDePagamento.codigo}">
+					 								<c:forEach items="${vendaForm.formasDePagamento}" var="item">
+					 									<c:if test="${item.codigo eq  vendaForm.formaDePagamento.codigo}">
 					 										<form:option value="${item}" label="${item.nome}" selected="selected"/>
 					 									</c:if>
-					 									<c:if test="${item.codigo ne  vendaForm.formasDePagamento.codigo}">
+					 									<c:if test="${item.codigo ne  vendaForm.formaDePagamento.codigo}">
 					 										<form:option value="${item}" label="${item.nome}"/>
 					 									</c:if>	
 					 								</c:forEach>
@@ -350,7 +360,7 @@
 					</ul>
 				</fieldset>
 			</li>	
-				</br>
+			</br>
 			<li>	
 				<fieldset>
 					<legend></legend>		
@@ -365,7 +375,7 @@
 			</li>
 		</ul>
 	</fieldset>
-	</br>
+	
 	<div id="feedback"></div>
 	
 <script>

@@ -9,7 +9,7 @@ public class FormasDePagamento implements Serializable {
 	private Integer codigo;
 	private String nome;
 	private String descricao;
-	private int porcentagemDesconto;
+	private Integer porcentagemDesconto;
 
 	public FormasDePagamento() {
 		super();
@@ -18,7 +18,7 @@ public class FormasDePagamento implements Serializable {
 	public FormasDePagamento(String nome, String descricao, int porcentagemDesconto) {
 		this.nome = nome;
 		this.descricao = descricao;
-		this.porcentagemDesconto = porcentagemDesconto;
+		this.setPorcentagemDesconto(porcentagemDesconto);
 	}
 	
 	
@@ -39,20 +39,21 @@ public class FormasDePagamento implements Serializable {
 		this.nome = nome;
 	}
 
-	public int getPorcentagemDesconto() {
-		return porcentagemDesconto;
-	}
-
-	public void setPorcentagemDesconto(int porcentagemDesconto) {
-		this.porcentagemDesconto = porcentagemDesconto;
-	}
-
+	 
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Integer getPorcentagemDesconto() {
+		return porcentagemDesconto;
+	}
+
+	public void setPorcentagemDesconto(Integer porcentagemDesconto) {
+		this.porcentagemDesconto = porcentagemDesconto;
 	}
 
 }

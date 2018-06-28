@@ -72,6 +72,7 @@ public class VendaController {
 		binder.registerCustomEditor(ArrayList.class, new ObjectConversor(ArrayList.class));
 		binder.registerCustomEditor(Venda.class, new ObjectConversor(Venda.class));
 		binder.registerCustomEditor(Cliente.class, new ObjectConversor(Cliente.class));
+		binder.registerCustomEditor(Integer.class, new ObjectConversor(Integer.class));
 		binder.setValidator(vendaValidator);
 	}
 

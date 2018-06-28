@@ -201,6 +201,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 		ProdutoEntity p = produtoRepository.findOne(produto.getCodigo());
 		return JpaFunctions.produtoDTOtoProduto.apply(p);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Produto consultarByBarCode(Produto produto) {
+		ProdutoEntity p = produtoRepository.findByBarCode(produto.getBarCode());
+		return JpaFunctions.produtoDTOtoProduto.apply(p);
+	}
+	
 
 	@Override
 	@Transactional(readOnly = true)
