@@ -2,8 +2,7 @@ package com.alcarrer.model;
 
 import java.io.Serializable;
 
-import com.alcarrer.enums.Status;
-
+import com.alcarrer.enums.StatusEnum;
 
 public class Marca implements Serializable {
 
@@ -12,10 +11,15 @@ public class Marca implements Serializable {
 	private Integer codigo;
 	private String nome;
 	private String descricao;
-	private Status status;
-	
+	private StatusEnum status;
+
 	public Marca() {
 
+	}
+
+	public Marca(Integer codigo) {
+		super();
+		this.codigo = codigo;
 	}
 
 	public Marca(String nome, String descricao) {
@@ -48,11 +52,11 @@ public class Marca implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Status getStatus() {
+	public StatusEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
 

@@ -1,36 +1,28 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
-
+import java.util.List;
 
 public class ProdutoHasItensTipoMedida implements Serializable {
 
 	private static final long serialVersionUID = -6612762288260227887L;
 
 	private Integer codigo;
-	private String flagSite;
+	private List<Dominio> dominios;
 	private Integer quantidade;
 	private ItensTipoMedida itensTipoMedida;
 	private Produto produto;
-	
+
 	public ProdutoHasItensTipoMedida() {
 
 	}
-	
+
 	public Integer getCodigo() {
 		return codigo;
 	}
 
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getFlagSite() {
-		return flagSite;
-	}
-
-	public void setFlagSite(String flagSite) {
-		this.flagSite = flagSite;
 	}
 
 	public Integer getQuantidade() {
@@ -57,6 +49,12 @@ public class ProdutoHasItensTipoMedida implements Serializable {
 		this.produto = produto;
 	}
 
-	  
+	public List<Dominio> getDominios() {
+		return dominios;
+	}
+
+	public void setDominios(List<Dominio> dominios) {
+		this.dominios = dominios;
+	}
 
 }

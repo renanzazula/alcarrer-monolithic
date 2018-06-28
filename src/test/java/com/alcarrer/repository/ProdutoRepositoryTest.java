@@ -21,6 +21,8 @@ import com.alcarrer.entity.MedidaEntity;
 import com.alcarrer.entity.ProdutoEntity;
 import com.alcarrer.entity.ProdutoHasItensTipoMedidaEntity;
 import com.alcarrer.entity.SubCategoriaEntity;
+import com.alcarrer.enums.FlagSiteEnum;
+import com.alcarrer.enums.StatusEnum;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
@@ -29,14 +31,13 @@ public class ProdutoRepositoryTest {
 	@Autowired
 	private TestEntityManager entityManager;
 
-	@Autowired
-	private ProdutoRepository repository;
+
 
 	@Test
 	public void testSaveProduto() {
 
 		String nome = "nome";
-		String status = "status";
+		
 		String descricao = "Descricao";
 		Double preco = 0d;
 		Double precoVenda = 0d;
@@ -66,9 +67,9 @@ public class ProdutoRepositoryTest {
 
 		itensTipoMedidaX.setMedida(medidaX);
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaX = new ProdutoHasItensTipoMedidaEntity();
-		produtoHasItensTipoMedidaX.setFlagSite("flagSite");
+		
 		produtoHasItensTipoMedidaX.setQuantidade(10);
-		produtoHasItensTipoMedidaX.setItensTipoMedida(itensTipoMedidaX);
+//		produtoHasItensTipoMedidaX.setItensTipoMedida(itensTipoMedidaX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaX);
 
 		ItensTipoMedidaEntity itensTipoMedidaP = new ItensTipoMedidaEntity();
@@ -77,9 +78,9 @@ public class ProdutoRepositoryTest {
 		itensTipoMedidaP.setSubCategoria(subCategoria);
 		itensTipoMedidaP.setMedida(new MedidaEntity("P", "p"));
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaP = new ProdutoHasItensTipoMedidaEntity();
-		produtoHasItensTipoMedidaP.setFlagSite("flagSite");
+		
 		produtoHasItensTipoMedidaP.setQuantidade(10);
-		produtoHasItensTipoMedidaP.setItensTipoMedida(itensTipoMedidaP);
+//		produtoHasItensTipoMedidaP.setItensTipoMedida(itensTipoMedidaP);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaP);
 
 		ItensTipoMedidaEntity itensTipoMedidaXX = new ItensTipoMedidaEntity();
@@ -88,12 +89,12 @@ public class ProdutoRepositoryTest {
 		itensTipoMedidaXX.setSubCategoria(subCategoria);
 		itensTipoMedidaXX.setMedida(new MedidaEntity("XX", "xx"));
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaXX = new ProdutoHasItensTipoMedidaEntity();
-		produtoHasItensTipoMedidaXX.setFlagSite("flagSite");
+		
 		produtoHasItensTipoMedidaXX.setQuantidade(10);
-		produtoHasItensTipoMedidaXX.setItensTipoMedida(itensTipoMedidaXX);
+//		produtoHasItensTipoMedidaXX.setItensTipoMedida(itensTipoMedidaXX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaXX);
 
-		ProdutoEntity obj = new ProdutoEntity(nome, status, descricao, preco, precoVenda, precoCusto, precoOferta, desconto, peso,
+		ProdutoEntity obj = new ProdutoEntity(nome, StatusEnum.Ativo, descricao, preco, precoVenda, precoCusto, precoOferta, desconto, peso,
 				porcentagem, porcentagemDesconto, dataHoraCadastro, marca, fornecedor, categoria, subCategoria,
 				produtoHasItensTipoMedidaSet);
 

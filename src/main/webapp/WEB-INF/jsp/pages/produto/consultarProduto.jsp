@@ -19,6 +19,11 @@
 	tr.shown td.details-control {
 	    background: url('resources/images/details_close.png') no-repeat center center;
 	}
+	
+	td.edit-control{
+		background: url('resources/images/edit.png') no-repeat center center;
+	}
+	
 </style>
 
 <script type="text/javascript">
@@ -41,10 +46,15 @@
 	        	var fieldsetInicio = '<fieldset><legend></legend><ul class="form-style-1"><li>';
         		var fieldsetFim = '</li></ul></fieldset>';	
 	        	
-	        	var inicioTable = '<table class="display dataTable no-footer" border="0">'+
-			    						'<thead><tr><th>Tamanho</th><th>Descricao</th><th>Quantidade</th><th>Site</th></tr></thead><tbody>';
+	        	var inicioTable = '<table class="display dataTable no-footer" border="0">'     		+
+			    				  '<thead><tr>'													    +
+			    				  	'<th style="width: 25%;text-align: center;">Tamanho</th>' 		+
+			    				    '<th style="width: 25%;text-align: center;">Quantidade</th>'    +
+			    				    '<th style="width: 50%;text-align: center;">Dominio</th>'       +
+			    				  '</tr></thead><tbody style="text-align: center;">';
 				var	lines = '';
 				var finalTable = '</tbody></table>';
+				
 	        	var codigo = '{"codigo":'+ row.data()[1] +'}';
 	        	$.ajax({
 	  				type : "POST",
@@ -56,16 +66,14 @@
 	  				success : function(data) {
 	  					console.log(data);
 	  					$.each(data, function(key, value) {
-	  						lines = lines +  '<tr><td>' + value.nome + '</td>';
-	  						lines = lines +  '<td>' + value.descricao +'</td>';
-	  						$.each(data[key].itensTipoMedida, function(i, item) {
-	  							lines = lines +  '<td>' + item.valor + '</td>';
-		  						lines = lines +  '<td>flagSite</td>';		  						
-	  						});
+  							lines = lines +  '<tr>';
+	  							lines = lines +  '<td style="text-align: center;">' + data[key].itensTipoMedida.valor   +'</td>';
+		  						lines = lines +  '<td>' + data[key].quantidade              +'</td>';
+		  						lines = lines +  '<td>' + flagDominios(data[key].dominios)  +'</td>';
 	  						lines = lines + '</tr>';
 	  					});
 	  					// Open this row
-	  					//console.log(inicioTable + lines + finalTable);
+	  					console.log(inicioTable + lines + finalTable);
 	  		            row.child(fieldsetInicio + inicioTable + lines + finalTable + fieldsetFim).show();
 	  		            tr.addClass('shown');
 	  				},
@@ -78,11 +86,19 @@
 	        }
 	    } );
 		
-// 		$('#tableConsulta tbody').on('click', 'tr', function() {
-// 			$(this).toggleClass('selected');
-// 			$("#codigo").val($(this).closest('tr').children('td.cod').text());
-// 			$("form[name='produtoForm']").submit();
-// 		});
+	    function flagDominios(data){
+	    	var str_check = "";
+	    	$.each(data, function(keyD, valueD) {
+	    		str_check = str_check + "<input type='checkbox' checked disabled='disabled'>" + valueD.nome;
+			});
+	    	return str_check;  
+	    }
+	    
+	    $('#tableConsulta tbody').on('click', 'td.edit-control', function () {
+	    	console.log($(this).closest('tr').children('td.cod').text());
+	        $("#codigo").val($(this).closest('tr').children('td.cod').text());
+			$("form[name='produtoForm']").submit();
+		});
 	});
 </script>
 <form:form method="post" modelAttribute="produtoForm" action="abrirAlterarProduto" name="produtoForm">
@@ -96,8 +112,8 @@
 						<div class="ui-widget">
 							<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
 								<p>
-									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span> <strong>Hey!</strong>
-									${mensagem} 
+									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span> 
+									<strong>Hey!</strong> ${mensagem} 
 								</p>
 							</div>
 						</div>
@@ -108,6 +124,7 @@
 							<tr>
 							 	<th></th>
 								<th>Código</th>
+								<th>Bar Code</th>
 								<th>Nome</th>
 								<th>Descrição</th>
 								<th>Porcentagem</th>
@@ -120,13 +137,15 @@
 								<th>Categoría</th>
 								<th>Subcategoría</th>
 								<th>Fornecedor</th>
+								<th></th>
 							</tr>
 						</thead>				
 						<tbody>
 							<c:forEach items="${list}" var="i">
 								<tr>
 									<td class="details-control"></td>				
-									<td class="cod">${i.codigo}</td>					
+									<td class="cod">${i.codigo}</td>
+									<td>${i.barCode}</td>
 									<td>${i.nome}</td>					 
 									<td>${i.descricao}</td>					 
 									<td>${i.porcentagem}%</td>									
@@ -134,11 +153,12 @@
 									<td>${i.precoVenda}</td>					 
 									<td>${i.desconto}</td>			 
 									<td>${i.precoOferta}</td>					 
-									<td>{i.quantidade}</td>					 
+									<td>${i.quantidadeTotalEstoque}</td>					 
 									<td>${i.marca.nome}</td>					 
 									<td>${i.categoria.nome}</td>
 									<td>${i.subCategoria.nome}</td>					 
-									<td>${i.fornecedor.nome}</td>					
+									<td>${i.fornecedor.nome}</td>
+									<td class="edit-control"></td>			
 								</tr>
 							</c:forEach>	
 						</tbody>

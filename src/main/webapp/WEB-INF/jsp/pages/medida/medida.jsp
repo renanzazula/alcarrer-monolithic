@@ -108,7 +108,7 @@
 </script>
  
 <form:form method="post" modelAttribute="medidaForm" action="abrirMedida" name="medidaForm">
-	</br>
+	<br>
 	<fieldset>
 		<legend>Gerenciar Medida</legend>
 		<ul class="form-style-1">
@@ -133,17 +133,18 @@
 			</li>
 			
 			<li>
+				<br>
 				<label>Categoria<span class="required">*</span></label> 
 				<form:select path="categoria" cssClass="field-select" cssStyle="width: 60%" multiple="false">
 			    	<form:option value="NONE" label="Selecione"/>
 		 			<c:forEach items="${medidaForm.categorias}" var="item">
-							<c:if test="${item.codigo eq  medidaForm.categoria.codigo}">
+		 					<c:if test="${item.codigo eq  medidaForm.itensTipoMedida[0].categoria.codigo}">
 								<form:option value="${item}" label="${item.nome}" selected="selected"/>
 							</c:if>
-							<c:if test="${item.codigo ne medidaForm.categoria.codigo}">
+							<c:if test="${item.codigo ne medidaForm.itensTipoMedida[0].categoria.codigo}">
 								<form:option value="${item}" label="${item.nome}"/>
 							</c:if>	
-						</c:forEach>
+					</c:forEach>
 	        	</form:select> 
 	        	<input type="button" id="abrirCategoria" value="Nova Categoria"  style="width: 38%" />
 			</li>
@@ -154,10 +155,10 @@
 			    	
 			    	<form:option value="NONE" label="Selecione"/>
 						<c:forEach items="${medidaForm.subCategorias}" var="item">
-							<c:if test="${item.codigo eq  medidaForm.subCategoria.codigo}">
+							<c:if test="${item.codigo eq  medidaForm.itensTipoMedida[0].subCategoria.codigo}">
 								<form:option value="${item}" label="${item.nome}" selected="selected"/>
 							</c:if>
-							<c:if test="${item.codigo ne medidaForm.subCategoria.codigo}">
+							<c:if test="${item.codigo ne medidaForm.itensTipoMedida[0].subCategoria.codigo}">
 								<form:option value="${item}" label="${item.nome}"/>
 							</c:if>	
 						</c:forEach>
@@ -169,48 +170,49 @@
 				<label>Marca</label> 
 		 		<form:select path="marca" cssClass="field-select" cssStyle="width: 60%" multiple="false" >
 			    	<form:option value="NONE" label="Selecione"/>
-		 			<c:forEach items="${medidaForm.marcas}" var="item">
-							<c:if test="${item.codigo eq  medidaForm.marca.codigo}">
+			 			<c:forEach items="${medidaForm.marcas}" var="item">
+							<c:if test="${item.codigo eq medidaForm.itensTipoMedida[0].marca.codigo}">
 								<form:option value="${item}" label="${item.nome}" selected="selected"/>
 							</c:if>
-							<c:if test="${item.codigo ne medidaForm.marca.codigo}">
+							<c:if test="${item.codigo ne medidaForm.itensTipoMedida[0].marca.codigo}">
 								<form:option value="${item}" label="${item.nome}"/>
-							</c:if>	
+							</c:if>
 						</c:forEach>
 	        	</form:select> 	        	
 	        	<input type="button" id="abrirMarca" value="Nova Marca"  style="width: 38%" />
 			</li>
-			
-			<fieldset>    
-				<legend>Gerenciar Medida</legend>
-				<ul class="form-style-1">
-					<li>
-						<label>
-							Valor:
-							<input type="text" style="width: 24%" id="id"/>
-							<input type="button" id="adicionarMedida" value="+ Adicionar Medida" style="width: 70%"/>
-						</label>
-					</li>
-			
-					<li> 
-						<table id="tableMedida" class="display" cellspacing="0" width="98%">
-							<thead>
-								<tr>
-									<th>Medida</th>							 								 											
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${medidaForm.itensTipoMedida}" var="i">
-									<tr>
-										<td class="cod">${i.valor}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</li>	
-				</ul>
-			</fieldset>
+			<li>
+				<br>
+				<fieldset>    
+					<legend>Gerenciar Medida</legend>
+					<ul class="form-style-1">
+						<li>
+							<label>
+								Valor:
+								<input type="text" style="width: 24%" id="id"/>
+								<input type="button" id="adicionarMedida" value="+ Adicionar Medida" style="width: 70%"/>
+							</label>
+						</li>
 				
+						<li> 
+							<table id="tableMedida" class="display"  style="width:98%">
+								<thead>
+									<tr>
+										<th>Medida</th>							 								 											
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${medidaForm.itensTipoMedida}" var="i">
+										<tr>
+											<td class="cod">${i.valor}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</li>	
+					</ul>
+				</fieldset>
+			</li>
 			<!-- Botões -->
 			<li class="text-align-right">
 				<input type="button" id="cancelarMedida" value="Cancelar" />
@@ -224,9 +226,7 @@
 				</c:if>
 								
 			</li>
-			
-			
 		</ul>
 	</fieldset>	
-	</br>
+	<br>
 </form:form >

@@ -1,8 +1,12 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import com.alcarrer.enums.FlagSiteEnum;
+import com.alcarrer.enums.StatusEnum;
 
 public class Produto implements Serializable {
 
@@ -10,7 +14,7 @@ public class Produto implements Serializable {
 	private Integer codigo;
 	private String barCode;
 	private String nome;
-	private String status;
+	private StatusEnum status;
 	private String descricao;
 	private Double preco;
 	private Double precoVenda;
@@ -21,22 +25,26 @@ public class Produto implements Serializable {
 	private Integer porcentagem;
 	private Integer porcentagemDesconto;
 	private Date dataHoraCadastro;
-	private Marca marca;
+
 	private Fornecedor fornecedor;
+	private Medida medida;
 	private Categoria categoria;
 	private SubCategoria subCategoria;
+	private Marca marca;
 
+	private List<Dominio> dominios;
+	private List<Fornecedor> fornecedores;
 	private List<Categoria> categorias;
 	private List<SubCategoria> subCategorias;
-	private List<Medida> itensMedida;
-	private List<Fornecedor> fornecedores;
 	private List<Marca> marcas;
+	private List<Medida> medidas;
+	private List<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida;
 
 	public Produto() {
 
 	}
 
-	public Produto(String nome, String status, String descricao, Double preco, Double precoVenda, Double precoCusto,
+	public Produto(String nome, StatusEnum status, String descricao, Double preco, Double precoVenda, Double precoCusto,
 			Double precoOferta, Double desconto, Double peso, Integer porcentagem, Integer porcentagemDesconto,
 			Date dataHoraCadastro, Marca marca, Fornecedor fornecedor, Categoria categoria, SubCategoria subCategoria
 
@@ -44,7 +52,7 @@ public class Produto implements Serializable {
 		super();
 
 		this.nome = nome;
-		this.status = status;
+		this.setStatus(status);
 		this.descricao = descricao;
 		this.preco = preco;
 		this.precoVenda = precoVenda;
@@ -78,15 +86,7 @@ public class Produto implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getDescricao() {
+ 	public String getDescricao() {
 		return descricao;
 	}
 
@@ -230,14 +230,6 @@ public class Produto implements Serializable {
 		this.subCategorias = subCategorias;
 	}
 
-	public List<Medida> getItensMedida() {
-		return itensMedida;
-	}
-
-	public void setItensMedida(List<Medida> itensMedida) {
-		this.itensMedida = itensMedida;
-	}
-
 	public String getBarCode() {
 		return barCode;
 	}
@@ -246,4 +238,55 @@ public class Produto implements Serializable {
 		this.barCode = barCode;
 	}
 
-}
+	public List<ProdutoHasItensTipoMedida> getProdutoHasItensTipoMedida() {
+		return produtoHasItensTipoMedida;
+	}
+
+	public void setProdutoHasItensTipoMedida(List<ProdutoHasItensTipoMedida> produtoHasItensTipoMedida) {
+		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
+	}
+
+	public List<Medida> getMedidas() {
+		return medidas;
+	}
+
+	public void setMedidas(List<Medida> medidas) {
+		this.medidas = medidas;
+	}
+
+	public Integer getQuantidadeTotalEstoque() {
+		Integer quantidadeTotalEstoque = new Integer(0);
+		for (ProdutoHasItensTipoMedida produtoHasItensTipoMedida : this.produtoHasItensTipoMedida) {
+			quantidadeTotalEstoque = quantidadeTotalEstoque + produtoHasItensTipoMedida.getQuantidade();
+		}
+		return quantidadeTotalEstoque;
+	}
+
+
+	public List<FlagSiteEnum> getFlagSite() {
+		return Arrays.asList(FlagSiteEnum.values()); 
+	}
+	
+	public Medida getMedida() {
+		return medida;
+	}
+
+	public void setMedida(Medida medida) {
+		this.medida = medida;
+	}
+
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
+
+	public List<Dominio> getDominios() {
+		return dominios;
+	}
+
+	public void setDominios(List<Dominio> dominios) {
+		this.dominios = dominios;
+	} }

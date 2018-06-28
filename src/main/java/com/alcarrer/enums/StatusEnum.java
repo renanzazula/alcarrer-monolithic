@@ -1,5 +1,5 @@
 package com.alcarrer.enums;
 
-public enum Status {
+public enum StatusEnum {
 	Ativo, Inativo;
 }

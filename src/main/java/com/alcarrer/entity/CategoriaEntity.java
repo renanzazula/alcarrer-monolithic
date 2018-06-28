@@ -1,7 +1,6 @@
 package com.alcarrer.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
 
 @Entity(name = "categoria")
 public class CategoriaEntity implements Serializable {
@@ -32,18 +30,19 @@ public class CategoriaEntity implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-	@JoinTable( name = "categoria_has_sub_categoria", joinColumns = {
-		@JoinColumn(name = "categoria_codigo",     nullable = false, updatable = false, referencedColumnName="codigo" ) }, 
-		inverseJoinColumns = {
-		@JoinColumn(name = "sub_categoria_codigo", nullable = false, updatable = false) })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "categoria_has_sub_categoria", joinColumns = {
+			@JoinColumn(name = "categoria_codigo", nullable = false, updatable = false, referencedColumnName = "codigo") }, inverseJoinColumns = {
+					@JoinColumn(name = "sub_categoria_codigo", nullable = false, updatable = false) })
 	private Set<SubCategoriaEntity> subCategoriasSet;
 
-	@Transient
-	private List<SubCategoriaEntity> subCategorias; 
-	
 	public CategoriaEntity() {
 
+	}
+	
+	public CategoriaEntity(Integer codigo) {
+		super();
+		this.codigo = codigo;
 	}
 
 	public CategoriaEntity(String nome, String descricao) {
@@ -83,14 +82,5 @@ public class CategoriaEntity implements Serializable {
 	public void setSubCategoriasSet(Set<SubCategoriaEntity> subCategoriasSet) {
 		this.subCategoriasSet = subCategoriasSet;
 	}
-
-	public List<SubCategoriaEntity> getSubCategorias() {
-		return subCategorias;
-	}
-
-	public void setSubCategorias(List<SubCategoriaEntity> subCategorias) {
-		this.subCategorias = subCategorias;
-	}
- 
 
 }

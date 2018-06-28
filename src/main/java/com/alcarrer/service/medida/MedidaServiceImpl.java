@@ -1,13 +1,15 @@
 package com.alcarrer.service.medida;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alcarrer.entity.CategoriaEntity;
+import com.alcarrer.entity.ItensTipoMedidaEntity;
 import com.alcarrer.entity.MarcaEntity;
 import com.alcarrer.entity.MedidaEntity;
 import com.alcarrer.entity.SubCategoriaEntity;
@@ -35,18 +37,47 @@ public class MedidaServiceImpl implements MedidaService {
 	private MarcaRepository marcaRepository;
 
 	@Override
-	public Medida incluir(Medida entity) {
+	public Medida incluir(Medida medida) {
 		MedidaEntity medidaDB = new MedidaEntity();
-		medidaDB.setDescricao(entity.getDescricao());
-		medidaDB.setNome(entity.getNome());
+		medidaDB.setDescricao(medida.getDescricao());
+		medidaDB.setNome(medida.getNome());
+		if (medida.getItensTipoMedida() != null) {
+			Set<ItensTipoMedidaEntity> itensSet = new HashSet<>();
+			medida.getItensTipoMedida().forEach(itensMedida -> {
+				ItensTipoMedidaEntity itens = new ItensTipoMedidaEntity();
+				itens.setCategoria(categoriaRepository.getOne(medida.getCategoria().getCodigo()));
+				itens.setSubCategoria(subCategoriaRepository.getOne(medida.getSubCategoria().getCodigo()));
+				if (medida.getMarca() != null) {
+					itens.setMarca(marcaRepository.getOne(medida.getMarca().getCodigo()));
+				}
+				itens.setValor(itensMedida.getValor());
+				itensSet.add(itens);
+			});
+			medidaDB.setItensTipoMedida(itensSet);
+		}
 		return JpaFunctions.medidaDTOtoMedida.apply(medidaRepository.saveAndFlush(medidaDB));
 	}
 
 	@Override
-	public Medida alterar(Medida entity) {
-		MedidaEntity medidaDB = medidaRepository.findOne(entity.getCodigo());
-		medidaDB.setDescricao(entity.getDescricao());
-		medidaDB.setNome(entity.getNome());
+	public Medida alterar(Medida medida) {
+		MedidaEntity medidaDB = medidaRepository.findOne(medida.getCodigo());
+		medidaDB.setDescricao(medida.getDescricao());
+		medidaDB.setNome(medida.getNome());
+		medidaDB.getItensTipoMedida().clear();
+		if (medida.getItensTipoMedida() != null) {
+			Set<ItensTipoMedidaEntity> itensSet = new HashSet<>();
+			medida.getItensTipoMedida().forEach(itensMedida -> {
+				ItensTipoMedidaEntity itens = new ItensTipoMedidaEntity();
+				itens.setCategoria(categoriaRepository.getOne(medida.getCategoria().getCodigo()));
+				itens.setSubCategoria(subCategoriaRepository.getOne(medida.getSubCategoria().getCodigo()));
+				if (medida.getMarca() != null) {
+					itens.setMarca(marcaRepository.getOne(medida.getMarca().getCodigo()));
+				}
+				itens.setValor(itensMedida.getValor());
+				itensSet.add(itens);
+			});
+			medidaDB.getItensTipoMedida().addAll(itensSet);
+		}
 		return JpaFunctions.medidaDTOtoMedida.apply(medidaRepository.saveAndFlush(medidaDB));
 	}
 
@@ -57,9 +88,8 @@ public class MedidaServiceImpl implements MedidaService {
 	}
 
 	@Override
-	public Map<Long, Medida> consultar() {
-
-		return null;
+	public List<Medida> consultar() {
+		return medidaRepository.findAll().stream().map(JpaFunctions.medidaDTOtoMedida).collect(Collectors.toList());
 	}
 
 	@Override

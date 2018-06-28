@@ -20,12 +20,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('#tableConsulta tbody').on('click', 'tr', function() {
-			$(this).toggleClass('selected');
-			$("#codigo").val($(this).closest('tr').children('td.cod').text());
-			$("form[name='medidaForm']").submit();
-		});
-
 		var table = $('#tableConsulta').DataTable({
 	        "columnDefs": [
 	            { "visible": false, "targets": 0}
@@ -51,7 +45,13 @@
 		 
 		$('#tableConsulta tbody').on('click', 'tr', function() {
 			$(this).toggleClass('selected');
-			$("#codigo").val($(this).closest('tr').children('td').attr('id'));
+			var codigo = null;
+			if( $(this).closest('tr').children('td').attr('id') != 'undefined'){
+				codigo = $(this).closest('tr').children('td').attr('id');
+			}else if($(this).closest('tr').attr('id') != 'undefined'){
+				codigo = $(this).closest('tr').attr('id');
+			}
+			$("#codigo").val(codigo);	
 			$("form[name='medidaForm']").submit();
 		});
 		
@@ -59,8 +59,7 @@
 </script>
  
 <form:form method="post" modelAttribute="medidaForm" action="abrirAlterarMedida" name="medidaForm">
-	</br>
-		
+	<br>
 		<form:hidden path="codigo" id="codigo"/>
 		<fieldset>
 			<legend>Gerenciar Medida</legend>
@@ -76,8 +75,8 @@
 						</div>
 					</div>
 				</c:if>
-				</br>
-				<table id="tableConsulta" class="display" cellspacing="0" width="98%">
+				<br>
+				<table id="tableConsulta" class="display" style="width:98%">
 					<thead>
 						<tr>
 							<th>Nome</th>	 
@@ -85,19 +84,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${mapaMedida}" var="i">
-							<c:forEach items="${i.value.itensMedida}" var="it">
-								<tr id="${i.key}">
- 									<td class="nome">
- 										${i.value.nome} - ${i.value.categoria.nome} 
- 										<c:if test="${i.value.subCategoria.codigo ne 0}">
-										- ${i.value.subCategoria.nome}
- 										</c:if>  
- 										<c:if test="${i.value.marca.codigo ne 0}">
- 										- ${i.value.marca.nome}
- 										</c:if>
- 									</td>
- 									<td class="valor">${it.valor}</td>
+						<c:forEach items="${medidaList}" var="i">
+							<c:forEach items="${i.itensTipoMedida}" var="it"> 
+								<tr id="${i.codigo}">
+									<td class="nome" id="${i.codigo}">
+										${i.nome} - ${it.categoria.nome}
+										<c:if test="${it.subCategoria.codigo ne null}"> - ${it.subCategoria.nome} </c:if>  
+										<c:if test="${it.marca.codigo ne null}"> - ${it.marca.nome} </c:if>
+									</td>
+									<td class="valor">${it.valor}</td>
 								</tr>
 							</c:forEach>	
 						</c:forEach>
@@ -106,5 +101,5 @@
 			</li>
 		</ul>
 		</fieldset>	
-	</br>
+	<br>
 </form:form>

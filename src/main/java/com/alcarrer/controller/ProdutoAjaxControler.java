@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alcarrer.model.Categoria;
+import com.alcarrer.model.Dominio;
+import com.alcarrer.model.ItensTipoMedida;
 import com.alcarrer.model.Medida;
 import com.alcarrer.model.Produto;
+import com.alcarrer.model.ProdutoHasItensTipoMedida;
 import com.alcarrer.model.SubCategoria;
 import com.alcarrer.service.categoria.CategoriaService;
+import com.alcarrer.service.dominio.DominioService;
 import com.alcarrer.service.medida.MedidaService;
 import com.alcarrer.service.produto.ProdutoService;
 
@@ -28,6 +32,9 @@ public class ProdutoAjaxControler {
 	@Autowired
 	private MedidaService medidaService;
 	
+	@Autowired
+	private DominioService dominioService;
+	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxConsultaSubCategoriaByCategoria")
 	public List<SubCategoria> consultaSubCategoriaByCategoria(@RequestBody Categoria categoria) {
@@ -39,8 +46,8 @@ public class ProdutoAjaxControler {
 	@RequestMapping(value = "/addicionarProduto")
     public Produto addicionarProduto(@RequestBody Produto produto) {
   		Produto produtoDB = produtoService.consultarByCodigo(produto);
-  		produtoDB.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
-  		return  produto;
+  		//produtoDB.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
+  		return  produtoDB;
 	}
   	
   	@ResponseBody
@@ -51,8 +58,21 @@ public class ProdutoAjaxControler {
   	
   	@ResponseBody
 	@RequestMapping(value = "/ajaxConsultarItensMedidaByProdutoCodigo")
-  	public List<Medida> ajaxConsultarItensMedidaByProdutoCodigo(@RequestBody Produto produto){
+  	public List<ProdutoHasItensTipoMedida> ajaxConsultarItensMedidaByProdutoCodigo(@RequestBody Produto produto){
   		Produto produtoDB = produtoService.consultarByCodigo(produto);
-  		return medidaService.consultarByCategoriaSubCategoriaMarca(produtoDB);
+  		return produtoDB.getProdutoHasItensTipoMedida();
+  	}
+  	
+  	@ResponseBody
+	@RequestMapping(value = "/ajaxConsultarItensMedidaByMedidaCodigo")
+  	public List<ItensTipoMedida> ajaxConsultarItensMedidaByMedidaCodigo(@RequestBody Medida medida){
+  		Medida medidas = medidaService.consultarByCodigo(medida);
+  		return medidas.getItensTipoMedida();
+  	}
+  	
+  	@ResponseBody
+	@RequestMapping(value = "/ajaxObterDominios")
+  	public List<Dominio> ajaxObterDominios(){
+  		 return dominioService.consultar();
   	}
 }

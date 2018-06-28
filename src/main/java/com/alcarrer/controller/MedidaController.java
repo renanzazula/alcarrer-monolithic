@@ -81,7 +81,7 @@ public class MedidaController {
 			final RedirectAttributes redirectAttributes) {
 		medidaService.alterar(medida);
 		model.addAttribute("mensagem", message.getMessage("global.alteracao", null, Locale.US));
-		model.addAttribute("mapaMedida", medidaService.consultar());
+		model.addAttribute("medidaList", medidaService.consultar());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW_COLSULTA;
 	}
@@ -91,7 +91,7 @@ public class MedidaController {
 			final RedirectAttributes redirectAttributes) {
 		medidaService.incluir(medida);
 		model.addAttribute("mensagem", message.getMessage("global.inclusao", null, Locale.US));
-		model.addAttribute("mapaMedida", medidaService.consultar());
+		model.addAttribute("medidaList", medidaService.consultar());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW_COLSULTA;
 	}
@@ -99,7 +99,10 @@ public class MedidaController {
 	@RequestMapping(value = "/consultarMedida", method = { RequestMethod.GET, RequestMethod.POST })
 	public String consultarMedida(@ModelAttribute("medidaForm") Medida medida, BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
-		model.addAttribute("mapaMedida", medidaService.consultar());
+		
+		List<Medida> m = medidaService.consultar();
+		
+		model.addAttribute("medidaList", m);
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW_COLSULTA;
 	}
@@ -109,7 +112,7 @@ public class MedidaController {
 			final RedirectAttributes redirectAttributes) {
 		medidaService.excluir(medida);
 		model.addAttribute("mensagem", message.getMessage("global.exclusao", null, Locale.US));
-		model.addAttribute("mapaMedida", medidaService.consultar());
+		model.addAttribute("medidaList", medidaService.consultar());
 		model.addAttribute("breadCrumbItens", breadCrumbList());
 		return VIEW_COLSULTA;
 	}
@@ -124,8 +127,15 @@ public class MedidaController {
 	private Medida carregaMedida(Medida medida) {
 		medida.setMarcas(marcaService.consultar());
 		medida.setCategorias(categoriaService.consultar());
-		if (medida.getCategoria() != null) {
-			medida.setSubCategorias(categoriaService.consultarByCodigo(medida.getCategoria()).getSubCategorias());
+		if (medida.getItensTipoMedida() != null) {
+			if(medida.getItensTipoMedida().size() > 0) {
+				if(medida.getItensTipoMedida().get(0) != null) {
+					if(medida.getItensTipoMedida().get(0).getCategoria() != null) {
+						Categoria categoria = medida.getItensTipoMedida().get(0).getCategoria();
+						medida.setSubCategorias(categoriaService.consultarByCodigo(categoria).getSubCategorias());
+					}
+				}
+			}
 		}
 		return medida;
 	}

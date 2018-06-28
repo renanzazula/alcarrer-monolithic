@@ -24,8 +24,13 @@ public class MarcaEntity implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-//	private Status status;
-	
+	// private Status status;
+
+	public MarcaEntity(Integer codigo) {
+		super();
+		this.codigo = codigo;
+	}
+
 	public MarcaEntity() {
 
 	}
@@ -60,12 +65,12 @@ public class MarcaEntity implements Serializable {
 		this.descricao = descricao;
 	}
 
-//	public Status getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(Status status) {
-//		this.status = status;
-//	}
+	// public Status getStatus() {
+	// return status;
+	// }
+	//
+	// public void setStatus(Status status) {
+	// this.status = status;
+	// }
 
 }

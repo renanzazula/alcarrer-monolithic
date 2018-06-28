@@ -1,7 +1,6 @@
 package com.alcarrer.service.medida;
 
 import java.util.List;
-import java.util.Map;
 
 import com.alcarrer.model.Medida;
 import com.alcarrer.model.Produto;
@@ -14,7 +13,7 @@ public interface MedidaService {
 
 	void excluir(Medida objct);
 
-	Map<Long, Medida> consultar();
+	List<Medida> consultar();
 
 	Medida consultarByCodigo(Medida objct);
 
