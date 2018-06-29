@@ -35,6 +35,30 @@ public class VendaEntity implements Serializable {
 	@Column(name = "status")
 	private String status;
 
+	@Column(name = "subTotal")
+	private Double subTotal;
+	
+	@Column(name = "valorPendente")
+	private Double valorPendente;
+	
+	@Column(name = "valorPago")
+	private Double valorPago;
+	
+	@Column(name = "desconto")
+	private Double desconto;
+	
+	@Column(name = "totalApagar")
+	private Double totalApagar;
+	
+	@Column(name = "troco")
+	private Double troco;
+	
+	@Column(name = "pagamento")
+	private Double pagamento;
+	
+	@Column(name = "quantidade")
+	private long quantidade;
+	
 	@ManyToOne
 	@JoinColumn(name = "caixa_codigo")
 	private CaixaEntity caixa;
@@ -117,8 +141,70 @@ public class VendaEntity implements Serializable {
 
 	public void setVendaHasProduto(Set<VendaHasProdutoEntity> vendaHasProduto) {
 		this.vendaHasProduto = vendaHasProduto;
+	}
+
+	public Double getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(Double subTotal) {
+		this.subTotal = subTotal;
+	}
+
+	public Double getValorPendente() {
+		return valorPendente;
+	}
+
+	public void setValorPendente(Double valorPendente) {
+		this.valorPendente = valorPendente;
+	}
+
+	public Double getValorPago() {
+		return valorPago;
+	}
+
+	public void setValorPago(Double valorPago) {
+		this.valorPago = valorPago;
+	}
+
+	public Double getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto;
+	}
+
+	public Double getTotalApagar() {
+		return totalApagar;
+	}
+
+	public void setTotalApagar(Double totalApagar) {
+		this.totalApagar = totalApagar;
+	}
+
+	public Double getTroco() {
+		return troco;
+	}
+
+	public void setTroco(Double troco) {
+		this.troco = troco;
+	}
+
+	public Double getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Double pagamento) {
+		this.pagamento = pagamento;
+	}
+
+	public long getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(long quantidade) {
+		this.quantidade = quantidade;
 	} 
-	
-	
 	
 }

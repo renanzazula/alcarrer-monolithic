@@ -111,7 +111,6 @@ public class VendaController {
 			BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
 		
 		vendaService.incluir(venda);
-		
 		model.addAttribute("vendaForm", venda);
 		model.addAttribute("breadCrumbItens", breadCrumbList(FINALIZAR_VENDA_VIEW));
 		return VIEW;

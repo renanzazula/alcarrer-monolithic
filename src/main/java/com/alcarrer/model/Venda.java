@@ -1,7 +1,6 @@
 package com.alcarrer.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -20,13 +19,13 @@ public class Venda implements Serializable {
 	private List<Produto> produtos;
 	
 	private long quantidade;
-	private BigDecimal subTotal;
-	private BigDecimal valorPendente;
-	private BigDecimal valorPago;
-	private BigDecimal desconto;
-	private BigDecimal totalApagar;
-	private BigDecimal troco;
-	private BigDecimal pagamento;
+	private Double subTotal;
+	private Double valorPendente;
+	private Double valorPago;
+	private Double desconto;
+	private Double totalApagar;
+	private Double troco;
+	private Double pagamento;
 	
 	// private Set<VendaHasProduto> vendaHasProduto;
 
@@ -114,59 +113,59 @@ public class Venda implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public BigDecimal getSubTotal() {
+	public Double getSubTotal() {
 		return subTotal;
 	}
 
-	public void setSubTotal(BigDecimal subTotal) {
+	public void setSubTotal(Double subTotal) {
 		this.subTotal = subTotal;
 	}
 
-	public BigDecimal getValorPendente() {
+	public Double getValorPendente() {
 		return valorPendente;
 	}
 
-	public void setValorPendente(BigDecimal valorPendente) {
+	public void setValorPendente(Double valorPendente) {
 		this.valorPendente = valorPendente;
 	}
 
-	public BigDecimal getValorPago() {
+	public Double getValorPago() {
 		return valorPago;
 	}
 
-	public void setValorPago(BigDecimal valorPago) {
+	public void setValorPago(Double valorPago) {
 		this.valorPago = valorPago;
 	}
 
-	public BigDecimal getDesconto() {
+	public Double getDesconto() {
 		return desconto;
 	}
 
-	public void setDesconto(BigDecimal desconto) {
+	public void setDesconto(Double desconto) {
 		this.desconto = desconto;
 	}
 
-	public BigDecimal getTotalApagar() {
+	public Double getTotalApagar() {
 		return totalApagar;
 	}
 
-	public void setTotalApagar(BigDecimal totalApagar) {
+	public void setTotalApagar(Double totalApagar) {
 		this.totalApagar = totalApagar;
 	}
 
-	public BigDecimal getTroco() {
+	public Double getTroco() {
 		return troco;
 	}
 
-	public void setTroco(BigDecimal troco) {
+	public void setTroco(Double troco) {
 		this.troco = troco;
 	}
 
-	public BigDecimal getPagamento() {
+	public Double getPagamento() {
 		return pagamento;
 	}
 
-	public void setPagamento(BigDecimal pagamento) {
+	public void setPagamento(Double pagamento) {
 		this.pagamento = pagamento;
 	}
 

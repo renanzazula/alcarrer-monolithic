@@ -5,11 +5,11 @@ import java.util.List;
 import com.alcarrer.model.Venda;
 
 public interface VendaService {
-	boolean incluir(Venda venda);
+	Venda incluir(Venda venda);
 
-	void alterar(Venda venda);
+	Venda alterar(Venda venda);
 
-	boolean excluir(Venda venda);
+	void excluir(Venda venda);
 
 	Venda consultarByCodigo(Venda venda);
 

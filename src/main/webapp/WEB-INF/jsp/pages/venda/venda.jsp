@@ -105,13 +105,10 @@
 		});
  
 	  	$("#adicionarProduto").click(function(event) {
-// 	  		,"itemMedida":{"valor":"' + $("#id").val().substring(1,2) + '"} .substring(0,1)
-// 	  		var produtoBarcode = '{"barCode":"' + $("#barCode").val() +'"}';
 			oberProdutoByBarcode($("#barCode").val());
 		});
 	  	
 	  	$("#barCode").blur(function(event) {
-// 			var produtoBarcode = "{'barCode':'" + $("#barCode").val() +"'}"; 
 			oberProdutoByBarcode($("#barCode").val());
 			 $("#barCode").val("");
 		});
@@ -139,7 +136,7 @@
 				$("#valorPendente").val(VALOR_PENDENTE_AUX.toFixed(2));
 			}	
 		}); 
-// 		jQuery.parseJSON(produtoBarcode)
+
 		function oberProdutoByBarcode(produtoBarcode){
 			$.ajax({ 
 				 type: "POST",
