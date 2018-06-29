@@ -1,25 +1,12 @@
 package com.alcarrer.service.venda;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alcarrer.entity.CaixaEntity;
-import com.alcarrer.entity.ClienteEntity;
-import com.alcarrer.entity.FormasDePagamentoEntity;
 import com.alcarrer.entity.VendaEntity;
-import com.alcarrer.entity.VendaHasProdutoEntity;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Venda;
 import com.alcarrer.repository.CaixaRepository;
