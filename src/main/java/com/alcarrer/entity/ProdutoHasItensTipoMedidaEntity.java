@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "produto_has_itens_tipo_medida")
 public class ProdutoHasItensTipoMedidaEntity implements Serializable {
@@ -31,18 +32,19 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "itens_tipo_medida_codigo", updatable = false)
 	private ItensTipoMedidaEntity itensTipoMedida;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "produto_codigo")
 	private ProdutoEntity produto;
-	
+
 	@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "produto_has_itens_tipo_medida_has_dominio", 
-        joinColumns = { @JoinColumn(name = "produto_has_itens_tipo_medida_codigo") }, 
-        inverseJoinColumns = { @JoinColumn(name = "dominio_codigo") }
-    )
-    private Set<DominioEntity> dominios;
+	@JoinTable(name = "produto_has_itens_tipo_medida_has_dominio", joinColumns = {
+			@JoinColumn(name = "produto_has_itens_tipo_medida_codigo") }, inverseJoinColumns = {
+					@JoinColumn(name = "dominio_codigo") })
+	private Set<DominioEntity> dominios;
+
+	@OneToMany(mappedBy = "venda")
+	private Set<VendaProdutoHasItensTipoMedidaEntity> vendaProdutoHasItensTipoMedidaEntity;
 	
 	public ProdutoHasItensTipoMedidaEntity() {
 
@@ -80,7 +82,7 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 		this.itensTipoMedida = itensTipoMedida;
 	}
 
- 	public Set<DominioEntity> getDominios() {
+	public Set<DominioEntity> getDominios() {
 		return dominios;
 	}
 
@@ -88,6 +90,4 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 		this.dominios = dominios;
 	}
 
-	
-	
 }

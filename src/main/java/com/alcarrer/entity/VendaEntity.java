@@ -2,6 +2,7 @@ package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -37,28 +38,28 @@ public class VendaEntity implements Serializable {
 
 	@Column(name = "subTotal")
 	private Double subTotal;
-	
+
 	@Column(name = "valorPendente")
 	private Double valorPendente;
-	
+
 	@Column(name = "valorPago")
 	private Double valorPago;
-	
+
 	@Column(name = "desconto")
 	private Double desconto;
-	
+
 	@Column(name = "totalApagar")
 	private Double totalApagar;
-	
+
 	@Column(name = "troco")
 	private Double troco;
-	
+
 	@Column(name = "pagamento")
 	private Double pagamento;
-	
+
 	@Column(name = "quantidade")
 	private long quantidade;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "caixa_codigo")
 	private CaixaEntity caixa;
@@ -70,15 +71,14 @@ public class VendaEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "formasDePagamento_codigo")
 	private FormasDePagamentoEntity formaDePagamento;
-	
-	@OneToMany
-	@JoinColumn(name = "venda_codigo")
-	private Set<VendaHasProdutoEntity> vendaHasProduto;
 
-	public VendaEntity() {
-	 
-	}
+	@OneToMany(mappedBy = "produtoHasItensTipoMedida")
+	private Set<VendaProdutoHasItensTipoMedidaEntity> vendaProdutoHasItensTipoMedidaEntity;
 	
+ 	public VendaEntity() {
+
+	}
+
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -133,14 +133,6 @@ public class VendaEntity implements Serializable {
 
 	public void setFormaDePagamento(FormasDePagamentoEntity formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
-	}
-
-	public Set<VendaHasProdutoEntity> getVendaHasProduto() {
-		return vendaHasProduto;
-	}
-
-	public void setVendaHasProduto(Set<VendaHasProdutoEntity> vendaHasProduto) {
-		this.vendaHasProduto = vendaHasProduto;
 	}
 
 	public Double getSubTotal() {
@@ -205,6 +197,6 @@ public class VendaEntity implements Serializable {
 
 	public void setQuantidade(long quantidade) {
 		this.quantidade = quantidade;
-	} 
-	
+	}
+
 }

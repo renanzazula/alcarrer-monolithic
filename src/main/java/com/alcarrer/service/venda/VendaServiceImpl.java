@@ -48,7 +48,7 @@ public class VendaServiceImpl implements VendaService {
 		vendaDB.setValorTotal(venda.getValorTotal());
 		vendaDB.setFormaDePagamento(formaDePagamentoRepository.getOne(venda.getFormaDePagamento().getCodigo()));
 		vendaDB.setCliente(clienteRepository.getOne(venda.getCliente().getCodigo()));
-		vendaDB.setCaixa(caixaRepository.getOne(venda.getCaixa().getCodigo()));
+//		vendaDB.setCaixa(caixaRepository.getOne(venda.getCaixa().getCodigo()));
 		return JpaFunctions.vendaDTOtoVenda.apply(vendaRepository.saveAndFlush(vendaDB));
 	}
 

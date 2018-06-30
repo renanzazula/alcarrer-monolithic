@@ -32,7 +32,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-
+		var quantidadeSelecionada;
+		var itensProduto;
+		var dialog;
+		var form;
+ 
+		
 		$('#efetuarVenda').on( 'click', function () {  		
 			$("form[name='vendaForm']").attr('action', 'finalizarVenda');
  
@@ -41,10 +46,19 @@
 				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="produtos['+i+'].itemMedida.codigo"/>');
 				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][2]+'" name="produtos['+i+'].itemMedida.valor"/>');
 				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][3]+'" name="produtos['+i+'].itemMedida.quantidade"/>');	
-							
 			}
 			$("form[name='vendaForm']").submit();
 		});		
+		
+		var tableMedida = $('#tableMedida').DataTable( {
+			"paging":   false,
+	  		"bLengthChange": false,
+	  		"bInfo" : false,
+	  		"ordering": false,
+	  	    "searching": false,
+	        "columnDefs": [ { "targets": [ 0 ], "visible": true, "searchable": false }, 
+	            			{ "targets": [ 1 ], "visible": true,   "searchable": false } ]
+    	});
 		
 	  	$.extend( true, $.fn.dataTable.defaults, {
 		    "searching": false,
@@ -52,14 +66,16 @@
 		} );
 
 	  	var table = $('#tableVenda').DataTable({
-			"lengthMenu" : [ [ 10, 17, -1 ], [ 10, 17, "All" ] ],
+	  		"paging":   false,
+	  		"lengthMenu" : [ [ 10, 17, -1 ], [ 10, 17, "All" ] ],
 	  		"bLengthChange": false,
-	  		"bInfo" : false,
+	  		"bInfo" : false, 
 	  		"language": {
   				"decimal": ",",
             	"thousands": ".",
 	  	    	"emptyTable": "No data available in table!!"
 	  	    },
+	  	  "columnDefs": [ { "targets": [ 3 ], "visible": true, "searchable": true } ],
 	  	  "footerCallback": function ( row, data, start, end, display ) {
 	            var api = this.api(), data;
 	 
@@ -72,7 +88,7 @@
 	            };
 	 
 	            // Total over all pages
-	            total = api.column( 4 ).data()
+	            total = api.column( 5 ).data()
 	                .reduce( function (a, b) {
 	                    return intVal(a) + intVal(b);
 	                }, 0 );
@@ -93,14 +109,14 @@
 	 			
 	            // Total over this page
 	            pageTotal = api
-	                .column( 4, { page: 'current'} )
+	                .column( 5, { page: 'current'} )
 	                .data()
 	                .reduce( function (a, b) {
 	                    return intVal(a) + intVal(b);
 	                }, 0 );
 	 
 	            // Update footer
-	            $(api.column(4).footer()).html('<label>Total Pagína: &euro; <span style="color:red;font-weight: bold;">'+pageTotal.toFixed(2)+'</span></label>');
+	            $(api.column(5).footer()).html('<label>Total Pagína: &euro; <span style="color:red;font-weight: bold;">'+pageTotal.toFixed(2)+'</span></label>');
 	        }
 		});
  
@@ -108,12 +124,7 @@
 			oberProdutoByBarcode($("#barCode").val());
 		});
 	  	
-	  	$("#barCode").blur(function(event) {
-			oberProdutoByBarcode($("#barCode").val());
-			 $("#barCode").val("");
-		});
-
-  		$( "#formaDePagamento" ).change(function() {
+	  	$( "#formaDePagamento" ).change(function() {
   			calcularFormasDePagamento();  	  		 
   	  	});
   		 
@@ -138,26 +149,7 @@
 		}); 
 
 		function oberProdutoByBarcode(produtoBarcode){
-			$.ajax({ 
-				 type: "POST",
-				 contentType: "application/json",
-				 url: "${home}addicionarProduto",
-				 data: produtoBarcode,
-				 dataType: 'json',
-				 timeout: 600000,
-				 success: function (data) {
-					
-					if(data.codigo != null){
- 						var botao = "<input type='button' value='remover' class='delete'/>";
-						table.row.add([data.codigo, data.nome, 1, "b", data.precoVenda, 11, 22, botao]).draw(false);
-						$("#id").val("");
-					}else{
-						alert("Produto não encontrado!");
-					}   				        						 	
-				 },
-				 error: function (e) {},
-				 done : function(e) {}
-			});
+			
 		}
 		
 		function calcularFormasDePagamento(){
@@ -191,6 +183,76 @@
 		$('#tableVenda tbody').on( 'click', '.delete', function () {
 		    table.row( $(this).parents('tr') ).remove().draw();		
 		});		
+		
+		dialog = $( "#dialog-form" ).dialog({
+			closeOnEscape: true,
+		    draggable: false,
+		    resizable: false,
+			autoOpen: false,
+		    modal: true,
+		    buttons: {
+	      	Cancel: function() {
+	      		itensProduto = null;
+	        	dialog.dialog( "close" );
+	      	}
+	   	}, close: function() {
+	   		tableMedida.clear().draw();
+	    	itensProduto = null;
+	    }, open: function(){
+	    		var win = $(window);
+		    	$(this).parent().css({
+			        position: 'absolute',
+			        width: win.width() / 2,
+			    	height: 'auto',
+			        left:  win.width() / 4,
+			    	top: (win.height() - $(this).parent().outerHeight()) / 2
+			    });
+
+		    	$.each(itensProduto.produtoHasItensTipoMedida, function(key, value) {
+		   			tableMedida.row.add([value.itensTipoMedida.codigo, value.itensTipoMedida.valor]).draw(false);	
+		   		});
+	    	}
+	    });
+		
+		$('#tableMedida tbody').on('click', 'tr', function() {
+			var botao = "<input type='button' value='remover' class='delete'/>";
+			table.row.add([itensProduto.codigo, itensProduto.nome, 1, $(this).children('td').slice(0, 1).text(), $(this).children('td').slice(1, 2).text(), itensProduto.precoVenda, 11, 22, botao]).draw(false);
+			$("#id").val("");
+			dialog.dialog( "close" );
+			itensProduto=null;
+		}); 
+		
+		function itemsMedidaProduto(){
+			$.ajax({ 
+				 type: "POST",
+				 contentType: "application/json",
+				 url: "${home}addicionarProduto",
+				 data: $("#barCode").val(),
+				 dataType: 'json',
+				 timeout: 600000,
+				 success: function (data) {
+					if(data.codigo != null){
+						if(data.produtoHasItensTipoMedida != null){
+							itensProduto = data;	
+							dialog.dialog( "open" );
+						}else{
+							alert("Produto não possui itens medida cadastrado!");
+						}						
+					}else{
+						alert("Produto não encontrado!");
+					}   				        						 	
+				 },
+				 error: function (e) {},
+				 done : function(e) {}
+			});
+		}
+		
+		$("#barCode").blur(function(event) {
+			if($("#barCode").val() != ""){
+				itemsMedidaProduto();
+				$("#barCode").val("");	
+			}	  		
+		});
  	});
 </script>
 
@@ -234,6 +296,7 @@
 										<th>Codigo</th>
 										<th>Nome</th>
 										<th>Quantidade</th>
+										<th>id Tamanho</th>
 										<th>Tamanho</th>
 										<th>Preço</th>						
 										<th>SubTotal</th>	
@@ -243,7 +306,7 @@
 								</thead>
 								<tfoot>
 						            <tr>
-						                <th colspan="8" style="text-align:right">Total:</th>
+						                <th colspan="9" style="text-align:right">Total:</th>
 						            </tr>
 						        </tfoot>
 								<tbody>
@@ -252,6 +315,7 @@
 											<td class="cod">${i.codigo}</td>
 											<td class="nome">${i.nome}</td>
 											<td><input id="spinnerQuantidade"/></td>
+											<td></td>
 											<td><input id="tamanho"/></td>
 											<td class="precoVenda">${i.precoVenda}</td>
 											<td>${i.precoVenda}</td>
@@ -374,23 +438,26 @@
 	</fieldset>
 	
 	<div id="feedback"></div>
-	
-<script>
-	$("#dialog").dialog({
-		autoOpen : false,
-		width : 400,
-		buttons : [ {
-			text : "Ok",
-			click : function() {
-				$(this).dialog("close");
-			}
-		}, {
-			text : "Cancel",
-			click : function() {
-				$(this).dialog("close");
-			}
-		} ]
-	});
-</script>
-	
+
+	<div id="dialog-form" title="Selecione um Tamanho">
+		<form>
+			<fieldset>
+				<legend></legend>	
+				<ul class="form-style-1">
+					<li>	
+						<table id="tableMedida" class="display" style="width:98%">
+							<thead style="font: 13px Trebuchet MS, sans-serif; color: black;">
+								<tr>
+									<th>codigo</th>
+									<th>Tamanhos</th>							 
+								</tr>
+							</thead>
+							<tbody style="font: 13px Trebuchet MS, sans-serif; color: black">
+							</tbody>
+						</table>
+					</li>
+				</ul>
+			</fieldset>
+		</form>
+	</div>
 </form:form>

@@ -48,7 +48,7 @@ public class ProdutoAjaxControler {
   		Produto barCode = new Produto();
   		barCode.setBarCode(barCodep);
   		Produto produtoDB = produtoService.consultarByBarCode(barCode); 
-  		//produtoDB.setItensMedida(medidaService.consultarByProdutoAndValor(produto));
+  	 
   		return  produtoDB;
 	}
   	
