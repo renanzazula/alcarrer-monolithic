@@ -216,11 +216,17 @@
 		
 		$('#tableMedida tbody').on('click', 'tr', function() {
 			var botao = "<input type='button' value='remover' class='delete'/>";
-			table.row.add([itensProduto.codigo, itensProduto.nome, 1, $(this).children('td').slice(0, 1).text(), $(this).children('td').slice(1, 2).text(), itensProduto.precoVenda, 11, 22, botao]).draw(false);
+			var quantidade = "<input type='text' class='totalItem' name='quantidade' value='" + 1 + "'/>";
+			var TITEM = (1 * parseFloat(itensProduto.precoVenda));
+			table.row.add([itensProduto.codigo, itensProduto.nome, quantidade, $(this).children('td').slice(0, 1).text(), $(this).children('td').slice(1, 2).text(), itensProduto.precoVenda, itensProduto.precoVenda, TITEM.toFixed(2) , botao]).draw(false);
 			$("#id").val("");
 			dialog.dialog( "close" );
 			itensProduto=null;
 		}); 
+		
+		$( ":input quantidade" ).keyup(function( event ) {
+			console.log($(this).val());
+		});
 		
 		function itemsMedidaProduto(){
 			$.ajax({ 
