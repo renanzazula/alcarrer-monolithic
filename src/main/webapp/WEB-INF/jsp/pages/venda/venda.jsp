@@ -40,12 +40,12 @@
 		
 		$('#efetuarVenda').on( 'click', function () {  		
 			$("form[name='vendaForm']").attr('action', 'finalizarVenda');
- 
-			var data = $('#tableVenda').DataTable().rows().data();
+ 			var data = $('#tableVenda').DataTable().rows().data();
 			for (var i=0; i < $('#tableVenda').DataTable().rows().length; i++){
-				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="produtos['+i+'].itemMedida.codigo"/>');
-				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][2]+'" name="produtos['+i+'].itemMedida.valor"/>');
-				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][3]+'" name="produtos['+i+'].itemMedida.quantidade"/>');	
+				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="vendaHasItemProduto['+i+'].produtoHasItensTipoMedida.produto.codigo"/>');
+				$("form[name='vendaForm']").append('<input type="hidden" value="'+data.cell(0,2).nodes().to$().find('input').val()+'" name="vendaHasItemProduto['+i+'].produtoHasItensTipoMedida.quantidade"/>');
+				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][3]+'" name="vendaHasItemProduto['+i+'].produtoHasItensTipoMedida.itensTipoMedida.codigo"/>');
+				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][5]+'" name="vendaHasItemProduto['+i+'].produtoHasItensTipoMedida.valorUnitario"/>');					
 			}
 			$("form[name='vendaForm']").submit();
 		});		
@@ -285,7 +285,7 @@
 			</li>
 			<li>
 				<fieldset>
-					<legend>Formas de Pagamento</legend>		
+					<legend>Itens de Venda</legend>		
 					<ul class="form-style-1">
 						<li>
 							<label>

@@ -2,9 +2,9 @@ package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -72,10 +72,11 @@ public class VendaEntity implements Serializable {
 	@JoinColumn(name = "formasDePagamento_codigo")
 	private FormasDePagamentoEntity formaDePagamento;
 
-	@OneToMany(mappedBy = "produtoHasItensTipoMedida")
-	private Set<VendaProdutoHasItensTipoMedidaEntity> vendaProdutoHasItensTipoMedidaEntity;
+	@OneToMany(mappedBy = "produtoHasItensTipoMedida", cascade = { CascadeType.ALL })
+	private Set<VendaHasItemProdutoEntity> vendaProdutoHasItensTipoMedida;
 	
- 	public VendaEntity() {
+ 	
+	public VendaEntity() {
 
 	}
 
@@ -199,4 +200,12 @@ public class VendaEntity implements Serializable {
 		this.quantidade = quantidade;
 	}
 
+	public Set<VendaHasItemProdutoEntity> getVendaProdutoHasItensTipoMedida() {
+		return vendaProdutoHasItensTipoMedida;
+	}
+
+	public void setVendaProdutoHasItensTipoMedida(Set<VendaHasItemProdutoEntity> vendaProdutoHasItensTipoMedida) {
+		this.vendaProdutoHasItensTipoMedida = vendaProdutoHasItensTipoMedida;
+	}
+	
 }

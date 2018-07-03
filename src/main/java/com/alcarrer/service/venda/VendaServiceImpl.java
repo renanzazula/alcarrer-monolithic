@@ -1,17 +1,22 @@
 package com.alcarrer.service.venda;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alcarrer.entity.ProdutoHasItensTipoMedidaEntity;
 import com.alcarrer.entity.VendaEntity;
+import com.alcarrer.entity.VendaHasItemProdutoEntity;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Venda;
 import com.alcarrer.repository.CaixaRepository;
 import com.alcarrer.repository.ClienteRepository;
 import com.alcarrer.repository.FormaDePagamentoRepository;
+import com.alcarrer.repository.ItensTipoMedidaRepository;
 import com.alcarrer.repository.VendaRepository;
 
 @Service
@@ -29,14 +34,28 @@ public class VendaServiceImpl implements VendaService {
 	@Autowired
 	private ClienteRepository clienteRepository; 
 	
+	@Autowired
+	private ItensTipoMedidaRepository itensTipoMedidaRepository; 
+	
 	@Override
 	public Venda incluir(Venda venda) {
 			
 		VendaEntity vendaDB = new VendaEntity();
 
-		//	itens mideida
+		//	itens medida
+		Set<VendaHasItemProdutoEntity> vendaHasItemProdutoSet = new HashSet<>();
+		venda.getVendaHasItemProduto().forEach(itemVenda -> {
+			VendaHasItemProdutoEntity vendaHasItemProduto = new VendaHasItemProdutoEntity();  
+			ProdutoHasItensTipoMedidaEntity  produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
+			produtoHasItensTipoMedida.setCodigo(itemVenda.getProdutoHasItensTipoMedida().getCodigo()); // call repository
+			produtoHasItensTipoMedida.setQuantidade(itemVenda.getProdutoHasItensTipoMedida().getQuantidade());
+			produtoHasItensTipoMedida.setValorUnitario(itemVenda.getValorUnitario());
+			produtoHasItensTipoMedida.setItensTipoMedida(itensTipoMedidaRepository.getOne(itemVenda.getProdutoHasItensTipoMedida().getItensTipoMedida().getCodigo()));
+			vendaHasItemProduto.setProdutoHasItensTipoMedida(produtoHasItensTipoMedida);
+			vendaHasItemProdutoSet.add(vendaHasItemProduto);
+		});
 		
-		//	status; Definicao o que sera status...
+		vendaDB.setVendaProdutoHasItensTipoMedida(vendaHasItemProdutoSet);
 		vendaDB.setQuantidade(venda.getQuantidade());
 		vendaDB.setSubTotal(venda.getSubTotal());
 		vendaDB.setValorPendente(venda.getValorPendente());
@@ -47,8 +66,8 @@ public class VendaServiceImpl implements VendaService {
 		vendaDB.setPagamento(venda.getPagamento());
 		vendaDB.setValorTotal(venda.getValorTotal());
 		vendaDB.setFormaDePagamento(formaDePagamentoRepository.getOne(venda.getFormaDePagamento().getCodigo()));
-		vendaDB.setCliente(clienteRepository.getOne(venda.getCliente().getCodigo()));
-//		vendaDB.setCaixa(caixaRepository.getOne(venda.getCaixa().getCodigo()));
+		vendaDB.setCliente(clienteRepository.getOne(1));
+		vendaDB.setCaixa(caixaRepository.getOne(1));
 		return JpaFunctions.vendaDTOtoVenda.apply(vendaRepository.saveAndFlush(vendaDB));
 	}
 

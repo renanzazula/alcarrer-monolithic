@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class VendaProdutoHasItensTipoMedidaEntityPk implements Serializable {
+public class VendaHasItemProdutoEntityPk implements Serializable {
 
 	/**
 	 * 

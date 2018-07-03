@@ -17,7 +17,7 @@ public class Venda implements Serializable {
 	private FormasDePagamento formaDePagamento;
 	private List<FormasDePagamento> formasDePagamento;
 	private List<Produto> produtos;
-	
+
 	private long quantidade;
 	private Double subTotal;
 	private Double valorPendente;
@@ -26,8 +26,7 @@ public class Venda implements Serializable {
 	private Double totalApagar;
 	private Double troco;
 	private Double pagamento;
-	
-	// private Set<VendaHasProduto> vendaHasProduto;
+	private List<VendaHasItemProduto> vendaHasItemProduto;
 
 	public Venda() {
 
@@ -167,6 +166,14 @@ public class Venda implements Serializable {
 
 	public void setPagamento(Double pagamento) {
 		this.pagamento = pagamento;
+	}
+
+	public List<VendaHasItemProduto> getVendaHasItemProduto() {
+		return vendaHasItemProduto;
+	}
+
+	public void setVendaHasItemProduto(List<VendaHasItemProduto> vendaHasItemProduto) {
+		this.vendaHasItemProduto = vendaHasItemProduto;
 	}
 
 }

@@ -107,9 +107,8 @@ public class VendaController {
 	 * @return
 	 */
 	@RequestMapping(value = "/finalizarVenda", method = { RequestMethod.GET, RequestMethod.POST })
-	public String finalizarVenda(@ModelAttribute("vendaForm") Venda venda,
-			BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
-		
+	public String finalizarVenda(@ModelAttribute("vendaForm") Venda venda, BindingResult result, Model model,
+			final RedirectAttributes redirectAttributes) {
 		vendaService.incluir(venda);
 		model.addAttribute("vendaForm", venda);
 		model.addAttribute("breadCrumbItens", breadCrumbList(FINALIZAR_VENDA_VIEW));

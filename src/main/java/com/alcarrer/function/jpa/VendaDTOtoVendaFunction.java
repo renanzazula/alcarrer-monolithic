@@ -24,6 +24,10 @@ public class VendaDTOtoVendaFunction implements Function<VendaEntity, Venda> {
 		output.setFormaDePagamento(JpaFunctions.formasDePagamentoDTOtoFormasDePagamento.apply(input.getFormaDePagamento()));
 		output.setCliente(JpaFunctions.clienteDTOtocliente.apply(input.getCliente()));
 		output.setCaixa(JpaFunctions.caixaDTOtoCaixa.apply(input.getCaixa()));
+		
+		
+		
+		
 		return output;
 	}
 

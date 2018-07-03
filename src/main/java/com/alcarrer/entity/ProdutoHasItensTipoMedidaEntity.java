@@ -28,6 +28,9 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 
 	@Column(name = "quantidade")
 	private Integer quantidade;
+	
+	@Column(name = "valor_unitario")
+	private Double valorUnitario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "itens_tipo_medida_codigo", updatable = false)
@@ -44,7 +47,7 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	private Set<DominioEntity> dominios;
 
 	@OneToMany(mappedBy = "venda")
-	private Set<VendaProdutoHasItensTipoMedidaEntity> vendaProdutoHasItensTipoMedidaEntity;
+	private Set<VendaHasItemProdutoEntity> vendaProdutoHasItensTipoMedidaEntity;
 	
 	public ProdutoHasItensTipoMedidaEntity() {
 
@@ -89,5 +92,24 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	public void setDominios(Set<DominioEntity> dominios) {
 		this.dominios = dominios;
 	}
+
+	public Set<VendaHasItemProdutoEntity> getVendaProdutoHasItensTipoMedidaEntity() {
+		return vendaProdutoHasItensTipoMedidaEntity;
+	}
+
+	public void setVendaProdutoHasItensTipoMedidaEntity(
+			Set<VendaHasItemProdutoEntity> vendaProdutoHasItensTipoMedidaEntity) {
+		this.vendaProdutoHasItensTipoMedidaEntity = vendaProdutoHasItensTipoMedidaEntity;
+	}
+
+	public Double getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+	
+	
 
 }
