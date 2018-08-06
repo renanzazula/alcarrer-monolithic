@@ -21,6 +21,7 @@ public class ProdutoHasItensTipoMedidaDTOtoprodutoHasItensTipoMedidaFunction
 			output.setItensTipoMedida(JpaFunctions.itensTipoMedidaDTOtoItensTipoMedida.apply(input.getItensTipoMedida()));
 		}
 		output.setQuantidade(input.getQuantidade());
+		output.setValorUnitario(input.getValorUnitario());
 		return output;
 	}
 

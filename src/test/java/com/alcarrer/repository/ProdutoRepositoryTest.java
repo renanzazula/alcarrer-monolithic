@@ -68,7 +68,7 @@ public class ProdutoRepositoryTest {
 		itensTipoMedidaX.setMedida(medidaX);
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaX = new ProdutoHasItensTipoMedidaEntity();
 		
-		produtoHasItensTipoMedidaX.setQuantidade(10);
+//		produtoHasItensTipoMedidaX.setQuantidade(10);
 //		produtoHasItensTipoMedidaX.setItensTipoMedida(itensTipoMedidaX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaX);
 
@@ -79,7 +79,7 @@ public class ProdutoRepositoryTest {
 		itensTipoMedidaP.setMedida(new MedidaEntity("P", "p"));
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaP = new ProdutoHasItensTipoMedidaEntity();
 		
-		produtoHasItensTipoMedidaP.setQuantidade(10);
+//		produtoHasItensTipoMedidaP.setQuantidade(10);
 //		produtoHasItensTipoMedidaP.setItensTipoMedida(itensTipoMedidaP);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaP);
 
@@ -90,7 +90,7 @@ public class ProdutoRepositoryTest {
 		itensTipoMedidaXX.setMedida(new MedidaEntity("XX", "xx"));
 		ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedidaXX = new ProdutoHasItensTipoMedidaEntity();
 		
-		produtoHasItensTipoMedidaXX.setQuantidade(10);
+//		produtoHasItensTipoMedidaXX.setQuantidade(10);
 //		produtoHasItensTipoMedidaXX.setItensTipoMedida(itensTipoMedidaXX);
 		produtoHasItensTipoMedidaSet.add(produtoHasItensTipoMedidaXX);
 

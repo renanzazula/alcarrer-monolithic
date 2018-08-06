@@ -1,6 +1,7 @@
 package com.alcarrer.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 
 	@Column(name = "quantidade")
 	private Integer quantidade;
-	
+
 	@Column(name = "valor_unitario")
 	private Double valorUnitario;
 
@@ -46,9 +47,9 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 					@JoinColumn(name = "dominio_codigo") })
 	private Set<DominioEntity> dominios;
 
-	@OneToMany(mappedBy = "venda")
-	private Set<VendaHasItemProdutoEntity> vendaProdutoHasItensTipoMedidaEntity;
-	
+	@OneToMany(mappedBy = "produtoHasItensTipoMedida", cascade = CascadeType.ALL)
+	private Set<VendaHasItemProdutoEntity> vendaHasItemProduto = new HashSet<VendaHasItemProdutoEntity>();
+
 	public ProdutoHasItensTipoMedidaEntity() {
 
 	}
@@ -93,15 +94,6 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 		this.dominios = dominios;
 	}
 
-	public Set<VendaHasItemProdutoEntity> getVendaProdutoHasItensTipoMedidaEntity() {
-		return vendaProdutoHasItensTipoMedidaEntity;
-	}
-
-	public void setVendaProdutoHasItensTipoMedidaEntity(
-			Set<VendaHasItemProdutoEntity> vendaProdutoHasItensTipoMedidaEntity) {
-		this.vendaProdutoHasItensTipoMedidaEntity = vendaProdutoHasItensTipoMedidaEntity;
-	}
-
 	public Double getValorUnitario() {
 		return valorUnitario;
 	}
@@ -109,7 +101,13 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-	
-	
+
+	public Set<VendaHasItemProdutoEntity> getVendaHasItemProduto() {
+		return vendaHasItemProduto;
+	}
+
+	public void setVendaHasItemProduto(Set<VendaHasItemProdutoEntity> vendaHasItemProduto) {
+		this.vendaHasItemProduto = vendaHasItemProduto;
+	}
 
 }

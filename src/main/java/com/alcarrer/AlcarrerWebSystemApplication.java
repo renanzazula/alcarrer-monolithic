@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-public class AlcarrerDataBaseApplication {
+public class AlcarrerWebSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AlcarrerDataBaseApplication.class, args);
+		SpringApplication.run(AlcarrerWebSystemApplication.class, args);
 	}
 
 }

@@ -10,6 +10,7 @@ public class ProdutoHasItensTipoMedida implements Serializable {
 	private Integer codigo;
 	private List<Dominio> dominios;
 	private Integer quantidade;
+	private Double  valorUnitario;
 	private ItensTipoMedida itensTipoMedida;
 	private Produto produto;
 
@@ -55,6 +56,14 @@ public class ProdutoHasItensTipoMedida implements Serializable {
 
 	public void setDominios(List<Dominio> dominios) {
 		this.dominios = dominios;
+	}
+
+	public Double getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 
 }

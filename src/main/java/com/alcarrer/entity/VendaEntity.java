@@ -2,11 +2,13 @@ package com.alcarrer.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -72,10 +74,9 @@ public class VendaEntity implements Serializable {
 	@JoinColumn(name = "formasDePagamento_codigo")
 	private FormasDePagamentoEntity formaDePagamento;
 
-	@OneToMany(mappedBy = "produtoHasItensTipoMedida", cascade = { CascadeType.ALL })
-	private Set<VendaHasItemProdutoEntity> vendaProdutoHasItensTipoMedida;
-	
- 	
+	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+	private Set<VendaHasItemProdutoEntity> vendaHasItemProduto = new HashSet<VendaHasItemProdutoEntity>();
+
 	public VendaEntity() {
 
 	}
@@ -200,12 +201,12 @@ public class VendaEntity implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Set<VendaHasItemProdutoEntity> getVendaProdutoHasItensTipoMedida() {
-		return vendaProdutoHasItensTipoMedida;
+	public Set<VendaHasItemProdutoEntity> getVendaHasItemProduto() {
+		return vendaHasItemProduto;
 	}
 
-	public void setVendaProdutoHasItensTipoMedida(Set<VendaHasItemProdutoEntity> vendaProdutoHasItensTipoMedida) {
-		this.vendaProdutoHasItensTipoMedida = vendaProdutoHasItensTipoMedida;
+	public void setVendaHasItemProduto(Set<VendaHasItemProdutoEntity> vendaHasItemProduto) {
+		this.vendaHasItemProduto = vendaHasItemProduto;
 	}
-	
+
 }
