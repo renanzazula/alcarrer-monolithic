@@ -16,6 +16,7 @@ import com.alcarrer.entity.VendaEntity;
 import com.alcarrer.entity.VendaHasItemProdutoEntity;
 import com.alcarrer.function.JpaFunctions;
 import com.alcarrer.model.Venda;
+import com.alcarrer.model.VendaHasItemProduto;
 import com.alcarrer.repository.CaixaRepository;
 import com.alcarrer.repository.ClienteRepository;
 import com.alcarrer.repository.FormaDePagamentoRepository;
@@ -41,31 +42,32 @@ public class VendaServiceImpl implements VendaService {
 	private ProdutoHasItensTipoMedidaRepository produtoHasItensTipoMedidaRepository;
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public Venda incluir(Venda venda) {
-
+		
+		Integer quantidadeTotalEstoque = 0;		
 		VendaEntity vendaDB = new VendaEntity();
 
 		// itens medida
 		Set<VendaHasItemProdutoEntity> vendaHasItemProdutoSet = new HashSet<>();
-		venda.getVendaHasItemProduto().forEach(itemVenda -> {
+		for (VendaHasItemProduto itemVenda :venda.getVendaHasItemProduto()) {
 			VendaHasItemProdutoEntity vendaHasItemProduto = new VendaHasItemProdutoEntity();
-
-			// Found better Solution
-			ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = produtoHasItensTipoMedidaRepository
-					.getOne(getProdutoHasItensTipoMedida(
-							itemVenda.getProdutoHasItensTipoMedida().getItensTipoMedida().getCodigo()));
-			// Found better Solution
-
+ 
+			Integer codigo = getProdutoHasItensTipoMedida(
+					itemVenda.getProdutoHasItensTipoMedida().getItensTipoMedida().getCodigo(),
+					itemVenda.getProdutoHasItensTipoMedida().getProduto().getCodigo());
+			
+			ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = produtoHasItensTipoMedidaRepository.getOne(codigo);
+			quantidadeTotalEstoque = (quantidadeTotalEstoque + itemVenda.getProdutoHasItensTipoMedida().getQuantidade()); 
 			vendaHasItemProduto.setQuantidade(itemVenda.getProdutoHasItensTipoMedida().getQuantidade());
 			vendaHasItemProduto.setValorUnitario(itemVenda.getProdutoHasItensTipoMedida().getValorUnitario());
 			vendaHasItemProduto.setProdutoHasItensTipoMedida(produtoHasItensTipoMedida);
 			vendaHasItemProduto.setVenda(vendaDB);
 			vendaHasItemProdutoSet.add(vendaHasItemProduto);
-		});
-
+		}
+		
 		vendaDB.setVendaHasItemProduto(vendaHasItemProdutoSet);
-		vendaDB.setQuantidade(venda.getQuantidade());
+		vendaDB.setQuantidade(quantidadeTotalEstoque);
 		vendaDB.setSubTotal(venda.getSubTotal());
 		vendaDB.setValorPendente(venda.getValorPendente());
 		vendaDB.setValorPago(venda.getValorPago());
@@ -77,8 +79,14 @@ public class VendaServiceImpl implements VendaService {
 		vendaDB.setFormaDePagamento(formaDePagamentoRepository.getOne(venda.getFormaDePagamento().getCodigo()));
 		vendaDB.setCliente(clienteRepository.getOne(1));
 		vendaDB.setCaixa(caixaRepository.getOne(1));
+		Venda vResult = JpaFunctions.vendaDTOtoVenda.apply(vendaRepository.saveAndFlush(vendaDB));
+		 
+		/**
+		 * Efetuar baixa no estoque...		
+		 */
+		baixaNoEstoque(venda);
 		
-		return JpaFunctions.vendaDTOtoVenda.apply(vendaRepository.saveAndFlush(vendaDB));
+		return vResult;
 	}
 
 	/**
@@ -86,18 +94,22 @@ public class VendaServiceImpl implements VendaService {
 	 * 
 	 * produto_has_itens_tipo_medida
 	 * 
-	 * @param codigo
+	 * @param produto_has_itens_tipo_medida_codigo
 	 */
-	private void baixaNoEstoque(Integer codigo) {
-		
-		
-		produtoHasItensTipoMedidaRepository.saveAndFlush(null);
+	@Transactional
+	private void baixaNoEstoque(Venda venda) {
+		venda.getVendaHasItemProduto().forEach(itemVenda -> {
+ 			Integer codigo = getProdutoHasItensTipoMedida(itemVenda.getProdutoHasItensTipoMedida().getItensTipoMedida().getCodigo(), itemVenda.getProdutoHasItensTipoMedida().getProduto().getCodigo());
+			ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = produtoHasItensTipoMedidaRepository.getOne(codigo);
+			produtoHasItensTipoMedida.setQuantidade(produtoHasItensTipoMedida.getQuantidade() - itemVenda.getProdutoHasItensTipoMedida().getQuantidade());
+			produtoHasItensTipoMedidaRepository.saveAndFlush(produtoHasItensTipoMedida);
+		});
 	}
 	
-	private Integer getProdutoHasItensTipoMedida(Integer codigo) {
-		List<ProdutoHasItensTipoMedidaEntity> listProdutoHasItensTipoMedida = produtoHasItensTipoMedidaRepository
-				.findByItensTipoMedidaCodigo(codigo);
-		return listProdutoHasItensTipoMedida.get(0).getCodigo();
+	@Transactional(readOnly = true)
+	private Integer getProdutoHasItensTipoMedida(Integer itemTipoMedidaCodigo, Integer produtoCodigo) {
+		return produtoHasItensTipoMedidaRepository
+				.findByItensTipoMedidaCodigoAndProdutoCodigo(itemTipoMedidaCodigo, produtoCodigo).getCodigo();
 	}
 
 	@Override

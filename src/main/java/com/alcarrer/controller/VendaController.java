@@ -40,6 +40,7 @@ public class VendaController {
 
 	private static final String VIEW = "venda";
 	private static final String FINALIZAR_VENDA_VIEW = "finalizarVenda";
+	private static final String VIEW_COLSULTA = "consultarVendas";
 
 	@Autowired
 	private VendaValidator vendaValidator;
@@ -112,8 +113,17 @@ public class VendaController {
 		vendaService.incluir(venda);
 		model.addAttribute("vendaForm", venda);
 		model.addAttribute("breadCrumbItens", breadCrumbList(FINALIZAR_VENDA_VIEW));
-		return VIEW;
+		return VIEW_COLSULTA;
 	}
+	
+	@RequestMapping(value = "/consultarVendas", method = { RequestMethod.GET, RequestMethod.POST })
+	public String consultarVenda(@ModelAttribute("vendaForm") Venda vendaForm, BindingResult result,
+			Model model, final RedirectAttributes redirectAttributes) {
+		model.addAttribute("list", vendaService.consultar());
+		model.addAttribute("breadCrumbItens", breadCrumbList());
+		return VIEW_COLSULTA;
+	}
+
 	
 	/**
 	 * 
@@ -162,4 +172,10 @@ public class VendaController {
 		return formasDePagamentoService.consultar();
 	}
 		
+	public List<BreadCrumb> breadCrumbList() {
+		List<String> msg = new ArrayList<String>();
+		msg.add("menu.cadastro");
+		msg.add("menu.cadastro.venda");
+		return Util.breadCrumbList(message, msg);
+	}
 }

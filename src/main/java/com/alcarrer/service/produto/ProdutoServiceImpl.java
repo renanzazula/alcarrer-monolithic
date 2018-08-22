@@ -94,7 +94,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 			Set<ProdutoHasItensTipoMedidaEntity> set = new HashSet<>();
 			produto.getProdutoHasItensTipoMedida().forEach(phitm -> {
 				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
-//				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());
+				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());
 
 				Set<DominioEntity> dominiosDB = new HashSet<>();
 				phitm.getDominios().forEach(dominio -> {
@@ -158,7 +158,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 			produto.getProdutoHasItensTipoMedida().forEach(phitm -> {
 				
 				ProdutoHasItensTipoMedidaEntity produtoHasItensTipoMedida = new ProdutoHasItensTipoMedidaEntity();
- 
+				produtoHasItensTipoMedida.setQuantidade(phitm.getQuantidade());
 				
 				if(phitm.getDominios() != null) {
 					Set<DominioEntity> dominiosDB = new HashSet<DominioEntity>();

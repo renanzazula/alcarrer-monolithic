@@ -46,6 +46,7 @@ public class ItensTipoMedidaEntity implements Serializable {
 	@JoinColumn(name = "itens_tipo_medida_codigo")
 	private Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida;
 
+
 	public ItensTipoMedidaEntity() {
 
 	}
@@ -96,6 +97,14 @@ public class ItensTipoMedidaEntity implements Serializable {
 
 	public void setCategoria(CategoriaEntity categoria) {
 		this.categoria = categoria;
+	}
+	
+	public Set<ProdutoHasItensTipoMedidaEntity> getProdutoHasItensTipoMedida() {
+		return produtoHasItensTipoMedida;
+	}
+
+	public void setProdutoHasItensTipoMedida(Set<ProdutoHasItensTipoMedidaEntity> produtoHasItensTipoMedida) {
+		this.produtoHasItensTipoMedida = produtoHasItensTipoMedida;
 	}
 
 }

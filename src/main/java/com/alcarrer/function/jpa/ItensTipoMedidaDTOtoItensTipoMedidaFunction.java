@@ -1,6 +1,7 @@
 package com.alcarrer.function.jpa;
 
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.alcarrer.entity.ItensTipoMedidaEntity;
 import com.alcarrer.function.JpaFunctions;
@@ -13,6 +14,7 @@ public class ItensTipoMedidaDTOtoItensTipoMedidaFunction implements Function<Ite
 		ItensTipoMedida output = new ItensTipoMedida();
 		output.setCodigo(input.getCodigo());
 		output.setValor(input.getValor());
+		
 		
 		if (input.getCategoria() != null) {
 			output.setCategoria(JpaFunctions.categoriaDTOtoCategoria.apply(input.getCategoria()));

@@ -29,7 +29,12 @@ public class Venda implements Serializable {
 	private List<VendaHasItemProduto> vendaHasItemProduto;
 
 	public Venda() {
-
+		super();
+	}
+	
+	public Venda(Integer codigo) {
+		super();
+		this.codigo = codigo;
 	}
 
 	public Integer getCodigo() {

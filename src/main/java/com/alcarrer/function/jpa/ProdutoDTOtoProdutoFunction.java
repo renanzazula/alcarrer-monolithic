@@ -48,7 +48,7 @@ public class ProdutoDTOtoProdutoFunction implements Function<ProdutoEntity, Prod
 		}
 
 		if (input.getProdutoHasItensTipoMedida() != null) {
-			output.setProdutoHasItensTipoMedida(input.getProdutoHasItensTipoMedida().stream().map(JpaFunctions.produtoHasItensTipoMedidaDTOtoprodutoHasItensTipoMedida).collect(Collectors.toList()));
+			output.setProdutoHasItensTipoMedida(input.getProdutoHasItensTipoMedida().stream().map(JpaFunctions.produtoHasItensTipoMedidaDTOtoProdutoHasItensTipoMedida).collect(Collectors.toList()));
 		}
 		
 		return output;

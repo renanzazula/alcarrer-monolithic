@@ -42,7 +42,6 @@
 			$("form[name='vendaForm']").attr('action', 'finalizarVenda');
  			var data = $('#tableVenda').DataTable().rows().data();
 			for (var i=0; i < data.length; i++){
-				alert(data.length);
 				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][0]+'" name="vendaHasItemProduto['+i+'].produtoHasItensTipoMedida.produto.codigo"/>');
 				$("form[name='vendaForm']").append('<input type="hidden" value="'+data.cell(0,2).nodes().to$().find('input').val()+'" name="vendaHasItemProduto['+i+'].produtoHasItensTipoMedida.quantidade"/>');
 				$("form[name='vendaForm']").append('<input type="hidden" value="'+data[i][3]+'" name="vendaHasItemProduto['+i+'].produtoHasItensTipoMedida.itensTipoMedida.codigo"/>');

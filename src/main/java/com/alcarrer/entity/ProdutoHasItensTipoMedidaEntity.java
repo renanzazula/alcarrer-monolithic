@@ -37,7 +37,7 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 	@JoinColumn(name = "itens_tipo_medida_codigo", updatable = false)
 	private ItensTipoMedidaEntity itensTipoMedida;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "produto_codigo")
 	private ProdutoEntity produto;
 
@@ -47,7 +47,7 @@ public class ProdutoHasItensTipoMedidaEntity implements Serializable {
 					@JoinColumn(name = "dominio_codigo") })
 	private Set<DominioEntity> dominios;
 
-	@OneToMany(mappedBy = "produtoHasItensTipoMedida", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "produtoHasItensTipoMedida", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<VendaHasItemProdutoEntity> vendaHasItemProduto = new HashSet<VendaHasItemProdutoEntity>();
 
 	public ProdutoHasItensTipoMedidaEntity() {
